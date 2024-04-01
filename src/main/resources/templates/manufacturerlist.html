@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Pet Shop</title>
+</head>
+
+<!--TODO: CRUD functionality, back button,
+added Thymeleaf dependency to build.gradle
+-->
+
+<body>
+    <h1>Manufacturer list</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each = "manufacturer : ${manufacturers}">
+                <td th:text="${manufacturer.name}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>
