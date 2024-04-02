@@ -9,26 +9,26 @@ public class Manufacturer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long manufacturerId;
+    private Long manufacturerId;
     private String manufacturerName;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "manufacturer")
     private List<Product> products;
 
-    public Manufacturer() {}
+    public Manufacturer() {
+    }
 
     public Manufacturer(String manufacturerName) {
         super();
         this.manufacturerName = manufacturerName;
     }
 
-
-    public long getManufacturerId() {
+    public Long getManufacturerId() {
         return this.manufacturerId;
     }
 
-    public void setManufacturerId(long manufacturerId) {
+    public void setManufacturerId(Long manufacturerId) {
         this.manufacturerId = manufacturerId;
     }
 
@@ -51,11 +51,10 @@ public class Manufacturer {
     @Override
     public String toString() {
         return "{" +
-            " manufacturerId='" + getManufacturerId() + "'" +
-            ", manufacturerName='" + getManufacturerName() + "'" +
-            ", products='" + getProducts() + "'" +
-            "}";
+                " manufacturerId='" + getManufacturerId() + "'" +
+                ", manufacturerName='" + getManufacturerName() + "'" +
+                ", products='" + getProducts() + "'" +
+                "}";
     }
-
 
 }

@@ -6,19 +6,24 @@ import jakarta.persistence.*;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String productName;
     private String productType;
     private String productColor;
     private String productSize;
     private Double productPrice;
 
-    @ManyToMany
+    @ManyToOne
+    @JoinColumn(name = "manufacturerId")
     private Manufacturer manufacturer;
 
+    public Product() {
 
-    public Product(String productName, String productType, String productColor, String productSize, Double productPrice, Manufacturer manufacturer) {
+    }
+
+    public Product(String productName, String productType, String productColor, String productSize, Double productPrice,
+            Manufacturer manufacturer) {
         super();
         this.productName = productName;
         this.productType = productType;
@@ -28,12 +33,11 @@ public class Product {
         this.manufacturer = manufacturer;
     }
 
-
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -85,20 +89,11 @@ public class Product {
         this.manufacturer = manufacturer;
     }
 
-
     @Override
     public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", productName='" + getProductName() + "'" +
-            ", productType='" + getProductType() + "'" +
-            ", productColor='" + getproductColor() + "'" +
-            ", productSize='" + getSize() + "'" +
-            ", productPrice='" + getproductPrice() + "'" +
-            ", manufacturer='" + getManufacturer() + "'" +
-            "}";
+        return "Product [id=" + id + ", productName=" + productName + ", productType=" + productType + ", productColor="
+                + productColor + ", productSize=" + productSize + ", productPrice=" + productPrice + ", manufacturer="
+                + manufacturer + "]";
     }
-
-
 
 }
