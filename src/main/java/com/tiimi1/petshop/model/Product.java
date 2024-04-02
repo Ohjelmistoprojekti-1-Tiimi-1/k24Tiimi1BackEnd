@@ -34,7 +34,7 @@ public class Product {
     }
 
     public Long getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Long id) {
@@ -42,7 +42,7 @@ public class Product {
     }
 
     public String getProductName() {
-        return this.productName;
+        return productName;
     }
 
     public void setProductName(String productName) {
@@ -50,39 +50,39 @@ public class Product {
     }
 
     public String getProductType() {
-        return this.productType;
+        return productType;
     }
 
     public void setProductType(String productType) {
         this.productType = productType;
     }
 
-    public String getproductColor() {
-        return this.productColor;
+    public String getProductColor() {
+        return productColor;
     }
 
-    public void setproductColor(String productColor) {
+    public void setProductColor(String productColor) {
         this.productColor = productColor;
     }
 
-    public String getSize() {
-        return this.productSize;
+    public String getProductSize() {
+        return productSize;
     }
 
-    public void setSize(String productSize) {
+    public void setProductSize(String productSize) {
         this.productSize = productSize;
     }
 
-    public Double getproductPrice() {
-        return this.productPrice;
+    public Double getProductPrice() {
+        return productPrice;
     }
 
-    public void setproductPrice(Double productPrice) {
+    public void setProductPrice(Double productPrice) {
         this.productPrice = productPrice;
     }
 
     public Manufacturer getManufacturer() {
-        return this.manufacturer;
+        return manufacturer;
     }
 
     public void setManufacturer(Manufacturer manufacturer) {

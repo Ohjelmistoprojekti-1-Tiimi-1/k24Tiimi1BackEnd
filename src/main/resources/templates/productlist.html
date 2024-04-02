@@ -20,6 +20,7 @@ added Thymeleaf dependency to build.gradle
           <th>Color</th>
           <th>Size</th>
           <th>Price</th>
+          <th>Manufacturer</th>
         </tr>
       </thead>
       <tbody>
@@ -29,7 +30,7 @@ added Thymeleaf dependency to build.gradle
           <td th:text="${product.productColor}"></td>
           <td th:text="${product.productSize}"></td>
           <td th:text="${product.productPrice}"></td>
-          <td th:text="${product.manufacturer}"></td>
+          <td th:text="${product.manufacturer.manufacturerName}"></td>
         </tr>
       </tbody>
     </table>
