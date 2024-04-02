@@ -3,6 +3,8 @@ package com.tiimi1.petshop.model;
 import com.tiimi1.petshop.model.Product;
 import com.tiimi1.petshop.model.ProductRepository;
 
+import java.util.Locale.Category;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,18 @@ public class ManufacturerController {
     public String showManufacturers(Model model) {
         model.addAttribute("manufacturers", manuRepo.findAll());
         return "manufacturerlist";
+    }
+
+    @RequestMapping("/addmanufacturer")
+    public String addManufacturer(Model model) {
+        model.addAttribute("manufacturer", new Manufacturer());
+        return "addmanufacturer";
+    }
+
+    @RequestMapping(value = "/savemanufacturer", method = RequestMethod.POST)
+    public String save(Manufacturer manufacturer) {
+        manuRepo.save(manufacturer);
+        return "redirect:manufacturerlist";
     }
 
 }
