@@ -37,7 +37,7 @@ public class ManufacturerController {
     @RequestMapping(value = "/savemanufacturer", method = RequestMethod.POST)
     public String save(Manufacturer manufacturer) {
         manuRepo.save(manufacturer);
-        return "redirect:manufacturerlist";
+        return "redirect:manufacturers";
     }
 
 }
