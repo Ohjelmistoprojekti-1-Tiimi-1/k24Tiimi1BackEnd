@@ -26,4 +26,19 @@ public class ProductController {
         return "productlist";
     }
 
+    @RequestMapping("/addproduct")
+    public String addProduct(Model model) {
+        model.addAttribute("product", new Product());
+        model.addAttribute("manufacturers", manuRepo.findAll());
+        return "addproduct";
+    }
+
+    @RequestMapping(value = "/saveproduct", method = RequestMethod.POST)
+    public String save(Product product) {
+        prodRepo.save(product);
+        return "redirect:products";
+    }
+
+    
+
 }
