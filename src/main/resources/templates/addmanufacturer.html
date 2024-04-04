@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>Pet shop</title>
+    <title>Pet Shop</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <body>
-    <div class="container">
-        <h1>Add a manufacturer</h1>
-        <div class="col-md-4">
-            <form th:object="${manufacturer}" th:action="@{savemanufacturer}" action="#" method="post">
-                <label for="name">Name</label>
-                <input type="text" id="name" th:field="*{name}" class="form-control" />
-                <div style="clear: both; display: block; height: 10px;"></div>
-                <input type="submit" class="btn btn-primary" value="Save"></input>
-            </form>
-        </div>
-    </div>
-    <div><a th:href="@{/manufacturers}">Back</a></div>
+
+    <h1>Add Manufacturer</h1>
+
+    <form action="#" th:action="@{/savemanufacturer}" th:object=${manufacturer} method="post">
+        <p>Name: <input type="text" th:field="${manufacturer.name}" /></p>
+        <input type="submit" value="Save" /> 
+        <input type="reset" value="Cancel" />
+    </form>
+
+    <a href="/manufacturers" class="btn">Back to Manufacturers</a>
+
 </body>
 
 </html>
