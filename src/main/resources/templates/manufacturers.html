@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
     <title>Pet Shop</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  </head>
+</head>
 
-  <body>
+<body>
     <h1>Manufacturer list</h1>
     <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="manufacturer : ${manufacturers}">
-          <td th:text="${manufacturer.name}"></td>
-        </tr>
-      </tbody>
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="manufacturer : ${manufacturers}">
+                <td th:text="${manufacturer.name}"></td>
+            </tr>
+        </tbody>
     </table>
     <div><a th:href="@{/addmanufacturer}">Add manufacturer</a></div>
     <div><a th:href="@{/products}">Back</a></div>
-  </body>
+</body>
+
 </html>
