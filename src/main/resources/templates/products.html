@@ -1,41 +1,40 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
     <title>Pet Shop</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  </head>
+</head>
 
-  <!--TODO: CRUD functionality, back button,
-added Thymeleaf dependency to build.gradle
--->
-
-  <body>
-    <h1>Product List</h1>
+<body>
+    <h1>Products</h1>
     <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Color</th>
-          <th>Size</th>
-          <th>Price</th>
-          <th>Manufacturer</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="product : ${products}">
-          <td th:text="${product.name}"></td>
-          <td th:text="${product.type}"></td>
-          <td th:text="${product.color}"></td>
-          <td th:text="${product.size}"></td>
-          <td th:text="${product.price}"></td>
-          <td th:text="${product.manufacturer.name}"></td>
-        </tr>
-      </tbody>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Manufacturer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.type}"></td>
+                <td th:text="${product.color}"></td>
+                <td th:text="${product.size}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.manufacturer.name}"></td>
+            </tr>
+        </tbody>
     </table>
-    <!--<div><a th:href="@{/addproduct}">Add product</a></div>-->
-    <div><a th:href="@{/addmanufacturer}">Add a manufacturer</a></div>
-    <div><a th:href="@{/manufacturers}">Manufacturer list</a></div>
-  </body>
+
+    <div><a th:href="@{/addproduct}">Add product</a></div>
+
+    <!-- <div><a th:href="@{/addmanufacturer}">Add a manufacturer</a></div>
+    <div><a th:href="@{/manufacturers}">Manufacturer list</a></div> -->
+</body>
+
 </html>

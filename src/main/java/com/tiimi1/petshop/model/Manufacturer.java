@@ -11,12 +11,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Manufacturer {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long manufacturerId;
     private String name;
-
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "manufacturer")
     private List<Product> products;
