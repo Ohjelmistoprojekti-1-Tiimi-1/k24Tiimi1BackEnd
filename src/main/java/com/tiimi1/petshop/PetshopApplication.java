@@ -33,9 +33,9 @@ public class PetshopApplication {
 			manuRepo.save(manufacturer3);
 
 			log.info("couple demo products");
-			prodRepo.save(new Product("Dog booties", "Apparel", "Green", "Medium", 59.95D, manufacturer1));
-			prodRepo.save(new Product("Cat Collar", "Apparel", "Red", "Small", 20.00D, manufacturer2));
-			prodRepo.save(new Product("Fish Tank", "Living Space", "Black", "Large", 500.50D, manufacturer3));
+			prodRepo.save(new Product("Dog booties", "Apparel", "Green", "Medium", 59.95, manufacturer1));
+			prodRepo.save(new Product("Cat Collar", "Apparel", "Red", "Small", 20.00, manufacturer2));
+			prodRepo.save(new Product("Fish Tank", "Living Space", "Black", "Large", 500.50, manufacturer3));
 		};
 	}
 

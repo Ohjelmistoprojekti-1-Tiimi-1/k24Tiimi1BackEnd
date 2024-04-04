@@ -17,7 +17,7 @@ public class Product {
     private String type;
     private String color;
     private String size;
-    private Double price;
+    private double price;
 
     @ManyToOne
     @JoinColumn(name = "manufacturerId")
@@ -27,7 +27,7 @@ public class Product {
 
     }
 
-    public Product(String name, String type, String color, String size, Double price, Manufacturer manufacturer) {
+    public Product(String name, String type, String color, String size, double price, Manufacturer manufacturer) {
         this.name = name;
         this.type = type;
         this.color = color;
@@ -76,11 +76,11 @@ public class Product {
         this.size = size;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
