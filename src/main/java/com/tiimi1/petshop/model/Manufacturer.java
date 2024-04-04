@@ -15,7 +15,7 @@ public class Manufacturer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long manufacturerId;
-    private String manufacturerName;
+    private String name;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "manufacturer")
@@ -24,29 +24,29 @@ public class Manufacturer {
     public Manufacturer() {
     }
 
-    public Manufacturer(String manufacturerName) {
+    public Manufacturer(String name) {
         super();
-        this.manufacturerName = manufacturerName;
+        this.name = name;
     }
 
     public Long getManufacturerId() {
-        return this.manufacturerId;
+        return manufacturerId;
     }
 
     public void setManufacturerId(Long manufacturerId) {
         this.manufacturerId = manufacturerId;
     }
 
-    public String getManufacturerName() {
-        return this.manufacturerName;
+    public String getName() {
+        return name;
     }
 
-    public void setManufacturerName(String manufacturerName) {
-        this.manufacturerName = manufacturerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Product> getProducts() {
-        return this.products;
+        return products;
     }
 
     public void setProducts(List<Product> products) {
@@ -55,11 +55,7 @@ public class Manufacturer {
 
     @Override
     public String toString() {
-        return "{" +
-                " manufacturerId='" + getManufacturerId() + "'" +
-                ", manufacturerName='" + getManufacturerName() + "'" +
-                ", products='" + getProducts() + "'" +
-                "}";
+        return "Manufacturer [manufacturerId=" + manufacturerId + ", name=" + name + ", products=" + products + "]";
     }
 
 }

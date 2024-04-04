@@ -12,12 +12,12 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String productName;
-    private String productType;
-    private String productColor;
-    private String productSize;
-    private Double productPrice;
+    private Long productId;
+    private String name;
+    private String type;
+    private String color;
+    private String size;
+    private Double price;
 
     @ManyToOne
     @JoinColumn(name = "manufacturerId")
@@ -27,63 +27,61 @@ public class Product {
 
     }
 
-    public Product(String productName, String productType, String productColor, String productSize, Double productPrice,
-            Manufacturer manufacturer) {
-        super();
-        this.productName = productName;
-        this.productType = productType;
-        this.productColor = productColor;
-        this.productSize = productSize;
-        this.productPrice = productPrice;
+    public Product(String name, String type, String color, String size, Double price, Manufacturer manufacturer) {
+        this.name = name;
+        this.type = type;
+        this.color = color;
+        this.size = size;
+        this.price = price;
         this.manufacturer = manufacturer;
     }
 
-    public Long getId() {
-        return id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getProductType() {
-        return productType;
+    public String getType() {
+        return type;
     }
 
-    public void setProductType(String productType) {
-        this.productType = productType;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getProductColor() {
-        return productColor;
+    public String getColor() {
+        return color;
     }
 
-    public void setProductColor(String productColor) {
-        this.productColor = productColor;
+    public void setColor(String color) {
+        this.color = color;
     }
 
-    public String getProductSize() {
-        return productSize;
+    public String getSize() {
+        return size;
     }
 
-    public void setProductSize(String productSize) {
-        this.productSize = productSize;
+    public void setSize(String size) {
+        this.size = size;
     }
 
-    public Double getProductPrice() {
-        return productPrice;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setProductPrice(Double productPrice) {
-        this.productPrice = productPrice;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public Manufacturer getManufacturer() {
@@ -96,9 +94,8 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product [id=" + id + ", productName=" + productName + ", productType=" + productType + ", productColor="
-                + productColor + ", productSize=" + productSize + ", productPrice=" + productPrice + ", manufacturer="
-                + manufacturer + "]";
+        return "Product [productId=" + productId + ", name=" + name + ", type=" + type + ", color=" + color + ", size="
+                + size + ", price=" + price + ", manufacturer=" + manufacturer + "]";
     }
 
 }

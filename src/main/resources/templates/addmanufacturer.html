@@ -11,8 +11,8 @@
         <h1>Add a manufacturer</h1>
         <div class="col-md-4">
             <form th:object="${manufacturer}" th:action="@{savemanufacturer}" action="#" method="post">
-                <label for="manufacturerName">Name</label>
-                <input type="text" id="manufacturerName" th:field="*{manufacturerName}" class="form-control" />
+                <label for="name">Name</label>
+                <input type="text" id="name" th:field="*{name}" class="form-control" />
                 <div style="clear: both; display: block; height: 10px;"></div>
                 <input type="submit" class="btn btn-primary" value="Save"></input>
             </form>
