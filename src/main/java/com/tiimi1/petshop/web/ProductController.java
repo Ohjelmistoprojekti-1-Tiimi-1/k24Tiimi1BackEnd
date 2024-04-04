@@ -8,9 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import com.tiimi1.petshop.model.ManufacturerRepository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ProductController {
@@ -20,25 +20,23 @@ public class ProductController {
     @Autowired
     private ManufacturerRepository manuRepo;
 
-    @RequestMapping(value = { "/", "/products" }, method = RequestMethod.GET)
+    @GetMapping({ "/", "/products" })
     public String showProducts(Model model) {
         model.addAttribute("products", prodRepo.findAll());
         return "products";
     }
 
-    @RequestMapping("/addproduct")
+    @GetMapping("/addproduct")
     public String addProduct(Model model) {
         model.addAttribute("product", new Product());
         model.addAttribute("manufacturers", manuRepo.findAll());
         return "addproduct";
     }
 
-    @RequestMapping(value = "/saveproduct", method = RequestMethod.POST)
+    @PostMapping("/saveproduct")
     public String save(Product product) {
         prodRepo.save(product);
         return "redirect:products";
     }
-
-
 
 }
