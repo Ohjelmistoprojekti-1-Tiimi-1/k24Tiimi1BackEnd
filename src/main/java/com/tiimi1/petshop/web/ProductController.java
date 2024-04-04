@@ -22,7 +22,7 @@ public class ProductController {
         this.manufacturerRepository = manufacturerRepository;
     }
 
-    @GetMapping({ "/", "/products" })
+    @GetMapping("/products")
     public String showProducts(Model model) {
         model.addAttribute("products", productRepository.findAll());
         return "products";
@@ -49,11 +49,17 @@ public class ProductController {
     }
 
     @GetMapping("/editproduct/{id}")
-    public String geteditBook(@PathVariable("id") Long productId, Model model) {
+    public String editProdcut(@PathVariable("id") Long productId, Model model) {
         Objects.requireNonNull(productId);
         model.addAttribute("product", productRepository.findById(productId));
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
         return "editproduct";
+    }
+
+    // just temporarely here
+    @GetMapping({ "/", "/home" })
+    public String home() {
+        return "home";
     }
 
 }
