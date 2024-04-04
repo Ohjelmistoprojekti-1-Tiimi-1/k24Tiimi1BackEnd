@@ -23,7 +23,7 @@ public class ProductController {
     @RequestMapping(value = { "/", "/products" }, method = RequestMethod.GET)
     public String showProducts(Model model) {
         model.addAttribute("products", prodRepo.findAll());
-        return "productlist";
+        return "products";
     }
 
     @RequestMapping("/addproduct")
@@ -39,6 +39,6 @@ public class ProductController {
         return "redirect:products";
     }
 
-    
+
 
 }

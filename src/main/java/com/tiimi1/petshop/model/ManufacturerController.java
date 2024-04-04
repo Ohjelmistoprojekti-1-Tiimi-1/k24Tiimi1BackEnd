@@ -25,7 +25,7 @@ public class ManufacturerController {
     @RequestMapping(value = { "/manufacturers" }, method = RequestMethod.GET)
     public String showManufacturers(Model model) {
         model.addAttribute("manufacturers", manuRepo.findAll());
-        return "manufacturerlist";
+        return "manufacturers";
     }
 
     @RequestMapping("/addmanufacturer")

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pet Shop</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <!--TODO: CRUD functionality, back button,
+added Thymeleaf dependency to build.gradle
+-->
+
+  <body>
+    <h1>Product List</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Color</th>
+          <th>Size</th>
+          <th>Price</th>
+          <th>Manufacturer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="product : ${products}">
+          <td th:text="${product.productName}"></td>
+          <td th:text="${product.productType}"></td>
+          <td th:text="${product.productColor}"></td>
+          <td th:text="${product.productSize}"></td>
+          <td th:text="${product.productPrice}"></td>
+          <td th:text="${product.manufacturer.manufacturerName}"></td>
+        </tr>
+      </tbody>
+    </table>
+    <!--<div><a th:href="@{/addproduct}">Add product</a></div>-->
+    <div><a th:href="@{/addmanufacturer}">Add a manufacturer</a></div>
+    <div><a th:href="@{/manufacturers}">Manufacturer list</a></div>
+  </body>
+</html>

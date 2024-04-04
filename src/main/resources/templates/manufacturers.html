@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pet Shop</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+    <h1>Manufacturer list</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="manufacturer : ${manufacturers}">
+          <td th:text="${manufacturer.manufacturerName}"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div><a th:href="@{/addmanufacturer}">Add manufacturer</a></div>
+    <div><a th:href="@{/products}">Back</a></div>
+  </body>
+</html>
