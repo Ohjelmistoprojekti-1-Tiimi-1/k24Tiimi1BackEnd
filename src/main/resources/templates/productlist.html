@@ -25,16 +25,16 @@ added Thymeleaf dependency to build.gradle
       </thead>
       <tbody>
         <tr th:each="product : ${products}">
-          <td th:text="${product.productName}"></td>
-          <td th:text="${product.productType}"></td>
-          <td th:text="${product.productColor}"></td>
-          <td th:text="${product.productSize}"></td>
-          <td th:text="${product.productPrice}"></td>
-          <td th:text="${product.manufacturer.manufacturerName}"></td>
+          <td th:text="${product.name}"></td>
+          <td th:text="${product.type}"></td>
+          <td th:text="${product.color}"></td>
+          <td th:text="${product.size}"></td>
+          <td th:text="${product.price}"></td>
+          <td th:text="${product.manufacturer.name}"></td>
         </tr>
       </tbody>
     </table>
-    <!--<div><a th:href="@{/addproduct}">Add product</a></div>-->
+    <div><a th:href="@{/addproduct}">Add product</a></div>
     <div><a th:href="@{/addmanufacturer}">Add a manufacturer</a></div>
     <div><a th:href="@{/manufacturers}">Manufacturer list</a></div>
   </body>

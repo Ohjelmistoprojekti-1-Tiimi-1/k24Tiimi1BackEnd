@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Pet shop</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Add a product</h1>
+        <div class="col-md-4">
+            <form th:object="${product}" th:action="@{saveproduct}" action="#" method="post">
+                <label for="name">Name</label>
+                <input type="text" id="name" th:field="*{name}" class="form-control" />
+                <input type="submit" class="btn btn-primary" value="Save"></input>
+            </form>
+        </div>
+    </div>
+    <div><a th:href="@{/productlist}">Back</a></div>
+</body>
+
+</html>
