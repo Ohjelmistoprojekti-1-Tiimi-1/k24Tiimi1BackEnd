@@ -1,6 +1,7 @@
 package com.tiimi1.petshop.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,7 +10,6 @@ import jakarta.persistence.JoinColumn;
 
 @Entity
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
@@ -18,8 +18,7 @@ public class Product {
     private String color;
     private String size;
     private double price;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacturerId")
     private Manufacturer manufacturer;
 
