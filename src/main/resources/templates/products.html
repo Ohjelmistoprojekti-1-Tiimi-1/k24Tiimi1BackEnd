@@ -29,6 +29,7 @@
                 <td th:text="${product.manufacturer.name}"></td>
 
                 <td><a th:href="@{/deleteproduct/{id}(id=${product.productId})}" class="btn">Delete</a></td>
+                <td><a th:href="@{/editproduct/{id}(id=${product.productId})}" class="btn">Edit</a></td>
             </tr>
         </tbody>
     </table>

@@ -51,9 +51,4 @@ public class Manufacturer {
         this.products = products;
     }
 
-    @Override
-    public String toString() {
-        return "Manufacturer [manufacturerId=" + manufacturerId + ", name=" + name + ", products=" + products + "]";
-    }
-
 }

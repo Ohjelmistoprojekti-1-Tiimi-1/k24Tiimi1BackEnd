@@ -12,7 +12,6 @@ import com.tiimi1.petshop.model.ManufacturerRepository;
 import com.tiimi1.petshop.model.Product;
 import com.tiimi1.petshop.model.ProductRepository;
 
-
 @Controller
 public class ProductController {
     private final ProductRepository productRepository;
@@ -42,11 +41,19 @@ public class ProductController {
         return "redirect:products";
     }
 
-        @GetMapping("/deleteproduct/{id}")
+    @GetMapping("/deleteproduct/{id}")
     public String deleteProduct(@PathVariable("id") Long productId) {
         Objects.requireNonNull(productId);
         productRepository.deleteById(productId);
         return "redirect:/products";
+    }
+
+    @GetMapping("/editproduct/{id}")
+    public String geteditBook(@PathVariable("id") Long productId, Model model) {
+        Objects.requireNonNull(productId);
+        model.addAttribute("product", productRepository.findById(productId));
+        model.addAttribute("manufacturers", manufacturerRepository.findAll());
+        return "editproduct";
     }
 
 }
