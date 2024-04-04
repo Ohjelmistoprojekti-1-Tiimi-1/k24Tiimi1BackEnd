@@ -1,7 +1,10 @@
 package com.tiimi1.petshop.web;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 
@@ -37,6 +40,13 @@ public class ProductController {
     public String save(Product product) {
         productRepository.save(product);
         return "redirect:products";
+    }
+
+        @GetMapping("/deleteproduct/{id}")
+    public String deleteProduct(@PathVariable("id") Long productId) {
+        Objects.requireNonNull(productId);
+        productRepository.deleteById(productId);
+        return "redirect:/products";
     }
 
 }
