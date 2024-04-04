@@ -1,41 +1,41 @@
 package com.tiimi1.petshop.web;
 
-import com.tiimi1.petshop.model.Product;
-import com.tiimi1.petshop.model.ProductRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 
 import com.tiimi1.petshop.model.ManufacturerRepository;
+import com.tiimi1.petshop.model.Product;
+import com.tiimi1.petshop.model.ProductRepository;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ProductController {
+    private final ProductRepository productRepository;
+    private final ManufacturerRepository manufacturerRepository;
 
-    @Autowired
-    private ProductRepository prodRepo;
-    @Autowired
-    private ManufacturerRepository manuRepo;
+    public ProductController(ProductRepository productRepository, ManufacturerRepository manufacturerRepository) {
+        this.productRepository = productRepository;
+        this.manufacturerRepository = manufacturerRepository;
+    }
 
     @GetMapping({ "/", "/products" })
     public String showProducts(Model model) {
-        model.addAttribute("products", prodRepo.findAll());
+        model.addAttribute("products", productRepository.findAll());
         return "products";
     }
 
     @GetMapping("/addproduct")
     public String addProduct(Model model) {
         model.addAttribute("product", new Product());
-        model.addAttribute("manufacturers", manuRepo.findAll());
+        model.addAttribute("manufacturers", manufacturerRepository.findAll());
         return "addproduct";
     }
 
     @PostMapping("/saveproduct")
     public String save(Product product) {
-        prodRepo.save(product);
+        productRepository.save(product);
         return "redirect:products";
     }
 

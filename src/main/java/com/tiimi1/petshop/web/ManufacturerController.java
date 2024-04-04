@@ -1,25 +1,25 @@
 package com.tiimi1.petshop.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import com.tiimi1.petshop.model.Manufacturer;
-import com.tiimi1.petshop.model.ManufacturerRepository;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.tiimi1.petshop.model.Manufacturer;
+import com.tiimi1.petshop.model.ManufacturerRepository;
 
 
 @Controller
 public class ManufacturerController {
+    private final ManufacturerRepository manufacturerRepository;
 
-    @Autowired
-    private ManufacturerRepository manuRepo;
+    public ManufacturerController(ManufacturerRepository manufacturerRepository) {
+        this.manufacturerRepository = manufacturerRepository;
+    }
 
     @GetMapping("/manufacturers")
     public String showManufacturers(Model model) {
-        model.addAttribute("manufacturers", manuRepo.findAll());
+        model.addAttribute("manufacturers", manufacturerRepository.findAll());
         return "manufacturers";
     }
 
@@ -31,7 +31,7 @@ public class ManufacturerController {
 
     @PostMapping("/savemanufacturer")
     public String save(Manufacturer manufacturer) {
-        manuRepo.save(manufacturer);
+        manufacturerRepository.save(manufacturer);
         return "redirect:manufacturers";
     }
 
