@@ -1,8 +1,11 @@
 package com.tiimi1.petshop.web;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.tiimi1.petshop.model.Manufacturer;
@@ -33,6 +36,13 @@ public class ManufacturerController {
     public String save(Manufacturer manufacturer) {
         manufacturerRepository.save(manufacturer);
         return "redirect:manufacturers";
+    }
+
+     @GetMapping("/deletemanufacturer/{id}")
+    public String deleteManufacturer(@PathVariable("id") Long manufacturerId) {
+        Objects.requireNonNull(manufacturerId);
+        manufacturerRepository.deleteById(manufacturerId);
+        return "redirect:/manufacturers";
     }
 
 }

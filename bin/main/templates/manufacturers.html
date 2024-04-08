@@ -17,6 +17,7 @@
         <tbody>
             <tr th:each="manufacturer : ${manufacturers}">
                 <td th:text="${manufacturer.name}"></td>
+                <td><a th:href="@{/deletemanufacturer/{id}(id=${manufacturer.manufacturerId})}" class="btn">Delete</a></td>
             </tr>
         </tbody>
     </table>
