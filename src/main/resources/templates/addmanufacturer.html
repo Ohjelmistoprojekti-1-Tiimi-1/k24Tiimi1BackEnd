@@ -13,7 +13,7 @@
     <form action="#" th:action="@{/savemanufacturer}" th:object=${manufacturer} method="post">
         <p>Name: <input type="text" th:field="${manufacturer.name}" /></p>
         <input type="submit" value="Save" /> 
-        <input type="reset" value="Cancel" />
+        <input type="reset" value="Reset" />
     </form>
 
     <a href="/manufacturers" class="btn">Back to Manufacturers</a>
