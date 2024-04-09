@@ -19,6 +19,7 @@
 
         <label for="manufacturerlist">Manufacturer:</label>
         <select th:field="*{manufacturer}" id="manufacturerlist">
+            <option value="0">select manufacturer</option>
             <option th:each="manufacturer : ${manufacturers}" th:value="${manufacturer.manufacturerId}"
                 th:text="${manufacturer.name}">
             </option>
