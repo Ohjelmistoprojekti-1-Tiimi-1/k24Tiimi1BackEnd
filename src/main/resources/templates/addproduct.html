@@ -10,7 +10,7 @@
 
     <h1>Add Product</h1>
 
-    <form action="#" th:action="@{/saveproduct}" th:object=${product} method="post">
+    <form action="#" th:action="@{/addproduct}" th:object=${product} method="post">
         <p>Name: <input type="text" th:field="${product.name}" /></p>
         <p>Type: <input type="text" th:field="${product.type}" /></p>
         <p>Color: <input type="text" th:field="${product.color}" /></p>
@@ -24,10 +24,13 @@
                 th:text="${manufacturer.name}">
             </option>
         </select>
+
+        <p th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}"></p>
+
         <br>
 
         <input type="submit" value="Save" />
-        <input type="reset" value="Reset" />
+        <a href="/addproduct">Reset</a>
     </form>
 
     <a href="/products" class="btn">Back to Products</a>

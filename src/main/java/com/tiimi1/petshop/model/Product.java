@@ -8,6 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 
+import jakarta.validation.constraints.NotNull;
+
 @Entity
 public class Product {
     @Id
@@ -18,6 +20,7 @@ public class Product {
     private String color;
     private String size;
     private double price;
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacturerId")
     private Manufacturer manufacturer;
