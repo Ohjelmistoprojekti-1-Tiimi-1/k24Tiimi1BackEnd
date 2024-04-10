@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -19,6 +20,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
+    @NotBlank(message = "A name is needed")
     private String name;
     private String type;
     private String color;
