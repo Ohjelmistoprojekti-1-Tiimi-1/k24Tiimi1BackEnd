@@ -26,6 +26,7 @@
         </select>
 
         <p th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}"></p>
+        <p th:if="${#fields.hasErrors('price')}" th:text="'Enter the price (use numerbers)'"></p>
 
         <br>
 

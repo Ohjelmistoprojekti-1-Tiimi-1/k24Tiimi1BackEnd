@@ -1,5 +1,7 @@
 package com.tiimi1.petshop;
 
+import java.math.BigDecimal;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -41,9 +43,9 @@ public class PetshopApplication implements CommandLineRunner {
 		manufacturerRepository.save(manufacturer3);
 
 		log.info("couple demo products");
-		productRepository.save(new Product("Dog booties", "Apparel", "Green", "Medium", 59.95, manufacturer1));
-		productRepository.save(new Product("Cat Collar", "Apparel", "Red", "Small", 20.00, manufacturer2));
-		productRepository.save(new Product("Fish Tank", "Living Space", "Black", "Large", 500.50, manufacturer3));
+		productRepository.save(new Product("Dog booties", "Apparel", "Green", "Medium", new BigDecimal(59.95), manufacturer1));
+		productRepository.save(new Product("Cat Collar", "Apparel", "Red", "Small", new BigDecimal(20.00), manufacturer2));
+		productRepository.save(new Product("Fish Tank", "Living Space", "Black", "Large", new BigDecimal(500.50), manufacturer3));
 	}
 
 }

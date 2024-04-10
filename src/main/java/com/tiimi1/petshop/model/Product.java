@@ -1,5 +1,7 @@
 package com.tiimi1.petshop.model;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -8,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -19,8 +23,11 @@ public class Product {
     private String type;
     private String color;
     private String size;
-    private double price;
     @NotNull
+    @DecimalMin(value = "0.00")
+    @DecimalMax(value = "10000.00")
+    private BigDecimal price;
+    @NotNull(message = "A manufacturer is needed")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacturerId")
     private Manufacturer manufacturer;
@@ -29,7 +36,7 @@ public class Product {
 
     }
 
-    public Product(String name, String type, String color, String size, double price, Manufacturer manufacturer) {
+    public Product(String name, String type, String color, String size, BigDecimal price, Manufacturer manufacturer) {
         this.name = name;
         this.type = type;
         this.color = color;
@@ -78,11 +85,11 @@ public class Product {
         this.size = size;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
