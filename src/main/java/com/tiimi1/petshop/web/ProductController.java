@@ -65,10 +65,21 @@ public class ProductController {
     @GetMapping("/editproduct/{id}")
     public String editProdcut(@PathVariable("id") Long productId, Model model) {
         Objects.requireNonNull(productId);
-        model.addAttribute("product", productRepository.findById(productId));
+        model.addAttribute("product", productRepository.findById(productId).get());
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
         return "editproduct";
     }
+
+    @PostMapping("/editproduct/{id}")
+    public String editProductSave(@PathVariable("id") Long productId, @Valid Product product, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("manufacturers", manufacturerRepository.findAll());
+        	return "editproduct";
+        }
+        Objects.requireNonNull(product);
+        productRepository.save(product);
+        return "redirect:/products";
+    } 
 
     // just temporarely here
     @GetMapping({ "/", "/home" })

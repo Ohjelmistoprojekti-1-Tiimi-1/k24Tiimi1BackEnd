@@ -10,7 +10,7 @@
 
     <h1>Edit Product</h1>
 
-    <form action="#" th:action="@{/saveproduct}"  th:object=${product} method="post">
+    <form action="#" th:action="@{/editproduct/{id}(id=*{productId})}"  th:object=${product} method="post">
 
         <input type="hidden" th:field="*{productId}" />
         <p>Name: <input type="text" th:field="*{name}" /></p>
@@ -26,6 +26,10 @@
             </option>
         </select>
         <br>
+
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        <p th:if="${#fields.hasErrors('price')}" th:text="'Enter the price (use numerbers)'"></p>
+        <p th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}"></p>
         
         <input type="submit" value="Save" /> 
         <input type="reset" value="Reset" />
