@@ -14,6 +14,7 @@ import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Product {
@@ -25,9 +26,10 @@ public class Product {
     private String type;
     private String color;
     private String size;
-    @NotNull
+    @NotNull(message = "A price is needed")
     @DecimalMin(value = "0.00")
     @DecimalMax(value = "10000.00")
+    @PositiveOrZero(message = "Price must be number")
     private BigDecimal price;
     @NotNull(message = "A manufacturer is needed")
     @ManyToOne(fetch = FetchType.LAZY)
