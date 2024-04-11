@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,7 +15,7 @@ public class Manufacturer {
     private Long manufacturerId;
     private String name;
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "manufacturer")
+    @OneToMany(mappedBy = "manufacturer")
     private List<Product> products;
 
     public Manufacturer() {

@@ -21,11 +21,11 @@
             </tr>
         </tbody>
     </table>
+    <div th:if="${deleteError != null}" class="error" th:text="${deleteError}"></div>
 
     <div><a th:href="@{/addmanufacturer}">Add manufacturer</a></div>
 
     <a href="/home" class="btn btn-success">Home Page</a>
-
 </body>
 
 </html>

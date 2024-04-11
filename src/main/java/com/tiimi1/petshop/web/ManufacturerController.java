@@ -4,9 +4,12 @@ import java.util.Objects;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tiimi1.petshop.model.Manufacturer;
 import com.tiimi1.petshop.model.ManufacturerRepository;
@@ -21,7 +24,13 @@ public class ManufacturerController {
     }
 
     @GetMapping("/manufacturers")
-    public String showManufacturers(Model model) {
+    public String showManufacturers(Model model, @RequestParam(value = "error", required = false) String error) {
+        if (error != null) {
+            model.addAttribute("deleteError", error);
+        }else {
+            model.addAttribute("deleteError", null);
+        }
+
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
         return "manufacturers";
     }
@@ -39,9 +48,13 @@ public class ManufacturerController {
     }
 
      @GetMapping("/deletemanufacturer/{id}")
-    public String deleteManufacturer(@PathVariable("id") Long manufacturerId) {
+    public String deleteManufacturer(@PathVariable("id") Long manufacturerId, RedirectAttributes redirectAttributes) {
         Objects.requireNonNull(manufacturerId);
-        manufacturerRepository.deleteById(manufacturerId);
+        try {
+            manufacturerRepository.deleteById(manufacturerId);
+        }catch (Exception error) {
+            redirectAttributes.addAttribute("error", "You can't remove a manufacturer that has products assigned");
+        }
         return "redirect:/manufacturers";
     }
 
