@@ -27,7 +27,7 @@
 
 
         <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-        <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+        <p th:if="${#fields.hasErrors('price')}" th:text="${priceErrorMessage}"></p>
         <p th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}"></p>
         
         <br>

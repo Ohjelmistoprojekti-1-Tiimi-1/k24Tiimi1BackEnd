@@ -38,9 +38,16 @@ public class ProductController {
         return "addproduct";
     }
 
+    @SuppressWarnings("null")
     @PostMapping("/addproduct")
     public String checkManufacturerNewProcuctForm(@Valid Product product, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            Objects.requireNonNull(bindingResult.getFieldError());
+            if ((bindingResult.getFieldError().getDefaultMessage().equals("message"))) {
+                model.addAttribute("priceErrorMessage", "A price is needed");
+            } else {
+                model.addAttribute("priceErrorMessage", "Price must be a number");
+            }
             model.addAttribute("manufacturers", manufacturerRepository.findAll());
         	return "addproduct";
         }
