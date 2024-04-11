@@ -43,9 +43,9 @@ public class PetshopApplication implements CommandLineRunner {
 		manufacturerRepository.save(manufacturer3);
 
 		log.info("couple demo products");
-		productRepository.save(new Product("Dog booties", "Apparel", "Green", "Medium", new BigDecimal(59.95), manufacturer1));
-		productRepository.save(new Product("Cat Collar", "Apparel", "Red", "Small", new BigDecimal(20.00), manufacturer2));
-		productRepository.save(new Product("Fish Tank", "Living Space", "Black", "Large", new BigDecimal(500.50), manufacturer3));
+		productRepository.save(new Product("Dog booties", "Apparel", "Green", "Medium", new BigDecimal("12.12"), manufacturer1));
+		productRepository.save(new Product("Cat Collar", "Apparel", "Red", "Small", new BigDecimal("12.99"), manufacturer2));
+		productRepository.save(new Product("Fish Tank", "Living Space", "Black", "Large", new BigDecimal("212.29"), manufacturer3));
 	}
 
 }
