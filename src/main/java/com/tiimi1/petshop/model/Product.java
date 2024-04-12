@@ -22,9 +22,13 @@ public class Product {
     private Long productId;
     @NotBlank(message = "A name is needed")
     private String name;
-    private String type;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "productTypeId")
+    private ProductType productType;
     private String color;
-    private String size;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sizeId")
+    private Size size;
     @DecimalMin(value = "0.00")
     @DecimalMax(value = "10000.00")
     @NotNull(message = "message")
@@ -38,9 +42,10 @@ public class Product {
 
     }
 
-    public Product(String name, String type, String color, String size, BigDecimal price, Manufacturer manufacturer) {
+    public Product(String name, ProductType productType, String color, Size size, BigDecimal price,
+            Manufacturer manufacturer) {
         this.name = name;
-        this.type = type;
+        this.productType = productType;
         this.color = color;
         this.size = size;
         this.price = price;
@@ -63,12 +68,12 @@ public class Product {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public ProductType getProductType() {
+        return productType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
     }
 
     public String getColor() {
@@ -79,11 +84,11 @@ public class Product {
         this.color = color;
     }
 
-    public String getSize() {
+    public Size getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Size size) {
         this.size = size;
     }
 
@@ -105,8 +110,8 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product [productId=" + productId + ", name=" + name + ", type=" + type + ", color=" + color + ", size="
-                + size + ", price=" + price + ", manufacturer=" + manufacturer + "]";
+        return "Product [productId=" + productId + ", name=" + name + ", productType=" + productType + ", color="
+                + color + ", size=" + size + ", price=" + price + ", manufacturer=" + manufacturer + "]";
     }
 
 }

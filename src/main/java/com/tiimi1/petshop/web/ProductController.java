@@ -12,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import com.tiimi1.petshop.model.ManufacturerRepository;
 import com.tiimi1.petshop.model.Product;
 import com.tiimi1.petshop.model.ProductRepository;
+import com.tiimi1.petshop.model.ProductTypeRepository;
+import com.tiimi1.petshop.model.SizeRepository;
 
 import jakarta.validation.Valid;
 
@@ -19,10 +21,15 @@ import jakarta.validation.Valid;
 public class ProductController {
     private final ProductRepository productRepository;
     private final ManufacturerRepository manufacturerRepository;
+    private final ProductTypeRepository productTypeRepository;
+    private final SizeRepository sizeRepository;
 
-    public ProductController(ProductRepository productRepository, ManufacturerRepository manufacturerRepository) {
+    public ProductController(ProductRepository productRepository, ManufacturerRepository manufacturerRepository,
+            ProductTypeRepository productTypeRepository, SizeRepository sizeRepository) {
         this.productRepository = productRepository;
         this.manufacturerRepository = manufacturerRepository;
+        this.productTypeRepository = productTypeRepository;
+        this.sizeRepository = sizeRepository;
     }
 
     @GetMapping("/products")
@@ -35,6 +42,8 @@ public class ProductController {
     public String addProduct(Model model) {
         model.addAttribute("product", new Product());
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
+        model.addAttribute("sizes", sizeRepository.findAll());
+        model.addAttribute("productTypes", productTypeRepository.findAll());
         return "addproduct";
     }
 
@@ -49,12 +58,14 @@ public class ProductController {
                 model.addAttribute("priceErrorMessage", "Price must be a number");
             }
             model.addAttribute("manufacturers", manufacturerRepository.findAll());
-        	return "addproduct";
+            model.addAttribute("sizes", sizeRepository.findAll());
+            model.addAttribute("productTypes", productTypeRepository.findAll());
+            return "addproduct";
         }
         Objects.requireNonNull(product);
         productRepository.save(product);
         return "redirect:/products";
-    } 
+    }
 
     @PostMapping("/saveproduct")
     public String save(Product product) {
@@ -77,10 +88,10 @@ public class ProductController {
         return "editproduct";
     }
 
-
     @SuppressWarnings("null")
     @PostMapping("/editproduct/{id}")
-    public String editProductSave(@PathVariable("id") Long productId, @Valid Product product, BindingResult bindingResult, Model model) {
+    public String editProductSave(@PathVariable("id") Long productId, @Valid Product product,
+            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             Objects.requireNonNull(bindingResult.getFieldError());
             if ((bindingResult.getFieldError().getDefaultMessage().equals("message"))) {
@@ -89,12 +100,12 @@ public class ProductController {
                 model.addAttribute("priceErrorMessage", "Price must be a number");
             }
             model.addAttribute("manufacturers", manufacturerRepository.findAll());
-        	return "editproduct";
+            return "editproduct";
         }
         Objects.requireNonNull(product);
         productRepository.save(product);
         return "redirect:/products";
-    } 
+    }
 
     // just temporarely here
     @GetMapping({ "/", "/home" })
