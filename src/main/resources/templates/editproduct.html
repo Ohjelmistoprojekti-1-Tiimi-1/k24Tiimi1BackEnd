@@ -16,9 +16,23 @@
     >
       <input type="hidden" th:field="*{productId}" />
       <p>Name: <input type="text" th:field="*{name}" /></p>
-      <p>Type: <input type="text" th:field="*{productType}" /></p>
+      <label for="productTypeList">Product Type:</label>
+      <select th:field="*{productType}" id="productTypeList">
+        <option
+          th:each="productType : ${productTypes}"
+          th:value="${productType.productTypeId}"
+          th:text="${productType.productTypeValue}"
+        ></option>
+      </select>
       <p>Color: <input type="text" th:field="*{color}" /></p>
-      <p>Size: <input type="text" th:field="*{size}" /></p>
+      <label for="SizeList">Product Size:</label>
+      <select th:field="*{size}" id="SizeList">
+        <option
+          th:each="size : ${sizes}"
+          th:value="${size.sizeId}"
+          th:text="${size.sizeValue}"
+        ></option>
+      </select>
       <p>Price: <input type="text" th:field="*{price}" /></p>
 
       <label for="manufacturerlist">Manufacturer:</label>

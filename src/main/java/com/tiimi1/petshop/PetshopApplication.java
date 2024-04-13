@@ -69,7 +69,7 @@ public class PetshopApplication implements CommandLineRunner {
 		productRepository
 				.save(new Product("Cat Collar", productType2, "Red", size1, new BigDecimal("12.99"), manufacturer2));
 		productRepository.save(
-				new Product("Squeaky Toy, Generic", productType1, "Orange", size1, new BigDecimal("3.50"),
+				new Product("Squeaky Toy, Generic", productType2, "Orange", size1, new BigDecimal("3.50"),
 						manufacturer3));
 	}
 

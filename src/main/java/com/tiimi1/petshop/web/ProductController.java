@@ -85,6 +85,8 @@ public class ProductController {
         Objects.requireNonNull(productId);
         model.addAttribute("product", productRepository.findById(productId).get());
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
+        model.addAttribute("productTypes", productTypeRepository.findAll());
+        model.addAttribute("sizes", sizeRepository.findAll());
         return "editproduct";
     }
 
