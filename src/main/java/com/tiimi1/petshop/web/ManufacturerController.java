@@ -63,6 +63,7 @@ public class ManufacturerController {
         Objects.requireNonNull(manufacturerId);
         Optional<Manufacturer> manufacturerOpt = manufacturerRepository.findById(manufacturerId);
         model.addAttribute("products", manufacturerOpt.get().getProducts());
+        model.addAttribute("manufacturer", manufacturerRepository.findById(manufacturerId).get());
         return "productsbymanufacturer";
     }
 
