@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Pet Shop</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+    <h1>tähän nimi</h1>
+
+    <table class="table table-stribed">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Price</th>
+        </tr>
+
+        <tr th:each="product : ${products}">
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.productType.productTypeValue}"></td>
+            <td th:text="${product.color}"></td>
+            <td th:text="${product.size.sizeValue}"></td>
+            <td th:text="${product.price}"></td>
+        </tr>
+    </table>
+    
+    <a href="/manufacturers" class="btn btn-success">Back to Manufacturers</a>
+
+</body>
+
+</html>

@@ -1,6 +1,7 @@
 package com.tiimi1.petshop.web;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,5 +57,15 @@ public class ManufacturerController {
         }
         return "redirect:/manufacturers";
     }
+
+    @GetMapping("/productsbymanufacturer/{id}")
+    public String getMethodName(@PathVariable("id") Long manufacturerId, Model model) {
+        Objects.requireNonNull(manufacturerId);
+        Optional<Manufacturer> manufacturerOpt = manufacturerRepository.findById(manufacturerId);
+        model.addAttribute("products", manufacturerOpt.get().getProducts());
+        return "productsbymanufacturer";
+    }
+
+
 
 }
