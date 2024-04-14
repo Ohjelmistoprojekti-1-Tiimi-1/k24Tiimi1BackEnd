@@ -59,7 +59,7 @@ public class ManufacturerController {
     }
 
     @GetMapping("/productsbymanufacturer/{id}")
-    public String getMethodName(@PathVariable("id") Long manufacturerId, Model model) {
+    public String getAllProductByManufacturer(@PathVariable("id") Long manufacturerId, Model model) {
         Objects.requireNonNull(manufacturerId);
         Optional<Manufacturer> manufacturerOpt = manufacturerRepository.findById(manufacturerId);
         model.addAttribute("products", manufacturerOpt.get().getProducts());

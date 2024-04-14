@@ -41,9 +41,9 @@ public class PetshopApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("couple demo manufacturers");
-		Manufacturer manufacturer1 = new Manufacturer("Doggy Stuff");
-		Manufacturer manufacturer2 = new Manufacturer("Catty Stuff");
-		Manufacturer manufacturer3 = new Manufacturer("Squeaky Stuff");
+		Manufacturer manufacturer1 = new Manufacturer("Doggy Stuff", "Finland", "1234567-1");
+		Manufacturer manufacturer2 = new Manufacturer("Catty Stuff", "Sweden", "1234568-2");
+		Manufacturer manufacturer3 = new Manufacturer("Squeaky Stuff", "Norway", "1234569-3");
 
 		manufacturerRepository.save(manufacturer1);
 		manufacturerRepository.save(manufacturer2);

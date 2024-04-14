@@ -14,6 +14,8 @@ public class Manufacturer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long manufacturerId;
     private String name;
+    private String country;
+    private String businessIdentityCode;
     @JsonIgnore
     @OneToMany(mappedBy = "manufacturer")
     private List<Product> products;
@@ -21,9 +23,11 @@ public class Manufacturer {
     public Manufacturer() {
     }
 
-    public Manufacturer(String name) {
+    public Manufacturer(String name, String country, String businessIdentityCode ) {
         super();
         this.name = name;
+        this.country = country;
+        this.businessIdentityCode = businessIdentityCode;
     }
 
     public Long getManufacturerId() {
@@ -40,6 +44,22 @@ public class Manufacturer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getBusinessIdentityCode() {
+        return businessIdentityCode;
+    }
+
+    public void setBusinessIdentityCode(String businessIdentityCode) {
+        this.businessIdentityCode = businessIdentityCode;
     }
 
     public List<Product> getProducts() {

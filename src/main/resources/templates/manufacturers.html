@@ -11,11 +11,15 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>Country</th>
+          <th>Business ID</th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="manufacturer : ${manufacturers}">
           <td th:text="${manufacturer.name}"></td>
+          <td th:text="${manufacturer.country}"></td>
+          <td th:text="${manufacturer.businessIdentityCode}"></td>
           <td>
             <a
               th:href="@{/deletemanufacturer/{id}(id=${manufacturer.manufacturerId})}"
