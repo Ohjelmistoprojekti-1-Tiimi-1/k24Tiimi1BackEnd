@@ -14,8 +14,6 @@ import com.tiimi1.petshop.model.Product;
 import com.tiimi1.petshop.model.ProductRepository;
 import com.tiimi1.petshop.model.ProductType;
 import com.tiimi1.petshop.model.ProductTypeRepository;
-import com.tiimi1.petshop.model.Size;
-import com.tiimi1.petshop.model.SizeRepository;
 
 @SpringBootApplication
 public class PetshopApplication implements CommandLineRunner {
@@ -23,14 +21,12 @@ public class PetshopApplication implements CommandLineRunner {
 	private final ProductRepository productRepository;
 	private final ManufacturerRepository manufacturerRepository;
 	private final ProductTypeRepository productTypeRepository;
-	private final SizeRepository sizeRepository;
 
 	public PetshopApplication(ProductRepository productRepository, ManufacturerRepository manufacturerRepository,
-			ProductTypeRepository productTypeRepository, SizeRepository sizeRepository) {
+			ProductTypeRepository productTypeRepository) {
 		this.productRepository = productRepository;
 		this.manufacturerRepository = manufacturerRepository;
 		this.productTypeRepository = productTypeRepository;
-		this.sizeRepository = sizeRepository;
 	}
 
 	public static void main(String[] args) {
@@ -55,21 +51,13 @@ public class PetshopApplication implements CommandLineRunner {
 		productTypeRepository.save(productType1);
 		productTypeRepository.save(productType2);
 
-		Size size1 = new Size("S");
-		Size size2 = new Size("M");
-		Size size3 = new Size("L");
-
-		sizeRepository.save(size1);
-		sizeRepository.save(size2);
-		sizeRepository.save(size3);
-
 		log.info("couple demo products");
 		productRepository
-				.save(new Product("Dog Booties", productType1, "Green", size2, new BigDecimal("12.12"), manufacturer1));
+				.save(new Product("Dog Booties", productType1, "Green", "M", new BigDecimal("12.12"), manufacturer1));
 		productRepository
-				.save(new Product("Cat Collar", productType2, "Red", size1, new BigDecimal("12.99"), manufacturer2));
+				.save(new Product("Cat Collar", productType2, "Red", "S", new BigDecimal("12.99"), manufacturer2));
 		productRepository.save(
-				new Product("Squeaky Toy, Generic", productType2, "Orange", size1, new BigDecimal("3.50"),
+				new Product("Squeaky Toy, Generic", productType2, "Orange", "S", new BigDecimal("3.50"),
 						manufacturer3));
 	}
 

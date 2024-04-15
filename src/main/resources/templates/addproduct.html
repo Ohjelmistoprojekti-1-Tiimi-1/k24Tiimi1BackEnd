@@ -32,9 +32,9 @@
       <select th:field="*{size}" id="SizeList">
         <option value="0">Select Product Size</option>
         <option
-          th:each="size : ${sizes}"
-          th:value="${size.sizeId}"
-          th:text="${size.sizeValue}"
+          th:each="size: ${sizes}"
+          th:value="${size}"
+          th:text="${size}"
         ></option>
       </select>
 

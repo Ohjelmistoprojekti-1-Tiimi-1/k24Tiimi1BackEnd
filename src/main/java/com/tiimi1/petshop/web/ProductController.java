@@ -1,5 +1,7 @@
 package com.tiimi1.petshop.web;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,6 @@ import com.tiimi1.petshop.model.ManufacturerRepository;
 import com.tiimi1.petshop.model.Product;
 import com.tiimi1.petshop.model.ProductRepository;
 import com.tiimi1.petshop.model.ProductTypeRepository;
-import com.tiimi1.petshop.model.SizeRepository;
 
 import jakarta.validation.Valid;
 
@@ -22,14 +23,12 @@ public class ProductController {
     private final ProductRepository productRepository;
     private final ManufacturerRepository manufacturerRepository;
     private final ProductTypeRepository productTypeRepository;
-    private final SizeRepository sizeRepository;
 
     public ProductController(ProductRepository productRepository, ManufacturerRepository manufacturerRepository,
-            ProductTypeRepository productTypeRepository, SizeRepository sizeRepository) {
+            ProductTypeRepository productTypeRepository) {
         this.productRepository = productRepository;
         this.manufacturerRepository = manufacturerRepository;
         this.productTypeRepository = productTypeRepository;
-        this.sizeRepository = sizeRepository;
     }
 
     @GetMapping("/products")
@@ -40,9 +39,10 @@ public class ProductController {
 
     @GetMapping("/addproduct")
     public String addProduct(Model model) {
+        List<String> sizes = Arrays.asList("S", "M", "L");
         model.addAttribute("product", new Product());
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
-        model.addAttribute("sizes", sizeRepository.findAll());
+        model.addAttribute("sizes", sizes);
         model.addAttribute("productTypes", productTypeRepository.findAll());
         return "addproduct";
     }
@@ -50,6 +50,7 @@ public class ProductController {
     @SuppressWarnings("null")
     @PostMapping("/addproduct")
     public String checkManufacturerNewProcuctForm(@Valid Product product, BindingResult bindingResult, Model model) {
+        List<String> sizes = Arrays.asList("S", "M", "L");
         if (bindingResult.hasErrors()) {
             Objects.requireNonNull(bindingResult.getFieldError());
             if ((bindingResult.getFieldError().getDefaultMessage().equals("message"))) {
@@ -58,8 +59,8 @@ public class ProductController {
                 model.addAttribute("priceErrorMessage", "Price must be a number");
             }
             model.addAttribute("manufacturers", manufacturerRepository.findAll());
-            model.addAttribute("sizes", sizeRepository.findAll());
             model.addAttribute("productTypes", productTypeRepository.findAll());
+            model.addAttribute("sizes", sizes);
             return "addproduct";
         }
         Objects.requireNonNull(product);
@@ -83,10 +84,11 @@ public class ProductController {
     @GetMapping("/editproduct/{id}")
     public String editProdcut(@PathVariable("id") Long productId, Model model) {
         Objects.requireNonNull(productId);
+        List<String> sizes = Arrays.asList("S", "M", "L");
         model.addAttribute("product", productRepository.findById(productId).get());
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
         model.addAttribute("productTypes", productTypeRepository.findAll());
-        model.addAttribute("sizes", sizeRepository.findAll());
+        model.addAttribute("sizes", sizes);
         return "editproduct";
     }
 

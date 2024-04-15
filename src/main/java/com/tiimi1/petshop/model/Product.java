@@ -26,9 +26,7 @@ public class Product {
     @JoinColumn(name = "productTypeId")
     private ProductType productType;
     private String color;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sizeId")
-    private Size size;
+    private String size;
     @DecimalMin(value = "0.00")
     @DecimalMax(value = "10000.00")
     @NotNull(message = "message")
@@ -42,7 +40,7 @@ public class Product {
 
     }
 
-    public Product(String name, ProductType productType, String color, Size size, BigDecimal price,
+    public Product(String name, ProductType productType, String color, String size, BigDecimal price,
             Manufacturer manufacturer) {
         this.name = name;
         this.productType = productType;
@@ -84,11 +82,11 @@ public class Product {
         this.color = color;
     }
 
-    public Size getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(Size size) {
+    public void setSize(String size) {
         this.size = size;
     }
 

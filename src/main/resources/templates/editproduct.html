@@ -24,15 +24,18 @@
           th:text="${productType.productTypeValue}"
         ></option>
       </select>
+
       <p>Color: <input type="text" th:field="*{color}" /></p>
+
       <label for="SizeList">Product Size:</label>
       <select th:field="*{size}" id="SizeList">
         <option
           th:each="size : ${sizes}"
-          th:value="${size.sizeId}"
-          th:text="${size.sizeValue}"
+          th:value="${size}"
+          th:text="${size}"
         ></option>
       </select>
+
       <p>Price: <input type="text" th:field="*{price}" /></p>
 
       <label for="manufacturerlist">Manufacturer:</label>
