@@ -24,6 +24,9 @@ public class ProductController {
     private final ManufacturerRepository manufacturerRepository;
     private final ProductTypeRepository productTypeRepository;
 
+    // Modify this list to change available product sizes.
+    List<String> sizes = Arrays.asList("S", "M", "L");
+
     public ProductController(ProductRepository productRepository, ManufacturerRepository manufacturerRepository,
             ProductTypeRepository productTypeRepository) {
         this.productRepository = productRepository;
@@ -39,7 +42,6 @@ public class ProductController {
 
     @GetMapping("/addproduct")
     public String addProduct(Model model) {
-        List<String> sizes = Arrays.asList("S", "M", "L");
         model.addAttribute("product", new Product());
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
         model.addAttribute("sizes", sizes);
@@ -50,13 +52,12 @@ public class ProductController {
     @SuppressWarnings("null")
     @PostMapping("/addproduct")
     public String checkManufacturerNewProcuctForm(@Valid Product product, BindingResult bindingResult, Model model) {
-        List<String> sizes = Arrays.asList("S", "M", "L");
         if (bindingResult.hasErrors()) {
             Objects.requireNonNull(bindingResult.getFieldError());
             if ((bindingResult.getFieldError().getDefaultMessage().equals("message"))) {
                 model.addAttribute("priceErrorMessage", "A price is needed");
             } else {
-                model.addAttribute("priceErrorMessage", "Price must be a number");
+                model.addAttribute("priceErrorMessage", "Price must gitbe a number");
             }
             model.addAttribute("manufacturers", manufacturerRepository.findAll());
             model.addAttribute("productTypes", productTypeRepository.findAll());
@@ -84,7 +85,6 @@ public class ProductController {
     @GetMapping("/editproduct/{id}")
     public String editProdcut(@PathVariable("id") Long productId, Model model) {
         Objects.requireNonNull(productId);
-        List<String> sizes = Arrays.asList("S", "M", "L");
         model.addAttribute("product", productRepository.findById(productId).get());
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
         model.addAttribute("productTypes", productTypeRepository.findAll());
