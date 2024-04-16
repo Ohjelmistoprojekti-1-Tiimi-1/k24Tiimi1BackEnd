@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
+  <head>
     <title>Pet Shop</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+  </head>
 
-<body>
-
+  <body>
     <h1>Add Manufacturer</h1>
 
-    <form action="#" th:action="@{/savemanufacturer}" th:object=${manufacturer} method="post">
-        <p>Name: <input type="text" th:field="${manufacturer.name}" /></p>
-        <input type="submit" value="Save" /> 
-        <input type="reset" value="Reset" />
+    <form
+      action="#"
+      th:action="@{/savemanufacturer}"
+      th:object="${manufacturer}"
+      method="post"
+    >
+      <p>Name: <input type="text" th:field="${manufacturer.name}" /></p>
+      <p>Country: <input type="text" th:field="${manufacturer.country}" /></p>
+      <p>
+        Business ID:
+        <input type="text" th:field="${manufacturer.businessIdentityCode}" />
+      </p>
+      <input type="submit" value="Save" />
+      <input type="reset" value="Reset" />
     </form>
 
     <a href="/manufacturers" class="btn">Back to Manufacturers</a>
-
-</body>
-
+  </body>
 </html>
