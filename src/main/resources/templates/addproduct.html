@@ -1,71 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
+
+<head>
     <title>Pet Shop</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  </head>
+</head>
 
-  <body>
+<body>
+
     <h1>Add Product</h1>
 
-    <form
-      action="#"
-      th:action="@{/addproduct}"
-      th:object="${product}"
-      method="post"
-    >
-      <p>Name: <input type="text" th:field="${product.name}" /></p>
+    <form action="#" th:action="@{/addproduct}" th:object="${product}" method="post">
 
-      <label for="productTypeList">Product Type:</label>
-      <select th:field="*{productType}" id="productTypeList">
-        <option value="0">Select Product Type</option>
-        <option
-          th:each="productType : ${productTypes}"
-          th:value="${productType.productTypeId}"
-          th:text="${productType.productTypeValue}"
-        ></option>
-      </select>
+        <label for="name">Name</label>
+        <input type="text" id="name" th:field="${product.name}"/>
 
-      <p>Color: <input type="text" th:field="${product.color}" /></p>
+        <label for="productTypeList">Product Type:</label>
+        <select th:field="*{productType}" id="productTypeList">
+            <option value="0">Select Product Type</option>
+            <option th:each="productType : ${productTypes}" th:value="${productType.productTypeId}"
+                th:text="${productType.productTypeValue}"></option>
+        </select>
 
-      <label for="SizeList">Product Size:</label>
-      <select th:field="*{size}" id="SizeList">
-        <option value="0">Select Product Size</option>
-        <option
-          th:each="size: ${sizes}"
-          th:value="${size}"
-          th:text="${size}"
-        ></option>
-      </select>
+        <label for="color">Color</label>
+        <input type="text" id="color" th:field="${product.color}"/>
 
-      <p>Price: <input type="text" th:field="${product.price}" /></p>
+        <label for="SizeList">Product Size:</label>
+        <select th:field="*{size}" id="SizeList">
+            <option value="0">Select Product Size</option>
+            <option th:each="size: ${sizes}" th:value="${size}" th:text="${size}"></option>
+        </select>
 
-      <label for="manufacturerlist">Manufacturer:</label>
-      <select th:field="*{manufacturer}" id="manufacturerlist">
-        <option value="0">select manufacturer</option>
-        <option
-          th:each="manufacturer : ${manufacturers}"
-          th:value="${manufacturer.manufacturerId}"
-          th:text="${manufacturer.name}"
-        ></option>
-      </select>
+        <label for="price">Price</label>
+        <input type="text" id="price" th:field="${product.price}"/>
 
-      <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-      <p
-        th:if="${#fields.hasErrors('price')}"
-        th:text="${priceErrorMessage}"
-      ></p>
-      <p
-        th:if="${#fields.hasErrors('manufacturer')}"
-        th:errors="*{manufacturer}"
-      ></p>
+        <label for="manufacturerlist">Manufacturer:</label>
+        <select th:field="*{manufacturer}" id="manufacturerlist">
+            <option value="0">select manufacturer</option>
+            <option th:each="manufacturer : ${manufacturers}" th:value="${manufacturer.manufacturerId}"
+                th:text="${manufacturer.name}"></option>
+        </select>
 
-      <br />
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        <p th:if="${#fields.hasErrors('price')}" th:text="${priceErrorMessage}"></p>
+        <p th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}"></p>
 
-      <input type="submit" value="Save" />
-      <a href="/addproduct">Reset</a>
+        <br />
+
+        <input type="submit" value="Save" />
+        <a href="/addproduct">Reset</a>
+        
     </form>
 
-    <a href="/products" class="btn">Back to Products</a>
-  </body>
+    <a href="/products">Back to Products</a>
+
+</body>
+
 </html>

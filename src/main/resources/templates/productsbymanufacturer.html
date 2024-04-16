@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
+
+<head>
     <title>Pet Shop</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
@@ -9,7 +10,8 @@
 
     <h1 th:text="'All products by: ' + ${manufacturer.name}"></h1>
 
-    <table class="table table-stribed">
+    <table>
+
         <tr>
             <th>Name</th>
             <th>Type</th>
@@ -25,9 +27,10 @@
             <td th:text="${product.size}"></td>
             <td th:text="${product.price}"></td>
         </tr>
+
     </table>
-    
-    <a href="/manufacturers" class="btn btn-success">Back to Manufacturers</a>
+
+    <a href="/manufacturers">Back to Manufacturers</a>
 
 </body>
 

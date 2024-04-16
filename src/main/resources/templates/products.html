@@ -1,107 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
+
+<head>
     <title>Pet Shop</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link
-      type="text/css"
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-      th:href="@{/css/bootstrap.min.css}"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  </head>
+</head>
 
-  <body>
+<body>
+
     <h1>Products</h1>
-    <table class="table table=striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Color</th>
-          <th>Size</th>
-          <th>Price</th>
-          <th>Manufacturer</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="product : ${products}">
-          <td th:text="${product.name}"></td>
-          <td th:text="${product.productType.productTypeValue}"></td>
-          <td th:text="${product.color}"></td>
-          <td th:text="${product.size}"></td>
-          <td th:text="${product.price}"></td>
-          <td th:text="${product.manufacturer.name}"></td>
 
-          <td>
-            <!--Delete button-->
-            <button
-              type="button"
-              data-toggle="modal"
-              th:attr="data-target=${'#deleteModal'+product.productId}"
-              data-row="${product}"
-              class="btn btn-danger"
-            >
-              Delete
-            </button>
-          </td>
-          <td>
-            <!--Edit button-->
-            <a
-              th:href="@{/editproduct/{id}(id=${product.productId})}"
-              class="btn btn-warning"
-              >Edit</a
-            >
-          </td>
-          <td>
-            <!--Delete Modal-->
-            <div
-              class="modal"
-              role="dialog"
-              th:attr="id='deleteModal'+${product.productId}"
-            >
-              <div class="modal-dialog">
-                <!--Modal content-->
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h4 class="modal-title">Confirm Deletion</h4>
-                    <button type="button" class="close" data-dismiss="modal">
-                      &times;
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <p>Are you sure you want to delete</p>
-                    <div th:text="${product.name}"></div>
-                    <p>permanently from products?</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-default"
-                      data-dismiss="modal"
-                    >
-                      Cancel
-                    </button>
-                    <a
-                      th:href="@{/deleteproduct/{id}(id=${product.productId})}"
-                      class="btn btn-danger"
-                      >Confirm</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
+    <table>
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Manufacturer</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.productType.productTypeValue}"></td>
+                <td th:text="${product.color}"></td>
+                <td th:text="${product.size}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.manufacturer.name}"></td>
+                <td>
+                    <!--Delete button-->
+                    <a th:href="@{/deleteconfirmation/{id}(id=${product.productId})}">Delete</a>
+                    <div th:if="${confirmId} == ${product.productId}">
+                        <span>Are you sure?</span>
+                        <a th:href="@{/deleteproduct/{id}(id=${product.productId})}">Yes</a>
+                        <a href="/products">No</a>
+                    </div>
+                </td>
+                <td>
+                    <!--Edit button-->
+                    <a th:href="@{/editproduct/{id}(id=${product.productId})}">Edit</a>
+                </td>
+            </tr>
+        </tbody>
+
     </table>
 
     <div>
-      <a class="btn btn-success" th:href="@{/addproduct}">Add product</a>
-
-      <a href="/home" class="btn btn-success">Home Page</a>
+        <a th:href="@{/addproduct}">Add product</a>
+        <a href="/home">Home Page</a>
     </div>
-  </body>
+
+</body>
+
 </html>

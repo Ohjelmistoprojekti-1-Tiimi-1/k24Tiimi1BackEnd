@@ -23,9 +23,8 @@ public class ProductController {
     private final ProductRepository productRepository;
     private final ManufacturerRepository manufacturerRepository;
     private final ProductTypeRepository productTypeRepository;
-
     // Modify this list to change available product sizes.
-    List<String> sizes = Arrays.asList("S", "M", "L");
+    private final List<String> sizes = Arrays.asList("S", "M", "L");
 
     public ProductController(ProductRepository productRepository, ManufacturerRepository manufacturerRepository,
             ProductTypeRepository productTypeRepository) {
@@ -37,6 +36,13 @@ public class ProductController {
     @GetMapping("/products")
     public String showProducts(Model model) {
         model.addAttribute("products", productRepository.findAll());
+        return "products";
+    }
+
+    @GetMapping("/deleteconfirmation/{id}")
+    public String confirmDelete(@PathVariable("id") Long productId, Model model) {
+        model.addAttribute("products", productRepository.findAll());
+        model.addAttribute("confirmId", productId);
         return "products";
     }
 
@@ -57,7 +63,7 @@ public class ProductController {
             if ((bindingResult.getFieldError().getDefaultMessage().equals("message"))) {
                 model.addAttribute("priceErrorMessage", "A price is needed");
             } else {
-                model.addAttribute("priceErrorMessage", "Price must gitbe a number");
+                model.addAttribute("priceErrorMessage", "Price must be a number");
             }
             model.addAttribute("manufacturers", manufacturerRepository.findAll());
             model.addAttribute("productTypes", productTypeRepository.findAll());
@@ -69,11 +75,11 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    @PostMapping("/saveproduct")
-    public String save(Product product) {
-        productRepository.save(product);
-        return "redirect:products";
-    }
+    // @PostMapping("/saveproduct")
+    // public String save(Product product) {
+    //     productRepository.save(product);
+    //     return "redirect:products";
+    // }
 
     @GetMapping("/deleteproduct/{id}")
     public String deleteProduct(@PathVariable("id") Long productId) {
