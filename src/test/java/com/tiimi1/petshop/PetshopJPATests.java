@@ -10,7 +10,7 @@ import com.tiimi1.petshop.model.Product;
 import com.tiimi1.petshop.model.ProductType;
 import com.tiimi1.petshop.model.Manufacturer;
 
-public class JPATests {
+public class PetshopJPATests {
 
     @Test
     public void manufacturerCreateTest() {
