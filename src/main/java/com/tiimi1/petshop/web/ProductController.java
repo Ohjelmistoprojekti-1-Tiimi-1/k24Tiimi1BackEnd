@@ -75,11 +75,6 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    // @PostMapping("/saveproduct")
-    // public String save(Product product) {
-    //     productRepository.save(product);
-    //     return "redirect:products";
-    // }
 
     @GetMapping("/deleteproduct/{id}")
     public String deleteProduct(@PathVariable("id") Long productId) {
