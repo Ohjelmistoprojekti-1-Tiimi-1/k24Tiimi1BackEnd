@@ -17,6 +17,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    // Katkelma teoksesta
+    // Full Stack Development with Spring Boot 3 and React
+    // Juha Hinkula
+    // Tämä saattaa olla tekijänoikeussuojattua aineistoa.
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf((csrf) -> csrf.disable()).cors(withDefaults())
@@ -24,6 +28,10 @@ public class SecurityConfig {
         return http.build();
     }
 
+    // Katkelma teoksesta
+    // Full Stack Development with Spring Boot 3 and React
+    // Juha Hinkula
+    // Tämä saattaa olla tekijänoikeussuojattua aineistoa.
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
