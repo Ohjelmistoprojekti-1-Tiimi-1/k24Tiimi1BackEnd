@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class AppUser {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
@@ -19,10 +19,10 @@ public class AppUser {
     @Column(nullable = false)
     private String role;
 
-    public AppUser() {
+    public Customer() {
     }
 
-    public AppUser(String username, String password, String role) {
+    public Customer(String username, String password, String role) {
         super();
         this.username = username;
         this.password = password;

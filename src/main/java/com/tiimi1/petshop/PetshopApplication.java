@@ -8,8 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.tiimi1.petshop.model.AppUser;
-import com.tiimi1.petshop.model.AppUserRepository;
+import com.tiimi1.petshop.model.Customer;
+import com.tiimi1.petshop.model.CustomerRepository;
 import com.tiimi1.petshop.model.Manufacturer;
 import com.tiimi1.petshop.model.ManufacturerRepository;
 import com.tiimi1.petshop.model.Product;
@@ -23,14 +23,14 @@ public class PetshopApplication implements CommandLineRunner {
 	private final ProductRepository productRepository;
 	private final ManufacturerRepository manufacturerRepository;
 	private final ProductTypeRepository productTypeRepository;
-	private final AppUserRepository appUserRepository;
+	private final CustomerRepository customerRepository;
 
 	public PetshopApplication(ProductRepository productRepository, ManufacturerRepository manufacturerRepository,
-			ProductTypeRepository productTypeRepository, AppUserRepository appUserRepository) {
+			ProductTypeRepository productTypeRepository, CustomerRepository customerRepository) {
 		this.productRepository = productRepository;
 		this.manufacturerRepository = manufacturerRepository;
 		this.productTypeRepository = productTypeRepository;
-		this.appUserRepository = appUserRepository;
+		this.customerRepository = customerRepository;
 	}
 
 	public static void main(String[] args) {
@@ -66,11 +66,11 @@ public class PetshopApplication implements CommandLineRunner {
 
 		log.info("couple demo appUsers");
 		// Username: user, password: user
-		appUserRepository
-				.save(new AppUser("user", "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER"));
+		customerRepository
+				.save(new Customer("user", "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER"));
 		// Username: admin, password: admin
-		appUserRepository
-				.save(new AppUser("admin", "$2a$10$8cjz47bjbR4Mn8GMg9IZx.vyjhLXR/SKKMSZ9.mP9vpMu0ssKi8GW", "ADMIN"));
+		customerRepository
+				.save(new Customer("admin", "$2a$10$8cjz47bjbR4Mn8GMg9IZx.vyjhLXR/SKKMSZ9.mP9vpMu0ssKi8GW", "ADMIN"));
 
 	}
 
