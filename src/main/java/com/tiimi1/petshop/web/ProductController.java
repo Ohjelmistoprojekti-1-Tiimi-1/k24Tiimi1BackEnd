@@ -75,7 +75,6 @@ public class ProductController {
         return "redirect:/products";
     }
 
-
     @GetMapping("/deleteproduct/{id}")
     public String deleteProduct(@PathVariable("id") Long productId) {
         Objects.requireNonNull(productId);
@@ -112,10 +111,5 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    // just temporarely here
-    @GetMapping({ "/", "/home" })
-    public String home() {
-        return "home";
-    }
 
 }
