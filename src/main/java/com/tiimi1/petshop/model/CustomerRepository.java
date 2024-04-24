@@ -8,4 +8,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(exported = false)
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
     Optional <Customer> findByUsername(String username);
+    Boolean existsByUsername(String username);
 }
