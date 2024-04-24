@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
+  <head>
     <title>Pet Shop</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+  </head>
 
-<body>
-
+  <body>
     <h1>Welcome</h1>
 
     <a href="/admin/products">Products</a>
     <a href="/admin/manufacturers">Manufacturers</a>
+    <a href="/admin/customers">Customers</a>
 
     <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout"/>
+      <input type="submit" value="Logout" />
     </form>
-
-</body>
-
+  </body>
 </html>

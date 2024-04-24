@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Pet Shop</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+    <h1>Customer List</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Username:</th>
+          <th>Password:</th>
+          <th>Role:</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr th:each="customer : ${customers}">
+          <td th:text="${customer.username}"></td>
+          <td th:text="${customer.password}"></td>
+          <td th:text="${customer.role}"></td>
+
+          <td>
+            <!--Delete button-->
+            <a
+              th:href="@{/admin/customerdeleteconfirmation/{id}(id=${customer.customerId})}"
+              >Delete</a
+            >
+            <div th:if="${confirmId} == ${customer.customerId}">
+              <span>Are you sure?</span>
+              <a th:href="@{/admin/deletecustomer/{id}(id=${customer.customerId})}"
+                >Yes</a
+              >
+              <a href="/admin/customers">No</a>
+            </div>
+          </td>
+          <td>
+            <!--Edit button-->
+            <a th:href="@{/admin/editcustomer/{id}(id=${customer.customerId})}">Edit</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <a th:href="@{/admin/addcustomer}">Add customer</a>
+      <a href="/admin/home">Home Page</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Pet Shop</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+    <h1>Add Customer</h1>
+
+    <form
+      action="#"
+      th:action="@{/admin/addcustomer}"
+      th:object="${customer}"
+      method="post"
+    >
+      <label for="name">Username</label>
+      <input type="text" id="username" th:field="${customer.username}" />
+
+      <label for="name">Password</label>
+      <input type="text" id="name" th:field="${customer.password}" />
+
+      <label for="name">Role</label>
+      <select th:field="${customer.role}">
+        <option value="ADMIN">Admin</option>
+        <option value="USER">User</option>
+      </select>
+
+      <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+      <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+
+      <br />
+
+      <input type="submit" value="Save" />
+      <a href="/admin/addcustomer">Reset</a>
+    </form>
+
+    <a href="/admin/customers">Back to Customers</a>
+  </body>
+</html>

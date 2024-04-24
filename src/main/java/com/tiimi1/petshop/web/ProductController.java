@@ -104,12 +104,11 @@ public class ProductController {
                 model.addAttribute("priceErrorMessage", "Price must be a number");
             }
             model.addAttribute("manufacturers", manufacturerRepository.findAll());
-            return "editproduct";
+            return "/editproduct";
         }
         Objects.requireNonNull(product);
         productRepository.save(product);
         return "redirect:/admin/products";
     }
-
 
 }
