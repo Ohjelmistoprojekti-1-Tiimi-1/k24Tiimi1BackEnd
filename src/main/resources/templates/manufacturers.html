@@ -26,9 +26,9 @@
                 <td th:text="${manufacturer.country}"></td>
                 <td th:text="${manufacturer.businessIdentityCode}"></td>
                 <td>
-                    <a th:href="@{/deletemanufacturer/{id}(id=${manufacturer.manufacturerId})}">Delete</a>
+                    <a th:href="@{/admin/deletemanufacturer/{id}(id=${manufacturer.manufacturerId})}">Delete</a>
                 </td>
-                <td><a th:href="@{/productsbymanufacturer/{id}(id=${manufacturer.manufacturerId})}">Products</a></td>
+                <td><a th:href="@{/admin/productsbymanufacturer/{id}(id=${manufacturer.manufacturerId})}">Products</a></td>
             </tr>
         </tbody>
 
@@ -36,9 +36,9 @@
 
     <div th:if="${deleteError != null}" class="error" th:text="${deleteError}"></div>
 
-    <div><a th:href="@{/addmanufacturer}">Add manufacturer</a></div>
+    <div><a th:href="@{/admin/addmanufacturer}">Add manufacturer</a></div>
 
-    <a href="/home">Home Page</a>
+    <a href="/admin/home">Home Page</a>
 
 </body>
 

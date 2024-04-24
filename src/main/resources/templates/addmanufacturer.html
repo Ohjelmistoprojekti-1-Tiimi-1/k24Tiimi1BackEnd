@@ -10,12 +10,12 @@
 
     <h1>Add Manufacturer</h1>
 
-    <form action="#" th:action="@{/savemanufacturer}" th:object="${manufacturer}" method="post">
+    <form action="#" th:action="@{/admin/savemanufacturer}" th:object="${manufacturer}" method="post">
 
-        <label for="name"></label>
+        <label for="name">Name</label>
         <input type="text" th:field="${manufacturer.name}"/>
     
-        <label for="country">Countru</label>
+        <label for="country">Country</label>
         <input type="text" th:field="${manufacturer.country}"/>
         
         <label for="businessId">Business ID</label>
@@ -28,7 +28,7 @@
 
     </form>
 
-    <a href="/manufacturers" class="btn">Back to Manufacturers</a>
+    <a href="/admin/manufacturers">Back to Manufacturers</a>
 
 </body>
 

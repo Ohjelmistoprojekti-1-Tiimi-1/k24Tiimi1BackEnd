@@ -33,20 +33,20 @@ public class ProductController {
         this.productTypeRepository = productTypeRepository;
     }
 
-    @GetMapping("/products")
+    @GetMapping("/admin/products")
     public String showProducts(Model model) {
         model.addAttribute("products", productRepository.findAll());
         return "products";
     }
 
-    @GetMapping("/deleteconfirmation/{id}")
+    @GetMapping("/admin/deleteconfirmation/{id}")
     public String confirmDelete(@PathVariable("id") Long productId, Model model) {
         model.addAttribute("products", productRepository.findAll());
         model.addAttribute("confirmId", productId);
         return "products";
     }
 
-    @GetMapping("/addproduct")
+    @GetMapping("/admin/addproduct")
     public String addProduct(Model model) {
         model.addAttribute("product", new Product());
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
@@ -56,7 +56,7 @@ public class ProductController {
     }
 
     @SuppressWarnings("null")
-    @PostMapping("/addproduct")
+    @PostMapping("/admin/addproduct")
     public String checkManufacturerNewProcuctForm(@Valid Product product, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             Objects.requireNonNull(bindingResult.getFieldError());
@@ -72,17 +72,17 @@ public class ProductController {
         }
         Objects.requireNonNull(product);
         productRepository.save(product);
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 
-    @GetMapping("/deleteproduct/{id}")
+    @GetMapping("/admin/deleteproduct/{id}")
     public String deleteProduct(@PathVariable("id") Long productId) {
         Objects.requireNonNull(productId);
         productRepository.deleteById(productId);
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 
-    @GetMapping("/editproduct/{id}")
+    @GetMapping("/admin/editproduct/{id}")
     public String editProdcut(@PathVariable("id") Long productId, Model model) {
         Objects.requireNonNull(productId);
         model.addAttribute("product", productRepository.findById(productId).get());
@@ -93,7 +93,7 @@ public class ProductController {
     }
 
     @SuppressWarnings("null")
-    @PostMapping("/editproduct/{id}")
+    @PostMapping("/admin/editproduct/{id}")
     public String editProductSave(@PathVariable("id") Long productId, @Valid Product product,
             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -108,7 +108,7 @@ public class ProductController {
         }
         Objects.requireNonNull(product);
         productRepository.save(product);
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 
 

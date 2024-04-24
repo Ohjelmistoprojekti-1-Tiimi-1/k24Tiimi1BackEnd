@@ -33,16 +33,16 @@
                 <td th:text="${product.manufacturer.name}"></td>
                 <td>
                     <!--Delete button-->
-                    <a th:href="@{/deleteconfirmation/{id}(id=${product.productId})}">Delete</a>
+                    <a th:href="@{/admin/deleteconfirmation/{id}(id=${product.productId})}">Delete</a>
                     <div th:if="${confirmId} == ${product.productId}">
                         <span>Are you sure?</span>
-                        <a th:href="@{/deleteproduct/{id}(id=${product.productId})}">Yes</a>
-                        <a href="/products">No</a>
+                        <a th:href="@{/admin/deleteproduct/{id}(id=${product.productId})}">Yes</a>
+                        <a href="/admin/products">No</a>
                     </div>
                 </td>
                 <td>
                     <!--Edit button-->
-                    <a th:href="@{/editproduct/{id}(id=${product.productId})}">Edit</a>
+                    <a th:href="@{/admin/editproduct/{id}(id=${product.productId})}">Edit</a>
                 </td>
             </tr>
         </tbody>
@@ -50,8 +50,8 @@
     </table>
 
     <div>
-        <a th:href="@{/addproduct}">Add product</a>
-        <a href="/home">Home Page</a>
+        <a th:href="@{/admin/addproduct}">Add product</a>
+        <a href="/admin/home">Home Page</a>
     </div>
 
 </body>

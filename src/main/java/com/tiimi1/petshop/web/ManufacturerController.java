@@ -23,7 +23,7 @@ public class ManufacturerController {
         this.manufacturerRepository = manufacturerRepository;
     }
 
-    @GetMapping("/manufacturers")
+    @GetMapping("/admin/manufacturers")
     public String showManufacturers(Model model, @RequestParam(value = "error", required = false) String error) {
         if (error != null) {
             model.addAttribute("deleteError", error);
@@ -35,19 +35,19 @@ public class ManufacturerController {
         return "manufacturers";
     }
 
-    @GetMapping("/addmanufacturer")
+    @GetMapping("/admin/addmanufacturer")
     public String addManufacturer(Model model) {
         model.addAttribute("manufacturer", new Manufacturer());
         return "addmanufacturer";
     }
 
-    @PostMapping("/savemanufacturer")
+    @PostMapping("/admin/savemanufacturer")
     public String save(Manufacturer manufacturer) {
         manufacturerRepository.save(manufacturer);
-        return "redirect:manufacturers";
+        return "redirect:/admin/manufacturers";
     }
 
-     @GetMapping("/deletemanufacturer/{id}")
+     @GetMapping("/admin/deletemanufacturer/{id}")
     public String deleteManufacturer(@PathVariable("id") Long manufacturerId, RedirectAttributes redirectAttributes) {
         Objects.requireNonNull(manufacturerId);
         try {
@@ -55,10 +55,10 @@ public class ManufacturerController {
         }catch (Exception error) {
             redirectAttributes.addAttribute("error", "You can't remove a manufacturer that has products assigned");
         }
-        return "redirect:/manufacturers";
+        return "redirect:/admin/manufacturers";
     }
 
-    @GetMapping("/productsbymanufacturer/{id}")
+    @GetMapping("/admin/productsbymanufacturer/{id}")
     public String getAllProductByManufacturer(@PathVariable("id") Long manufacturerId, Model model) {
         Objects.requireNonNull(manufacturerId);
         Optional<Manufacturer> manufacturerOpt = manufacturerRepository.findById(manufacturerId);

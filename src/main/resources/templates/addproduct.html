@@ -10,7 +10,7 @@
 
     <h1>Add Product</h1>
 
-    <form action="#" th:action="@{/addproduct}" th:object="${product}" method="post">
+    <form action="#" th:action="@{/admin/addproduct}" th:object="${product}" method="post">
 
         <label for="name">Name</label>
         <input type="text" id="name" th:field="${product.name}"/>
@@ -48,11 +48,11 @@
         <br />
 
         <input type="submit" value="Save" />
-        <a href="/addproduct">Reset</a>
+        <a href="/admin/addproduct">Reset</a>
         
     </form>
 
-    <a href="/products">Back to Products</a>
+    <a href="/admin/products">Back to Products</a>
 
 </body>
 
