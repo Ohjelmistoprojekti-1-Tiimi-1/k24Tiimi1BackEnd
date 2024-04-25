@@ -53,7 +53,7 @@ public class SecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 
-    // to disables security use:  .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests.anyRequest().permitAll());
+    // Order(1) is compeletely for Thymeleaf. 
     @Bean
     @Order(1)
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -74,7 +74,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // This needs modifying
+    // Order(2) is compeletely for front end.
     @Bean
     @Order(2)
     SecurityFilterChain filterChainRest(HttpSecurity http) throws Exception {
@@ -83,10 +83,9 @@ public class SecurityConfig {
                 .sessionManagement(
                     (sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                    .requestMatchers(HttpMethod.POST, "/signup").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/signup", "/customerlogin").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/manufacturers/**").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/customerlogin").permitAll()
-                    .requestMatchers("/api/customer").permitAll().anyRequest().authenticated())
+                    .requestMatchers("/api/customers/**").permitAll().anyRequest().authenticated())  // Modify to fit customers own reservation endpoints 
                     .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                     .exceptionHandling((exceptionHandling) -> exceptionHandling.authenticationEntryPoint(exceptionHandler)); 
                 return http.build();
