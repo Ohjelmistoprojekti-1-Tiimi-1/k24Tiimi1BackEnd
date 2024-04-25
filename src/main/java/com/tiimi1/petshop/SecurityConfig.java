@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -14,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -27,9 +29,14 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsServiceImpl;
+    private final AuthenticationFilter authenticationFilter;
+    private final AuthEntryPoint exceptionHandler;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl) {
+    public SecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl, AuthenticationFilter authenticationFilter, 
+            AuthEntryPoint exeptionHandler) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
+        this.authenticationFilter = authenticationFilter;
+        this.exceptionHandler = exeptionHandler;
     }
 
     public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -68,19 +75,22 @@ public class SecurityConfig {
         return http.build();
     }
 
+    // This needs modifying
     @Bean
     @Order(2)
     SecurityFilterChain filterChainRest(HttpSecurity http) throws Exception {
         http.csrf((csrf) -> csrf.disable()).cors(withDefaults())
                 .securityMatcher("/api/**", "/signup/**", "/logincustomer")
                 .sessionManagement(
-                        (sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                    (sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                        .requestMatchers("/", "/signup", "/logincustomer")
-                        .permitAll()
-                        .requestMatchers("/api/**").hasRole("USER")
-                        .anyRequest().authenticated());
-        return http.build();
+                    .requestMatchers(HttpMethod.POST, "/signup").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/products", "/api/manufacturers").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/customerlogin").permitAll()
+                    .requestMatchers("/api/customer").permitAll().anyRequest().authenticated())
+                    .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                    .exceptionHandling((exceptionHandling) -> exceptionHandling.authenticationEntryPoint(exceptionHandler)); 
+                return http.build();
     }
 
 

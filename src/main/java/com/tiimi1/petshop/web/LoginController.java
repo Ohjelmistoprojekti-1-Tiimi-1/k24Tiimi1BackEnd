@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+
 
 import com.tiimi1.petshop.model.AccountCredentials;
 import com.tiimi1.petshop.model.Customer;
 import com.tiimi1.petshop.model.CustomerRepository;
+import com.tiimi1.petshop.service.JwtService;
 
 
 @Controller
@@ -23,21 +23,28 @@ public class LoginController {
     private final CustomerRepository customerRepository;
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
     private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
-    public LoginController(CustomerRepository customerRepository, AuthenticationManager authenticationManager) {
+    public LoginController(CustomerRepository customerRepository, AuthenticationManager authenticationManager, JwtService jwtService) {
         this.customerRepository = customerRepository;
         this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
     }
     
+    // Thymeleaf
     @GetMapping({ "/", "/login" })
     public String login() {
         return "login";
     }
 
+    // Thymeleaf
     @GetMapping("/admin/home")
     public String home() {
         return "home";
     }
+
+
+    /* ****** Front end *********** */
 
     // Customer signup
     @PostMapping("/signup")
@@ -56,10 +63,10 @@ public class LoginController {
     public ResponseEntity<?> loginCustomer(@RequestBody AccountCredentials credentials) {
         UsernamePasswordAuthenticationToken creds = new UsernamePasswordAuthenticationToken(credentials.username(), credentials.password());
         Authentication auth = authenticationManager.authenticate(creds);
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        context.setAuthentication(auth);
-        SecurityContextHolder.setContext(context);
-        return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, "Authentication header")
+        // Generate token
+        String jwts = jwtService.getToken(auth.getName());
+        // Build response with the generated token
+        return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, "Bearer" + jwts)
                 .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS,"Authorization")
                 .build();
     }
