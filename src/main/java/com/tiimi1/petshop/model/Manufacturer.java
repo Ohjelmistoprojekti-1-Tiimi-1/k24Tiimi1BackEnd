@@ -1,6 +1,7 @@
 package com.tiimi1.petshop.model;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,9 +13,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Manufacturer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "manufacturerid")
     private Long manufacturerId;
     private String name;
     private String country;
+    @Column (name = "businessidentitycode")
     private String businessIdentityCode;
     @JsonIgnore
     @OneToMany(mappedBy = "manufacturer")
