@@ -75,6 +75,7 @@ public class SecurityConfig {
     }
 
     // Order(2) is compeletely for front end.
+    // uncomment marked line to open all api endpoints (also comment out @RepositoryRestResource(exported = false) from CustomerRepository to access customers in rest)
     @Bean
     @Order(2)
     SecurityFilterChain filterChainRest(HttpSecurity http) throws Exception {
@@ -83,6 +84,7 @@ public class SecurityConfig {
                 .sessionManagement(
                     (sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+                    .requestMatchers("/api/**").permitAll() // uncomment this  
                     .requestMatchers(HttpMethod.POST, "/signup", "/customerlogin").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/manufacturers/**").permitAll()
                     .requestMatchers("/api/customers/**").permitAll().anyRequest().authenticated())  // Modify to fit customers own reservation endpoints 

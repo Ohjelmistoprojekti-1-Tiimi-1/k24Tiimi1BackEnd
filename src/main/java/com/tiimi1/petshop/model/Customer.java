@@ -1,10 +1,18 @@
 package com.tiimi1.petshop.model;
 
+import java.util.List;
+
+import javax.swing.Spring;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -22,6 +30,9 @@ public class Customer {
     @Column(nullable = false)
     @NotBlank
     private String role;
+    @JsonIgnore
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="customer")
+    private List<Reservation> reservations;
 
     public Customer() {
     }
@@ -64,5 +75,15 @@ public class Customer {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    
 
 }

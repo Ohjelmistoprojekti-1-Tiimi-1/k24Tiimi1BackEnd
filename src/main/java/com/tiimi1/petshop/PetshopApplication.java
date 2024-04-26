@@ -16,6 +16,8 @@ import com.tiimi1.petshop.model.Product;
 import com.tiimi1.petshop.model.ProductRepository;
 import com.tiimi1.petshop.model.ProductType;
 import com.tiimi1.petshop.model.ProductTypeRepository;
+import com.tiimi1.petshop.model.Reservation;
+import com.tiimi1.petshop.model.ReservationRepository;
 
 @SpringBootApplication
 public class PetshopApplication implements CommandLineRunner {
@@ -24,13 +26,15 @@ public class PetshopApplication implements CommandLineRunner {
 	private final ManufacturerRepository manufacturerRepository;
 	private final ProductTypeRepository productTypeRepository;
 	private final CustomerRepository customerRepository;
+	private final ReservationRepository reservationRepository;
 
 	public PetshopApplication(ProductRepository productRepository, ManufacturerRepository manufacturerRepository,
-			ProductTypeRepository productTypeRepository, CustomerRepository customerRepository) {
+			ProductTypeRepository productTypeRepository, CustomerRepository customerRepository, ReservationRepository reservationRepository) {
 		this.productRepository = productRepository;
 		this.manufacturerRepository = manufacturerRepository;
 		this.productTypeRepository = productTypeRepository;
 		this.customerRepository = customerRepository;
+		this.reservationRepository = reservationRepository;
 	}
 
 	public static void main(String[] args) {
@@ -71,6 +75,15 @@ public class PetshopApplication implements CommandLineRunner {
 		// Username: admin, password: admin
 		customerRepository
 				.save(new Customer("admin", "$2a$10$8cjz47bjbR4Mn8GMg9IZx.vyjhLXR/SKKMSZ9.mP9vpMu0ssKi8GW", "ADMIN"));
+
+		
+		log.info("couple demo reservations");
+
+		Customer customerWithReservations = (new Customer("lolli", "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER"));
+
+		customerRepository.save(customerWithReservations);
+
+		reservationRepository.save(new Reservation( "feikki pvm",customerWithReservations));
 
 	}
 
