@@ -19,6 +19,7 @@ CREATE DATABASE "petshopTiimi1DB"
     IS_TEMPLATE = False;
 
 
+
 -- Table: Customer
 DROP TABLE IF EXISTS Customer;
 CREATE TABLE Customer (customerId BIGINT PRIMARY KEY NOT NULL, username VARCHAR, password VARCHAR, role VARCHAR);
@@ -49,7 +50,12 @@ CREATE TABLE Reservation (reservationId BIGINT PRIMARY KEY NOT NULL, created DAT
 
 -- Table: Reservation_product
 DROP TABLE IF EXISTS Reservation_product;
-CREATE TABLE Reservation_product (count INTEGER, product BIGINT REFERENCES Product (productId) ON UPDATE CASCADE NOT NULL, reservation BIGINT REFERENCES Reservation (reservationId) ON UPDATE CASCADE NOT NULL, PRIMARY KEY (product, reservation));
+CREATE TABLE Reservation_product (
+    reservation_productId BIGINT PRIMARY KEY NOT NULL,
+    count INTEGER, 
+    productId BIGINT REFERENCES Product (productId) ON UPDATE CASCADE NOT NULL, 
+    reservationId BIGINT REFERENCES Reservation (reservationId) ON UPDATE CASCADE NOT NULL
+    );
 
 COMMIT TRANSACTION;
 
