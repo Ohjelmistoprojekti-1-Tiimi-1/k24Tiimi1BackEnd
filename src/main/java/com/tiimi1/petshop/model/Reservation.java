@@ -1,6 +1,9 @@
 package com.tiimi1.petshop.model;
 
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,9 +28,17 @@ public class Reservation {
     @Column(name = "reservationId")
     private Long reservationId;
 
-    // kaikki päivämäärät lisätään myöhemmin
-    @Column(name = "fakeDate")
-    private String fakeDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "created")
+    private Date created;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "delivered")
+    private Date delivered;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "cancelled")
+    private Date cancelled;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer")
@@ -37,11 +48,13 @@ public class Reservation {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
     private List<ReservationProduct> reservationProducts;
 
+    
     public Reservation() {
     }
 
-    public Reservation(String fakeDate, Customer customer) {
-        this.fakeDate = fakeDate;
+    public Reservation(Customer customer) {
+        super();
+        this.created = new Date(System.currentTimeMillis());
         this.customer = customer;
     }
 
@@ -53,12 +66,28 @@ public class Reservation {
         this.reservationId = reservationId;
     }
 
-    public String getFakeDate() {
-        return fakeDate;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setFakeDate(String fakeDate) {
-        this.fakeDate = fakeDate;
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getDelivered() {
+        return delivered;
+    }
+
+    public void setDelivered(Date delivered) {
+        this.delivered = delivered;
+    }
+
+    public Date getCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(Date cancelled) {
+        this.cancelled = cancelled;
     }
 
     public Customer getCustomer() {
@@ -68,5 +97,15 @@ public class Reservation {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+    public List<ReservationProduct> getReservationProducts() {
+        return reservationProducts;
+    }
+
+    public void setReservationProducts(List<ReservationProduct> reservationProducts) {
+        this.reservationProducts = reservationProducts;
+    }
+
+
 
 }

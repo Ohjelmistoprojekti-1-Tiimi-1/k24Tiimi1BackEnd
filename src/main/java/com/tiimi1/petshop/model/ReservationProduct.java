@@ -16,6 +16,7 @@ public class ReservationProduct {
     @Column(name = "reservationId")
     private Long reservationProductId;
 
+    @Column(name = "count")
     private int count;
 
     @ManyToOne(fetch = FetchType.LAZY)

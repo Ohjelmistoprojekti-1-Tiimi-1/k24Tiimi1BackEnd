@@ -36,7 +36,6 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productTypeId")
-    // @Column(name = "productType")
     private ProductType productType;
 
     @Column(name = "color")
@@ -54,7 +53,6 @@ public class Product {
     @NotNull(message = "A manufacturer is needed")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacturerId")
-    // @Column(name = "manufacturer")
     private Manufacturer manufacturer;
 
     @JsonIgnore

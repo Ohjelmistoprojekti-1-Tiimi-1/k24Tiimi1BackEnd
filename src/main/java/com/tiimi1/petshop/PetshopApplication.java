@@ -83,11 +83,11 @@ public class PetshopApplication implements CommandLineRunner {
 		
 		log.info("couple demo reservations");
 
-		Customer customerWithReservations = (new Customer("lolli", "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER"));
+		// Customer customerWithReservations = (new Customer("lolli", "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER"));
 
-		customerRepository.save(customerWithReservations);
+		// customerRepository.save(customerWithReservations);
 
-		reservationRepository.save(new Reservation( "feikki pvm",customerWithReservations));
+		// reservationRepository.save(new Reservation(customerWithReservations));
 
 
 		log.info("couple demo ReservationProducts");
@@ -97,7 +97,7 @@ public class PetshopApplication implements CommandLineRunner {
 
 		Customer customerWithRp = new Customer("sloink", "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER");
 
-		Reservation reservationForRp = new Reservation("keksitty pvm", customerWithRp);
+		Reservation reservationForRp = new Reservation(customerWithRp);
 
 		ReservationProduct rp = new ReservationProduct(1, productForRp, reservationForRp);
 
