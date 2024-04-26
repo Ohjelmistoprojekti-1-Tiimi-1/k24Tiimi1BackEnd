@@ -2,8 +2,6 @@ package com.tiimi1.petshop.model;
 
 import java.util.List;
 
-import javax.swing.Spring;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -35,7 +33,7 @@ public class Customer {
     @Column(name = "role", nullable = false)
     @NotBlank
     private String role;
-    
+
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private List<Reservation> reservations;

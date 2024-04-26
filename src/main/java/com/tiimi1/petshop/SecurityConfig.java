@@ -84,7 +84,7 @@ public class SecurityConfig {
                 .sessionManagement(
                     (sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                    .requestMatchers("/api/**").permitAll() // uncomment this  
+                    // .requestMatchers("/api/**").permitAll() // uncomment this  
                     .requestMatchers(HttpMethod.POST, "/signup", "/customerlogin").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/manufacturers/**").permitAll()
                     .requestMatchers("/api/customers/**").permitAll().anyRequest().authenticated())  // Modify to fit customers own reservation endpoints 
