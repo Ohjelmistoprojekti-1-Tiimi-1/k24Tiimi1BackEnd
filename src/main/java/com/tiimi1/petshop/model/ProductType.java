@@ -24,6 +24,7 @@ public class ProductType {
     }
 
     public ProductType(String productTypeValue) {
+        super();
         this.productTypeValue = productTypeValue;
     }
 

@@ -42,6 +42,7 @@ public class Product {
 
     public Product(String name, ProductType productType, String color, String size, BigDecimal price,
             Manufacturer manufacturer) {
+        super();
         this.name = name;
         this.productType = productType;
         this.color = color;

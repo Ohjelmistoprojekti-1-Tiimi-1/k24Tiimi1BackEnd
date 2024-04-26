@@ -43,7 +43,7 @@ public class JwtService {
         return null;
     }
 
-    // Gets bearer token from user
+    // Get user from bearer token
     public String getUser(String bearerToken) {
         String user = Jwts.parserBuilder()
                 .setSigningKey(key)
