@@ -18,6 +18,8 @@ import com.tiimi1.petshop.model.ProductType;
 import com.tiimi1.petshop.model.ProductTypeRepository;
 import com.tiimi1.petshop.model.Reservation;
 import com.tiimi1.petshop.model.ReservationRepository;
+import com.tiimi1.petshop.model.ReservationProduct;
+import com.tiimi1.petshop.model.ReservationProductRepository;
 
 @SpringBootApplication
 public class PetshopApplication implements CommandLineRunner {
@@ -27,14 +29,16 @@ public class PetshopApplication implements CommandLineRunner {
 	private final ProductTypeRepository productTypeRepository;
 	private final CustomerRepository customerRepository;
 	private final ReservationRepository reservationRepository;
+	private final ReservationProductRepository reservationProductRepository;
 
 	public PetshopApplication(ProductRepository productRepository, ManufacturerRepository manufacturerRepository,
-			ProductTypeRepository productTypeRepository, CustomerRepository customerRepository, ReservationRepository reservationRepository) {
+			ProductTypeRepository productTypeRepository, CustomerRepository customerRepository, ReservationRepository reservationRepository, ReservationProductRepository reservationProductRepository) {
 		this.productRepository = productRepository;
 		this.manufacturerRepository = manufacturerRepository;
 		this.productTypeRepository = productTypeRepository;
 		this.customerRepository = customerRepository;
 		this.reservationRepository = reservationRepository;
+		this.reservationProductRepository = reservationProductRepository;
 	}
 
 	public static void main(String[] args) {
@@ -84,6 +88,24 @@ public class PetshopApplication implements CommandLineRunner {
 		customerRepository.save(customerWithReservations);
 
 		reservationRepository.save(new Reservation( "feikki pvm",customerWithReservations));
+
+
+		log.info("couple demo ReservationProducts");
+
+		Product productForRp = new Product("voivoi", productType2, "Orange", "S", new BigDecimal("3.50"),
+		manufacturer3);
+
+		Customer customerWithRp = new Customer("sloink", "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER");
+
+		Reservation reservationForRp = new Reservation("keksitty pvm", customerWithRp);
+
+		ReservationProduct rp = new ReservationProduct(1, productForRp, reservationForRp);
+
+
+		productRepository.save(productForRp);
+		customerRepository.save(customerWithRp);
+		reservationRepository.save(reservationForRp);
+		reservationProductRepository.save(rp);
 
 	}
 

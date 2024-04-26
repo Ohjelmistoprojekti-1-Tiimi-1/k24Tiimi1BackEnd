@@ -1,7 +1,11 @@
 package com.tiimi1.petshop.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.JoinColumn;
 
@@ -31,7 +36,7 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productTypeId")
-    @Column(name = "productType")
+    // @Column(name = "productType")
     private ProductType productType;
 
     @Column(name = "color")
@@ -49,8 +54,12 @@ public class Product {
     @NotNull(message = "A manufacturer is needed")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacturerId")
-    @Column(name = "manufacturer")
+    // @Column(name = "manufacturer")
     private Manufacturer manufacturer;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<ReservationProduct> reservationProducts;
 
     public Product() {
 

@@ -17,8 +17,10 @@ public class Manufacturer {
     private Long manufacturerId;
     private String name;
     private String country;
+
     @Column (name = "businessidentitycode")
     private String businessIdentityCode;
+    
     @JsonIgnore
     @OneToMany(mappedBy = "manufacturer")
     private List<Product> products;

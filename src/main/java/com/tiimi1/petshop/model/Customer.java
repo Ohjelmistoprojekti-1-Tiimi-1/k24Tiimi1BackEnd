@@ -23,15 +23,19 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "customerId", nullable = false, updatable = false)
     private Long customerId;
+
     @Column(name = "username", nullable = false, unique = true)
     @NotBlank(message = "A username is needed.")
     private String username;
+
     @Column(name = "password", nullable = false)
     @NotBlank(message = "A password is needed.")
     private String password;
+
     @Column(name = "role", nullable = false)
     @NotBlank
     private String role;
+    
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private List<Reservation> reservations;
