@@ -2,12 +2,14 @@ package com.tiimi1.petshop.model;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.persistence.JoinColumn;
 
 import jakarta.validation.constraints.DecimalMax;
@@ -16,24 +18,38 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "productId")
     private Long productId;
+
     @NotBlank(message = "A name is needed")
+    @Column(name = "name")
     private String name;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productTypeId")
+    @Column(name = "productType")
     private ProductType productType;
+
+    @Column(name = "color")
     private String color;
+
+    @Column(name = "size")
     private String size;
+
     @DecimalMin(value = "0.00")
     @DecimalMax(value = "10000.00")
     @NotNull(message = "message")
+    @Column(name = "price")
     private BigDecimal price;
+
     @NotNull(message = "A manufacturer is needed")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacturerId")
+    @Column(name = "manufacturer")
     private Manufacturer manufacturer;
 
     public Product() {

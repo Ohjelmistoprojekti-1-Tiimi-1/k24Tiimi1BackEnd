@@ -13,25 +13,27 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "customer")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false)
+    @Column(name = "customerId", nullable = false, updatable = false)
     private Long customerId;
-    @Column(nullable = false, unique = true)
+    @Column(name = "username", nullable = false, unique = true)
     @NotBlank(message = "A username is needed.")
     private String username;
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     @NotBlank(message = "A password is needed.")
     private String password;
-    @Column(nullable = false)
+    @Column(name = "role", nullable = false)
     @NotBlank
     private String role;
     @JsonIgnore
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="customer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private List<Reservation> reservations;
 
     public Customer() {
@@ -83,7 +85,5 @@ public class Customer {
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
     }
-
-    
 
 }
