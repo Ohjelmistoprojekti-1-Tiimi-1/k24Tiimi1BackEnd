@@ -48,6 +48,13 @@ public class PetshopApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		//Jos tarvitaan h2 -kantaan demo-oliot, ota alla oleva rivi käyttöön
+		// demoh2Objects()
+	
+	}
+	
+	@SuppressWarnings("unused")
+	private void demoh2Objects () {
 		log.info("couple demo manufacturers");
 		Manufacturer manufacturer1 = new Manufacturer("Doggy Stuff", "Finland", "1234567-1");
 		Manufacturer manufacturer2 = new Manufacturer("Catty Stuff", "Sweden", "1234568-2");
@@ -106,7 +113,6 @@ public class PetshopApplication implements CommandLineRunner {
 		customerRepository.save(customerWithRp);
 		reservationRepository.save(reservationForRp);
 		reservationProductRepository.save(rp);
-
 	}
-
+		
 }

@@ -13,14 +13,14 @@ import jakarta.persistence.Table;
 import java.util.List;
 
 @Entity
-@Table(name = "productType")
+@Table(name = "producttype")
 public class ProductType {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "productTypeId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "producttypeId")
     private Long productTypeId;
 
-    @Column(name = "productTypeValue")
+    @Column(name = "producttypevalue")
     private String productTypeValue;
 
     @JsonIgnore

@@ -24,7 +24,7 @@ import jakarta.persistence.Table;
 @Table(name = "reservation")
 public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservationId")
     private Long reservationId;
 

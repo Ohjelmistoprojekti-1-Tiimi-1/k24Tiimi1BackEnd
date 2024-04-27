@@ -18,8 +18,8 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "customer")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "customerId", nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customerid", nullable = false, updatable = false)
     private Long customerId;
 
     @Column(name = "username", nullable = false, unique = true)

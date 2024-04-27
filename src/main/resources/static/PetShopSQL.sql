@@ -22,40 +22,58 @@ CREATE DATABASE "petshopTiimi1DB"
 
 -- Table: Customer
 DROP TABLE IF EXISTS Customer;
-CREATE TABLE Customer (customerId BIGINT PRIMARY KEY NOT NULL, username VARCHAR, password VARCHAR, role VARCHAR);
+CREATE TABLE Customer (customerId SERIAL PRIMARY KEY NOT NULL, username VARCHAR, password VARCHAR, role VARCHAR);
+INSERT INTO Customer (username, password, role) VALUES ('Lolli', 'jkop12j43klj4234234fddsfsd', 'customer');
 
 -- Table: Manufacturer
 DROP TABLE IF EXISTS Manufacturer;
-CREATE TABLE Manufacturer (manufacturerId BIGINT PRIMARY KEY NOT NULL, name VARCHAR, country VARCHAR, businessIdentityCode VARCHAR);
-INSERT INTO Manufacturer (manufacturerId, name, country, businessIdentityCode) VALUES (0, 'Doggy Stuff', 'Finland', '1234567-1');
-INSERT INTO Manufacturer (manufacturerId, name, country, businessIdentityCode) VALUES (1, 'Catty Stuff', 'Sweden', '1234568-2');
-INSERT INTO Manufacturer (manufacturerId, name, country, businessIdentityCode) VALUES (2, 'Squeaky Stuff', 'Norway', '1234569-3');
+CREATE TABLE Manufacturer (manufacturerId SERIAL PRIMARY KEY NOT NULL, name VARCHAR, country VARCHAR, businessIdentityCode VARCHAR);
+INSERT INTO Manufacturer (name, country, businessIdentityCode) VALUES ( 'Doggy Stuff', 'Finland', '1234567-1');
+INSERT INTO Manufacturer (name, country, businessIdentityCode) VALUES ( 'Catty Stuff', 'Sweden', '1234568-2');
+INSERT INTO Manufacturer (name, country, businessIdentityCode) VALUES ( 'Squeaky Stuff', 'Norway', '1234569-3');
 
 -- Table: ProductType
 DROP TABLE IF EXISTS ProductType;
-CREATE TABLE ProductType (productTypeId BIGINT PRIMARY KEY, productTypeValue VARCHAR);
-INSERT INTO ProductType (productTypeId, productTypeValue) VALUES (0, 'Clothing');
-INSERT INTO ProductType (productTypeId, productTypeValue) VALUES (1, 'Toy');
+CREATE TABLE ProductType (productTypeId SERIAL PRIMARY KEY, productTypeValue VARCHAR);
+INSERT INTO ProductType (productTypeValue) VALUES ('Clothing');
+INSERT INTO ProductType (productTypeValue) VALUES ('Toy');
 
 -- Table: Product
 DROP TABLE IF EXISTS Product;
-CREATE TABLE Product (productId BIGINT PRIMARY KEY NOT NULL, name VARCHAR, productType BIGINT REFERENCES ProductType (productTypeId) ON UPDATE CASCADE NOT NULL, color VARCHAR, size VARCHAR, price DECIMAL (5, 2) NOT NULL, inStock INTEGER, manufacturer BIGINT REFERENCES Manufacturer (manufacturerId) ON UPDATE CASCADE NOT NULL);
-INSERT INTO Product (productId, name, productType, color, size, price, inStock, manufacturer) VALUES (0, 'Dog Booties', 0, 'Green', 'M', 12.12, 10, 0);
-INSERT INTO Product (productId, name, productType, color, size, price, inStock, manufacturer) VALUES (1, 'Cat Collar', 0, 'Red', 'S', 12.99, 11, 1);
-INSERT INTO Product (productId, name, productType, color, size, price, inStock, manufacturer) VALUES (2, 'Squeaky Toy, Generic', 1, 'Orange', 'S', 3.5, 111, 2);
+CREATE TABLE Product (
+    productId SERIAL PRIMARY KEY NOT NULL, 
+    name VARCHAR, 
+    productTypeId SERIAL REFERENCES ProductType (productTypeId) ON UPDATE CASCADE NOT NULL, 
+    color VARCHAR, 
+    size VARCHAR, 
+    price DECIMAL (5, 2) NOT NULL, 
+    inStock INTEGER, 
+    manufacturerId SERIAL REFERENCES Manufacturer (manufacturerid) ON UPDATE CASCADE NOT NULL
+    );
+INSERT INTO Product (name, productTypeId, color, size, price, inStock, manufacturerId) VALUES ('Dog Booties', 0, 'Green', 'M', 12.12, 10, 0);
+INSERT INTO Product (name, productTypeId, color, size, price, inStock, manufacturerId) VALUES ('Cat Collar', 0, 'Red', 'S', 12.99, 11, 1);
+INSERT INTO Product (name, productTypeId, color, size, price, inStock, manufacturerId) VALUES ('Squeaky Toy, Generic', 1, 'Orange', 'S', 3.5, 111, 2);
 
 -- Table: Reservation
 DROP TABLE IF EXISTS Reservation;
-CREATE TABLE Reservation (reservationId BIGINT PRIMARY KEY NOT NULL, created DATE NOT NULL, delivered DATE, canceled DATE, customer BIGINT REFERENCES Customer (customerId) ON UPDATE CASCADE NOT NULL);
+CREATE TABLE Reservation (
+    reservationId SERIAL PRIMARY KEY NOT NULL, 
+    created DATE NOT NULL, 
+    delivered DATE, 
+    canceled DATE, 
+    customerId SERIAL REFERENCES Customer (customerId) ON UPDATE CASCADE NOT NULL
+    );
+INSERT INTO Reservation (created, delivered, canceled, customerId) VALUES ('1994-10-27', '1994-10-27', '1994-10-27', 1);
 
 -- Table: Reservation_product
 DROP TABLE IF EXISTS Reservation_product;
 CREATE TABLE Reservation_product (
-    reservation_productId BIGINT PRIMARY KEY NOT NULL,
+    reservation_productId SERIAL PRIMARY KEY NOT NULL,
     count INTEGER, 
-    productId BIGINT REFERENCES Product (productId) ON UPDATE CASCADE NOT NULL, 
-    reservationId BIGINT REFERENCES Reservation (reservationId) ON UPDATE CASCADE NOT NULL
+    productId SERIAL REFERENCES Product (productId) ON UPDATE CASCADE NOT NULL, 
+    reservationId SERIAL REFERENCES Reservation (reservationId) ON UPDATE CASCADE NOT NULL
     );
+INSERT INTO Reservation_product (reservation_productId, count, productId, reservationId) VALUES (1, 3, 1, 1);
 
 COMMIT TRANSACTION;
 

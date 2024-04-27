@@ -26,8 +26,8 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "product")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "productId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "productid")
     private Long productId;
 
     @NotBlank(message = "A name is needed")
@@ -35,7 +35,7 @@ public class Product {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productTypeId")
+    @JoinColumn(name = "producttypeid")
     private ProductType productType;
 
     @Column(name = "color")
@@ -52,7 +52,7 @@ public class Product {
 
     @NotNull(message = "A manufacturer is needed")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "manufacturerId")
+    @JoinColumn(name = "manufacturerid")
     private Manufacturer manufacturer;
 
     @JsonIgnore
