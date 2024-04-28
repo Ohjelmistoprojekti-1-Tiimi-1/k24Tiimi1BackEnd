@@ -19,11 +19,12 @@ CREATE DATABASE "petshopTiimi1DB"
     IS_TEMPLATE = False;
 
 
-
 -- Table: Customer
 DROP TABLE IF EXISTS Customer;
 CREATE TABLE Customer (customerId SERIAL PRIMARY KEY NOT NULL, username VARCHAR, password VARCHAR, role VARCHAR);
-INSERT INTO Customer (username, password, role) VALUES ('Lolli', 'jkop12j43klj4234234fddsfsd', 'customer');
+INSERT INTO Customer (username, password, role) VALUES ('user', 'NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9', 'USER');
+INSERT INTO Customer (username, password, role) VALUES ('admin', '$2a$10$8cjz47bjbR4Mn8GMg9IZx.vyjhLXR/SKKMSZ9.mP9vpMu0ssKi8GW', 'ADMIN');
+
 
 -- Table: Manufacturer
 DROP TABLE IF EXISTS Manufacturer;
@@ -34,7 +35,7 @@ INSERT INTO Manufacturer (name, country, businessIdentityCode) VALUES ( 'Squeaky
 
 -- Table: ProductType
 DROP TABLE IF EXISTS ProductType;
-CREATE TABLE ProductType (productTypeId SERIAL PRIMARY KEY, productTypeValue VARCHAR);
+CREATE TABLE ProductType (producttypeid SERIAL PRIMARY KEY NOT NULL, productTypeValue VARCHAR);
 INSERT INTO ProductType (productTypeValue) VALUES ('Clothing');
 INSERT INTO ProductType (productTypeValue) VALUES ('Toy');
 
@@ -43,15 +44,15 @@ DROP TABLE IF EXISTS Product;
 CREATE TABLE Product (
     productId SERIAL PRIMARY KEY NOT NULL, 
     name VARCHAR, 
-    productTypeId SERIAL REFERENCES ProductType (productTypeId) ON UPDATE CASCADE NOT NULL, 
+    producttypeid SERIAL REFERENCES ProductType (producttypeid) ON UPDATE CASCADE NOT NULL, 
     color VARCHAR, 
     size VARCHAR, 
     price DECIMAL (5, 2) NOT NULL, 
     inStock INTEGER, 
-    manufacturerId SERIAL REFERENCES Manufacturer (manufacturerid) ON UPDATE CASCADE NOT NULL
+    manufacturerid SERIAL REFERENCES Manufacturer (manufacturerid) ON UPDATE CASCADE NOT NULL
     );
-INSERT INTO Product (name, productTypeId, color, size, price, inStock, manufacturerId) VALUES ('Dog Booties', 0, 'Green', 'M', 12.12, 10, 0);
-INSERT INTO Product (name, productTypeId, color, size, price, inStock, manufacturerId) VALUES ('Cat Collar', 0, 'Red', 'S', 12.99, 11, 1);
+INSERT INTO Product (name, productTypeId, color, size, price, inStock, manufacturerId) VALUES ('Dog Booties', 1, 'Green', 'M', 12.12, 10, 1);
+INSERT INTO Product (name, productTypeId, color, size, price, inStock, manufacturerId) VALUES ('Cat Collar', 1, 'Red', 'S', 12.99, 11, 1);
 INSERT INTO Product (name, productTypeId, color, size, price, inStock, manufacturerId) VALUES ('Squeaky Toy, Generic', 1, 'Orange', 'S', 3.5, 111, 2);
 
 -- Table: Reservation
