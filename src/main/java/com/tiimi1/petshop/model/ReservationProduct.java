@@ -15,19 +15,19 @@ import jakarta.persistence.Table;
 public class ReservationProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reservationId")
+    @Column(name = "reservation_productid")
     private Long reservationProductId;
 
     @Column(name = "count")
     private int count;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product")
-    Product product;
+    @JoinColumn(name = "productid")
+    private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reservation")
-    Reservation reservation;
+    @JoinColumn(name = "reservationid")
+    private Reservation reservation;
 
     public ReservationProduct() {
     }

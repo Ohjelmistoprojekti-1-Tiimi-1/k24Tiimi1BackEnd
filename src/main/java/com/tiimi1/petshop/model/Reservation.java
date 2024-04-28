@@ -25,23 +25,23 @@ import jakarta.persistence.Table;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reservationId")
+    @Column(name = "reservationid")
     private Long reservationId;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    // @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "created")
     private Date created;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    // @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "delivered")
     private Date delivered;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "cancelled")
+    // @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "canceled")
     private Date cancelled;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer")
+    @JoinColumn(name = "customerid")
     Customer customer;
 
     @JsonIgnore

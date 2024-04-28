@@ -87,7 +87,7 @@ public class SecurityConfig {
                     .requestMatchers("/api/**").permitAll() // uncomment this to see localhost:8080/api  
                     .requestMatchers(HttpMethod.POST, "/signup", "/customerlogin").permitAll()   // endpoints for signing up and login
                     .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/manufacturers/**").permitAll()  // endpoints for customers without login
-                    .requestMatchers("/api/customers/**").permitAll().anyRequest().authenticated())  // endpoints for logged in customers 
+                    .requestMatchers("/api/customers/**", "/logget/**").permitAll().anyRequest().authenticated())  // endpoints for logged in customers 
                     .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                     .exceptionHandling((exceptionHandling) -> exceptionHandling.authenticationEntryPoint(exceptionHandler)); 
                 return http.build();
