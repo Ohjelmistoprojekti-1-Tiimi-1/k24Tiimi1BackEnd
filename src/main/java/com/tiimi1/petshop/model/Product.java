@@ -34,21 +34,24 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "producttypeid")
-    private ProductType productType;
-
     @Column(name = "color")
     private String color;
-
+    
     @Column(name = "size")
     private String size;
-
+    
     @DecimalMin(value = "0.00")
     @DecimalMax(value = "10000.00")
     @NotNull(message = "message")
     @Column(name = "price")
     private BigDecimal price;
+
+    @Column(name = "instock")
+    private int inStock;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producttypeid")
+    private ProductType productType;
 
     @NotNull(message = "A manufacturer is needed")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -63,14 +66,15 @@ public class Product {
 
     }
 
-    public Product(String name, ProductType productType, String color, String size, BigDecimal price,
-            Manufacturer manufacturer) {
+    public Product(String name, String color, String size, BigDecimal price, int inStock, 
+            ProductType productType, Manufacturer manufacturer) {
         super();
         this.name = name;
-        this.productType = productType;
         this.color = color;
         this.size = size;
         this.price = price;
+        this.inStock = inStock;
+        this.productType = productType;
         this.manufacturer = manufacturer;
     }
 
@@ -88,14 +92,6 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public ProductType getProductType() {
-        return productType;
-    }
-
-    public void setProductType(ProductType productType) {
-        this.productType = productType;
     }
 
     public String getColor() {
@@ -122,6 +118,22 @@ public class Product {
         this.price = price;
     }
 
+    public int getInStock() {
+        return inStock;
+    }
+
+    public void setInStock(int inStock) {
+        this.inStock = inStock;
+    }
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
+    }
+
     public Manufacturer getManufacturer() {
         return manufacturer;
     }
@@ -130,10 +142,14 @@ public class Product {
         this.manufacturer = manufacturer;
     }
 
-    @Override
-    public String toString() {
-        return "Product [productId=" + productId + ", name=" + name + ", productType=" + productType + ", color="
-                + color + ", size=" + size + ", price=" + price + ", manufacturer=" + manufacturer + "]";
+    public List<ReservationProduct> getReservationProducts() {
+        return reservationProducts;
     }
+
+    public void setReservationProducts(List<ReservationProduct> reservationProducts) {
+        this.reservationProducts = reservationProducts;
+    }
+
+    
 
 }

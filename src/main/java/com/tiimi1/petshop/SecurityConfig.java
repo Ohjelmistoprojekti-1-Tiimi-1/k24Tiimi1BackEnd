@@ -80,14 +80,14 @@ public class SecurityConfig {
     @Order(2)
     SecurityFilterChain filterChainRest(HttpSecurity http) throws Exception {
         http.csrf((csrf) -> csrf.disable()).cors(withDefaults())
-                .securityMatcher("/api/**", "/signup/**", "/customerlogin")
+                .securityMatcher("/api/**", "/signup", "/customerlogin", "/logget/**") // filters what endpoints are handled in this method.
                 .sessionManagement(
                     (sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                    .requestMatchers("/api/**").permitAll() // uncomment this to see localhost:8080/api  
+                    // .requestMatchers("/api/**").permitAll() // uncomment this to see localhost:8080/api  
                     .requestMatchers(HttpMethod.POST, "/signup", "/customerlogin").permitAll()   // endpoints for signing up and login
                     .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/manufacturers/**").permitAll()  // endpoints for customers without login
-                    .requestMatchers("/api/customers/**").permitAll().anyRequest().authenticated())  // endpoints for logged in customers 
+                    .requestMatchers("/api/customers/**", "/logget/**").permitAll().anyRequest().authenticated())  // endpoints for logged in customers 
                     .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                     .exceptionHandling((exceptionHandling) -> exceptionHandling.authenticationEntryPoint(exceptionHandler)); 
                 return http.build();

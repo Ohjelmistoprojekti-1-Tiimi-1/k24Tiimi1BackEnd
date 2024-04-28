@@ -48,9 +48,9 @@ public class PetshopApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		//Jos tarvitaan h2 -kantaan demo-oliot, ota alla oleva rivi käyttöön
+		// In case you wanna run demo entities, uncomment below method
 		// demoh2Objects()
-	
+
 	}
 	
 	@SuppressWarnings("unused")
@@ -72,11 +72,11 @@ public class PetshopApplication implements CommandLineRunner {
 
 		log.info("couple demo products");
 		productRepository
-				.save(new Product("Dog Booties", productType1, "Green", "M", new BigDecimal("12.12"), manufacturer1));
+				.save(new Product("Dog Booties", "Green", "M", new BigDecimal("12.12"), 23, productType1, manufacturer1));
 		productRepository
-				.save(new Product("Cat Collar", productType2, "Red", "S", new BigDecimal("12.99"), manufacturer2));
+				.save(new Product("Cat Collar", "Red", "S", new BigDecimal("12.99"), 33, productType2, manufacturer2));
 		productRepository.save(
-				new Product("Squeaky Toy, Generic", productType2, "Orange", "S", new BigDecimal("3.50"),
+				new Product("Squeaky Toy, Generic",  "Orange", "S", new BigDecimal("3.50"), 44, productType2,
 						manufacturer3));
 
 		log.info("couple demo appUsers");
@@ -90,24 +90,25 @@ public class PetshopApplication implements CommandLineRunner {
 		
 		log.info("couple demo reservations");
 
-		// Customer customerWithReservations = (new Customer("lolli", "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER"));
+		// password: user
+		Customer customerWithReservations = (new Customer("lolli", "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER"));
 
-		// customerRepository.save(customerWithReservations);
+		customerRepository.save(customerWithReservations);
 
-		// reservationRepository.save(new Reservation(customerWithReservations));
+		reservationRepository.save(new Reservation(customerWithReservations));
 
 
 		log.info("couple demo ReservationProducts");
 
-		Product productForRp = new Product("voivoi", productType2, "Orange", "S", new BigDecimal("3.50"),
+		Product productForRp = new Product("voivoi", "Orange", "S", new BigDecimal("3.50"), 23, productType2,
 		manufacturer3);
 
-		Customer customerWithRp = new Customer("sloink", "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER");
+		// password: user
+		Customer customerWithRp = new Customer("John", "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER");
 
 		Reservation reservationForRp = new Reservation(customerWithRp);
 
 		ReservationProduct rp = new ReservationProduct(1, productForRp, reservationForRp);
-
 
 		productRepository.save(productForRp);
 		customerRepository.save(customerWithRp);
