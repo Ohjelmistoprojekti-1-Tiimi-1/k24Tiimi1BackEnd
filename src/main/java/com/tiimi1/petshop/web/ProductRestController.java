@@ -23,7 +23,7 @@ public class ProductRestController {
     }
 
     @GetMapping("/logget/reservations")
-    public ResponseEntity<?> getWordsByUser(@RequestHeader("Authorization") String bearerToken) {
+    public ResponseEntity<?> getReservationsByCustomer(@RequestHeader("Authorization") String bearerToken) {
         String customerUsername = jwtService.getUser(bearerToken);
         Customer customer = customerRepository.findByUsername(customerUsername).get();
         List<Reservation> reservations = customer.getReservations();
