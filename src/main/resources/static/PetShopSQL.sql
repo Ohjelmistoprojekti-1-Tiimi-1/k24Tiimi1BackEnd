@@ -54,7 +54,7 @@ CREATE TABLE Product (
     name VARCHAR, 
     color VARCHAR, 
     size VARCHAR, 
-    price DECIMAL (5, 2) NOT NULL, 
+    price DECIMAL (7, 2) NOT NULL, 
     instock INTEGER, 
     producttypeid INTEGER REFERENCES ProductType (producttypeid) ON UPDATE CASCADE NOT NULL, 
     manufacturerid INTEGER REFERENCES Manufacturer (manufacturerid) ON UPDATE CASCADE NOT NULL
