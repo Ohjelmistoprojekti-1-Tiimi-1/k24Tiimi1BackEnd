@@ -1,11 +1,9 @@
 package com.tiimi1.petshop.model;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,10 +11,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.JoinColumn;
-
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -34,6 +31,9 @@ public class Product {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "ean")
+    private String ean;
+    
     @Column(name = "color")
     private String color;
     
@@ -45,31 +45,31 @@ public class Product {
     @NotNull(message = "message")
     @Column(name = "price")
     private BigDecimal price;
-
+    
     @Column(name = "instock")
     private int inStock;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "producttypeid")
     private ProductType productType;
-
+    
     @NotNull(message = "A manufacturer is needed")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacturerid")
     private Manufacturer manufacturer;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    private List<ReservationProduct> reservationProducts;
+    @ManyToMany(mappedBy = "products")
+    private Set<Reservation> reservations = new HashSet<>();
 
     public Product() {
 
     }
 
-    public Product(String name, String color, String size, BigDecimal price, int inStock, 
+    public Product(String name, String ean , String color, String size, BigDecimal price, int inStock, 
             ProductType productType, Manufacturer manufacturer) {
         super();
         this.name = name;
+        this.ean = ean;
         this.color = color;
         this.size = size;
         this.price = price;
@@ -92,6 +92,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEan() {
+        return ean;
+    }
+
+    public void setEan(String ean) {
+        this.ean = ean;
     }
 
     public String getColor() {
@@ -142,12 +150,12 @@ public class Product {
         this.manufacturer = manufacturer;
     }
 
-    public List<ReservationProduct> getReservationProducts() {
-        return reservationProducts;
+    public Set<Reservation> getReservations() {
+        return reservations;
     }
 
-    public void setReservationProducts(List<ReservationProduct> reservationProducts) {
-        this.reservationProducts = reservationProducts;
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
     
