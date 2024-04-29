@@ -69,11 +69,11 @@ public class PetshopApplication implements CommandLineRunner {
 
 		log.info("couple demo products");
 		productRepository
-				.save(new Product("Dog Booties", "1234", "Green", "M", new BigDecimal("12.12"), 23, productType1, manufacturer1));
+				.save(new Product("Dog Booties", "Green", "M", new BigDecimal("12.12"), 23, productType1, manufacturer1));
 		productRepository
-				.save(new Product("Cat Collar", "1333",  "Red", "S", new BigDecimal("12.99"), 33, productType2, manufacturer2));
+				.save(new Product("Cat Collar", "Red", "S", new BigDecimal("12.99"), 33, productType2, manufacturer2));
 		productRepository.save(
-				new Product("Squeaky Toy, Generic", "4567",  "Orange", "S", new BigDecimal("3.50"), 44, productType2,
+				new Product("Squeaky Toy, Generic", "Orange", "S", new BigDecimal("3.50"), 44, productType2,
 						manufacturer3));
 
 		log.info("couple demo appUsers");
@@ -97,7 +97,7 @@ public class PetshopApplication implements CommandLineRunner {
 
 		log.info("couple demo ReservationProducts");
 
-		Product productForRp = new Product("voivoi", "2344", "Orange", "S", new BigDecimal("3.50"), 23, productType2,
+		Product productForRp = new Product("voivoi", "Orange", "S", new BigDecimal("3.50"), 23, productType2,
 		manufacturer3);
 
 		// password: user

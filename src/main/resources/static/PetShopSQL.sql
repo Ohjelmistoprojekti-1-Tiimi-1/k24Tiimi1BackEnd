@@ -52,7 +52,6 @@ DROP TABLE IF EXISTS Product;
 CREATE TABLE Product (
     productid SERIAL PRIMARY KEY NOT NULL, 
     name VARCHAR, 
-    ean VARCHAR,
     color VARCHAR, 
     size VARCHAR, 
     price DECIMAL (5, 2) NOT NULL, 
@@ -60,9 +59,9 @@ CREATE TABLE Product (
     producttypeid INTEGER REFERENCES ProductType (producttypeid) ON UPDATE CASCADE NOT NULL,
     manufacturerid INTEGER REFERENCES Manufacturer (manufacturerid) ON UPDATE CASCADE NOT NULL
     );
-INSERT INTO Product (name, ean, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Dog Booties', '1234', 'Green', 'M', 12.12, 35, 1, 1);
-INSERT INTO Product (name, ean, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Cat Collar', '2256', 'Red', 'S', 12.99, 97, 1, 1);
-INSERT INTO Product (name, ean, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Squeaky Toy, Generic', '3378', 'Orange', 'S', 3.5, 111, 2, 2);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Dog Booties', 'Green', 'M', 12.12, 35, 1, 1);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Cat Collar', 'Red', 'S', 12.99, 97, 1, 1);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Squeaky Toy, Generic', 'Orange', 'S', 3.5, 111, 2, 2);
 
 -- Table: Reservation
 DROP TABLE IF EXISTS Reservation;

@@ -30,9 +30,6 @@ public class Product {
     @NotBlank(message = "A name is needed")
     @Column(name = "name")
     private String name;
-
-    @Column(name = "ean")
-    private String ean;
     
     @Column(name = "color")
     private String color;
@@ -65,11 +62,10 @@ public class Product {
 
     }
 
-    public Product(String name, String ean , String color, String size, BigDecimal price, int inStock, 
+    public Product(String name, String color, String size, BigDecimal price, int inStock, 
             ProductType productType, Manufacturer manufacturer) {
         super();
         this.name = name;
-        this.ean = ean;
         this.color = color;
         this.size = size;
         this.price = price;
@@ -92,14 +88,6 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEan() {
-        return ean;
-    }
-
-    public void setEan(String ean) {
-        this.ean = ean;
     }
 
     public String getColor() {

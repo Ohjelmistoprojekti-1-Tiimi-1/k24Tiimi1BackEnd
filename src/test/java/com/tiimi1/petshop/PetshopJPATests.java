@@ -32,7 +32,7 @@ public class PetshopJPATests {
     public void productCreateTest() {
         Manufacturer testManufacturer = new Manufacturer("Dharma Inc.", "The Island", "4815162342");
         ProductType testProductType = new ProductType("Test type");
-        Product testProduct = new Product("Test product", "4444", "Green", "L", new BigDecimal("48.15"), 34,testProductType, testManufacturer);
+        Product testProduct = new Product("Test product", "Green", "L", new BigDecimal("48.15"), 34,testProductType, testManufacturer);
         assertThat(testProduct.getName()).isNotNull();
         
     }
