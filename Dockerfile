@@ -1,31 +1,29 @@
+# Build stage where we build .jar -file which is again used to make the actual image
+# LEt's use gradle as a "baseproject"
+FROM gradle:8.7 AS BUILD
 
+# Create a directory for the application in image and set it as the working directory for Docker
+WORKDIR /home/app
 
-# Here is the most simple way of making the image of the app.
-# run:
-# ./gradlew build
-# docker build -t  petshop .
-# docker run -it petshop:0.0.1-SNAPSHOT
-# FROM openjdk:17
-# EXPOSE 8080
-# RUN mkdir /app
-# COPY build/libs/petshop-0.0.1-SNAPSHOT.jar /app/petshop.jar
-# ENTRYPOINT ["java","-jar","/app/petshop.jar"]
+# Copy project files to the container, these go to WORKDIR. This phase could be better by copying only neccessary files like in src etc
+COPY . .
 
+# I used this print to verify the files are copied correctly
+RUN ls -l
 
-#Better way would be to make it 2-phased and build .jar file with gradle while building the image
-#Something like:
+# Run Gradle build. We have gradle command from "baseproject" We skip tests, because they failed
+RUN gradle build --no-daemon -x test
 
-#
-# Gradle Build
-# using official gradle example image as the base for petshop image
+# Actual image
 FROM openjdk:17
 
 WORKDIR /home/app
 
-CMD ["./gradlew", "clean", "bootJar"]
+# copying built jar -file from first stage to container
+COPY --from=BUILD /home/app/build/libs/petshop-0.0.1-SNAPSHOT.jar /home/app/petshop.jar
 
-COPY build/libs/petshop-0.0.1-SNAPSHOT.jar app.jar
-# Copy project files and Gradle wrapper script to the container
+# defining backend port
 EXPOSE 8080
-# Setting working directory to /home/app where we copied our files. Now we dont have to define it every time
-ENTRYPOINT ["java", "-jar","./app.jar"]
+
+# Command to run the application
+ENTRYPOINT ["java", "-jar", "/home/app/petshop.jar"]
