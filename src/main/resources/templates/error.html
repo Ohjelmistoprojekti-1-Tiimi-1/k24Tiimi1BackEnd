@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+  <head>
+    <title>Error</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+    <h1>Oops!</h1>
+    <h2>An error has occurred.</h2>
+    <p>
+      There seems to be a problem with the page you requested (<span
+        th:text="${path}"
+      ></span
+      >)..
+    </p>
+    <p
+      th:text="${'The status code is ' + status 
+       + ', which means that the page was ' + error + '.'}"
+    ></p>
+    <p th:text="${'Further details: ' + message + '.'}"></p>
+
+    <div>
+      <p>Please try refreshing the page or go back to the login page:</p>
+      <a class="btn" href="/login">Back To Login</a>
+    </div>
+
+    <h2>Or maybe you were looking for our Pet Shop?</h2>
+    <p>If you were, please click here:</p>
+    <a class="btn" href="http://localhost:5173/">Pet Shop</a>
+  </body>
+</html>

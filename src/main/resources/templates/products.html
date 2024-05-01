@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
+  <head>
     <title>Pet Shop</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+  </head>
 
-<body>
-
+  <body>
     <h1>Products</h1>
 
     <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Color</th>
+          <th>Size</th>
+          <th>Price</th>
+          <th>In Stock</th>
+          <th>Manufacturer</th>
+        </tr>
+      </thead>
 
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Color</th>
-                <th>Size</th>
-                <th>Price</th>
-                <th>Manufacturer</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr th:each="product : ${products}">
-                <td th:text="${product.name}"></td>
-                <td th:text="${product.productType.productTypeValue}"></td>
-                <td th:text="${product.color}"></td>
-                <td th:text="${product.size}"></td>
-                <td th:text="${product.price}"></td>
-                <td th:text="${product.manufacturer.name}"></td>
-                <td>
-                    <!--Delete button-->
-                    <a th:href="@{/admin/deleteconfirmation/{id}(id=${product.productId})}">Delete</a>
-                    <div th:if="${confirmId} == ${product.productId}">
-                        <span>Are you sure?</span>
-                        <a th:href="@{/admin/deleteproduct/{id}(id=${product.productId})}">Yes</a>
-                        <a href="/admin/products">No</a>
-                    </div>
-                </td>
-                <td>
-                    <!--Edit button-->
-                    <a th:href="@{/admin/editproduct/{id}(id=${product.productId})}">Edit</a>
-                </td>
-            </tr>
-        </tbody>
-
+      <tbody>
+        <tr th:each="product : ${products}">
+          <td th:text="${product.name}"></td>
+          <td th:text="${product.productType.productTypeValue}"></td>
+          <td th:text="${product.color}"></td>
+          <td th:text="${product.size}"></td>
+          <td th:text="${product.price}"></td>
+          <td th:text="${product.inStock}"></td>
+          <td th:text="${product.manufacturer.name}"></td>
+          <td>
+            <!--Delete button-->
+            <a
+              th:href="@{/admin/deleteconfirmation/{id}(id=${product.productId})}"
+              >Delete</a
+            >
+            <div th:if="${confirmId} == ${product.productId}">
+              <span>Are you sure?</span>
+              <a th:href="@{/admin/deleteproduct/{id}(id=${product.productId})}"
+                >Yes</a
+              >
+              <a href="/admin/products">No</a>
+            </div>
+          </td>
+          <td>
+            <!--Edit button-->
+            <a th:href="@{/admin/editproduct/{id}(id=${product.productId})}"
+              >Edit</a
+            >
+          </td>
+        </tr>
+      </tbody>
     </table>
 
     <div>
-        <a th:href="@{/admin/addproduct}">Add product</a>
-        <a href="/admin/home">Home Page</a>
+      <a th:href="@{/admin/addproduct}">Add product</a>
+      <a href="/admin/home">Home Page</a>
     </div>
-
-</body>
-
+  </body>
 </html>

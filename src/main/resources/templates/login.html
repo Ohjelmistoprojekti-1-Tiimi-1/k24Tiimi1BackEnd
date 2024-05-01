@@ -1,35 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-
-<head>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+  <head>
     <title>Pet Shop</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+  </head>
 
-<body>
-
+  <body>
     <h1>Please login.</h1>
 
     <form th:action="@{/login}" method="post">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" />
 
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" />
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password">
-
-        <input type="submit" value="Login"/>
-
+      <input type="submit" value="Login" />
     </form>
 
-    <div th:if="${param.error}">
-        Invalid username or password.
-    </div>
+    <div th:if="${param.error}">Invalid username or password.</div>
 
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
+    <div th:if="${param.logout}">You have been logged out.</div>
 
-</body>
-
+    <h2>Or maybe you were looking for our Pet Shop?</h2>
+    <p>If you were, please click here:</p>
+    <a class="btn" href="http://localhost:5173/">Pet Shop</a>
+  </body>
 </html>

@@ -46,6 +46,7 @@ DROP TABLE IF EXISTS ProductType;
 CREATE TABLE ProductType (producttypeid SERIAL PRIMARY KEY NOT NULL, productTypeValue VARCHAR);
 INSERT INTO ProductType (producttypevalue) VALUES ('Clothing');
 INSERT INTO ProductType (producttypevalue) VALUES ('Toy');
+INSERT INTO ProductType (productTypeValue) VALUES ('Pet Food');
 
 -- Table: Product
 DROP TABLE IF EXISTS Product;
