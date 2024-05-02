@@ -8,9 +8,17 @@
   <body>
     <h1>Reservations</h1>
     <div th:each = "reservation : ${reservations}">
-      <p>Customer:</p><td th:text="${reservation.customer.username}"></td>
-      <p>Reservation created:</p>      <td th:text="${reservation.created}"></td>
-      <p>Reservation delivered:</p>      <td th:text="${reservation.delivered}"></td>
+      <span><strong>ReservationId: </strong></span><td th:text="${reservation.reservationId}"></td>
+      <span><strong>Customer:</strong></span><td th:text="${reservation.customer.username}"></td>
+      <span><strong>Reservation created:</strong></span>      <td th:text="${reservation.created}"></td>
+      <span><strong>Reservation delivered:</strong></span>      <td th:text="${reservation.delivered}"></td>
+      <span><strong>Reservation cancelled:</strong></span>      <td th:text="${reservation.cancelled}"></td>
+
+        <a th:href="@{/admin/reservationdelivered/{id}(id=${reservation.reservationId})}"
+          >Mark delivered</a>
+        
+        <a th:href="@{/admin/reservationcancelled/{id}(id=${reservation.reservationId})}"
+          >Mark cancelled</a>
       <table>
         <thead>
           <tr>
@@ -25,16 +33,17 @@
         </thead>
 
         <tbody>
-          <tr th:each="product : ${reservation.products}">
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.productType.productTypeValue}"></td>
-            <td th:text="${product.color}"></td>
-            <td th:text="${product.size}"></td>
-            <td th:text="${product.price}"></td>
-            <td th:text="${product.inStock}"></td>
-            <td th:text="${product.manufacturer.name}"></td>
+          <tr th:each="reservationproduct : ${reservation.reservationProducts}">
+            <td th:text="${reservationproduct.product.name}"></td>
+            <td th:text="${reservationproduct.product.productType.productTypeValue}"></td>
+            <td th:text="${reservationproduct.product.color}"></td>
+            <td th:text="${reservationproduct.product.size}"></td>
+            <td th:text="${reservationproduct.product.price}"></td>
+            <td th:text="${reservationproduct.product.inStock}"></td>
+            <td th:text="${reservationproduct.product.manufacturer.name}"></td>
           </tr>
         </tbody>
+
       </table>
     </div>
   </body>
