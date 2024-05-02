@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tiimi1.petshop.model.Customer;
 import com.tiimi1.petshop.model.CustomerRepository;
+import com.tiimi1.petshop.model.Product;
+import com.tiimi1.petshop.model.ProductRepository;
 import com.tiimi1.petshop.model.Reservation;
 import com.tiimi1.petshop.service.JwtService;
 
@@ -16,10 +18,12 @@ import com.tiimi1.petshop.service.JwtService;
 public class ProductRestController {
     private final CustomerRepository customerRepository;
     private final JwtService jwtService;
+    private final ProductRepository productRepository;
 
-    public ProductRestController(CustomerRepository customerRepository, JwtService jwtService) {
+    public ProductRestController(CustomerRepository customerRepository, JwtService jwtService, ProductRepository productRepository) {
         this.customerRepository = customerRepository;
         this.jwtService = jwtService;
+        this.productRepository = productRepository;
     }
 
     @GetMapping("/logget/reservations")
@@ -29,6 +33,11 @@ public class ProductRestController {
         List<Reservation> reservations = customer.getReservations();
         reservations.forEach(c -> c.setCustomer(null)); // probably not necessary and customer informatin might be good?
         return ResponseEntity.ok(reservations);
+    }
+
+    @GetMapping("all/productwithinfo")
+    public Iterable<Product> getProductsWithAllInfo() {
+        return productRepository.findAll();
     }
 
 }
