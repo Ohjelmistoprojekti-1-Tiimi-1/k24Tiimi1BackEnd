@@ -20,6 +20,9 @@ BEGIN TRANSACTION;
 
 
 
+
+SET timezone = 'Europe/Helsinki';
+
 DROP TABLE IF EXISTS Reservation_product;
 DROP TABLE IF EXISTS Reservation;
 DROP TABLE IF EXISTS Product;
@@ -47,7 +50,7 @@ CREATE TABLE ProductType (producttypeid SERIAL PRIMARY KEY NOT NULL, productType
 INSERT INTO ProductType (productTypeValue) VALUES ('Clothing');
 INSERT INTO ProductType (productTypeValue) VALUES ('Toy');
 INSERT INTO ProductType (productTypeValue) VALUES ('Food');
-INSERT INTO ProductType (productTypeValue) VALUES ('Beds');
+
 -- Table: Product
 DROP TABLE IF EXISTS Product;
 CREATE TABLE Product (
@@ -68,9 +71,9 @@ INSERT INTO Product (name, color, size, price, instock, producttypeid, manufactu
 DROP TABLE IF EXISTS Reservation;
 CREATE TABLE Reservation (
     reservationid SERIAL PRIMARY KEY NOT NULL, 
-    created DATE NOT NULL, 
-    delivered DATE, 
-    canceled DATE, 
+    created TIMESTAMPTZ NOT NULL, 
+    delivered TIMESTAMPTZ, 
+    canceled TIMESTAMPTZ, 
     customerid INTEGER REFERENCES Customer (customerid) ON UPDATE CASCADE NOT NULL
     );
 INSERT INTO Reservation (created, delivered, customerid) VALUES ('2023-10-27', '2023-11-13', 1);
@@ -85,6 +88,8 @@ CREATE TABLE Reservation_product (
     );
 INSERT INTO Reservation_product (count, productId, reservationid) VALUES (3, 1, 1);
 INSERT INTO Reservation_product (count, productId, reservationid) VALUES (1, 3, 1);
+
+
 
 
 -- Inserting more products
@@ -117,22 +122,25 @@ INSERT INTO Reservation_product (count, productid, reservationid) VALUES (3, 1, 
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (2, 2, 1);
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (1, 3, 1);
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (3, 4, 1);
+INSERT INTO Reservation_product (count, productid, reservationid) VALUES (2, 7, 1);
+INSERT INTO Reservation_product (count, productid, reservationid) VALUES (3, 8, 1);
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (4, 5, 2);
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (3, 6, 2);
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (2, 7, 2);
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (1, 8, 2);
-INSERT INTO Reservation_product (count, productid, reservationid) VALUES (3, 9, 3);
-INSERT INTO Reservation_product (count, productid, reservationid) VALUES (1, 10, 3);
+INSERT INTO Reservation_product (count, productid, reservationid) VALUES (1, 9, 2);
+INSERT INTO Reservation_product (count, productid, reservationid) VALUES (3, 10, 2);
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (3, 1, 3);
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (1, 2, 3);
+INSERT INTO Reservation_product (count, productid, reservationid) VALUES (3, 9, 3);
+INSERT INTO Reservation_product (count, productid, reservationid) VALUES (1, 10, 3);
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (2, 3, 4);
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (3, 4, 4);
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (4, 5, 4);
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (3, 6, 4);
-INSERT INTO Reservation_product (count, productid, reservationid) VALUES (2, 7, 1);
-INSERT INTO Reservation_product (count, productid, reservationid) VALUES (3, 8, 1);
-INSERT INTO Reservation_product (count, productid, reservationid) VALUES (1, 9, 2);
-INSERT INTO Reservation_product (count, productid, reservationid) VALUES (3, 10, 2);
+
+
+
 
 COMMIT TRANSACTION;
 
