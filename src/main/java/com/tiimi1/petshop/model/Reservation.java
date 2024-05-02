@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -29,15 +27,12 @@ public class Reservation {
     @Column(name = "reservationid")
     private Long reservationId;
 
-    // @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "created")
     private Date created;
 
-    // @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "delivered")
     private Date delivered;
 
-    // @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "canceled")
     private Date cancelled;
 
