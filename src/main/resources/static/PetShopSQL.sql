@@ -86,7 +86,52 @@ INSERT INTO Reservation_product (count, productId, reservationid) VALUES (3, 1, 
 INSERT INTO Reservation_product (count, productId, reservationid) VALUES (1, 3, 1);
 
 
+-- Inserting more products
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Dog Raincoat', 'Blue', 'L', 19.99, 50, 1, 1);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Cat Scratching Post', 'Beige', 'M', 29.99, 25, 2, 2);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Hamster Wheel', 'Yellow', 'S', 8.99, 80, 2, 3);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Dog Chew Toy', 'Brown', 'M', 5.99, 65, 2, 1);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Fish Tank', 'Clear', 'L', 59.99, 10, 3, 3);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Bird Cage', 'White', 'L', 39.99, 15, 3, 3);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Catnip', 'Green', 'S', 3.99, 100, 3, 2);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Dog Leash', 'Black', 'L', 14.99, 40, 1, 1);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Bird Toy', 'Multicolor', 'S', 6.99, 75, 2, 3);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Rabbit Hutch', 'Brown', 'XL', 99.99, 5, 2, 3);
 
+-- Inserting more customers
+INSERT INTO Customer (username, password, role) VALUES ('user2', '$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue', 'USER');
+INSERT INTO Customer (username, password, role) VALUES ('user3', '$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue', 'USER');
+INSERT INTO Customer (username, password, role) VALUES ('user4', '$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue', 'USER');
+INSERT INTO Customer (username, password, role) VALUES ('user5', '$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue', 'USER');
+
+-- Inserting more reservations
+INSERT INTO Reservation (created, delivered, customerid) VALUES ('2023-11-05', null, 2);
+INSERT INTO Reservation (created, delivered, customerid) VALUES ('2023-11-10', null, 3);
+INSERT INTO Reservation (created, delivered, customerid) VALUES ('2023-11-15', null, 4);
+INSERT INTO Reservation (created, delivered, customerid) VALUES ('2023-11-20', '2023-12-02', 5);
+
+-- Linking products to reservations
+-- Linking products to reservations
+INSERT INTO Reservation_product (productid, reservationid) VALUES (1, 1);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (2, 1);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (3, 1);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (4, 1);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (5, 2);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (6, 2);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (7, 2);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (8, 2);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (9, 3);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (10, 3);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (1, 3);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (2, 3);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (3, 4);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (4, 4);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (5, 4);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (6, 4);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (7, 1);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (8, 1);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (9, 2);
+INSERT INTO Reservation_product (productid, reservationid) VALUES (10, 2);
 
 COMMIT TRANSACTION;
 
