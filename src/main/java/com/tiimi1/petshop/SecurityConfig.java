@@ -31,7 +31,7 @@ public class SecurityConfig {
     private final AuthenticationFilter authenticationFilter;
     private final AuthEntryPoint exceptionHandler;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl, AuthenticationFilter authenticationFilter, 
+    public SecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl, AuthenticationFilter authenticationFilter,
             AuthEntryPoint exeptionHandler) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.authenticationFilter = authenticationFilter;
@@ -53,7 +53,7 @@ public class SecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 
-    // Order(1) is compeletely for Thymeleaf. 
+    // Order(1) is compeletely for Thymeleaf.
     @Bean
     @Order(1)
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -75,16 +75,22 @@ public class SecurityConfig {
     }
 
     // Order(2) is compeletely for front end.
-    // uncomment marked line to open all api endpoints (also comment out @RepositoryRestResource(exported = false) from CustomerRepository to access customers in rest)
+    // uncomment marked line to open all api endpoints (also comment out
+    // @RepositoryRestResource(exported = false) from CustomerRepository to access
+    // customers in rest)
     @Bean
     @Order(2)
     SecurityFilterChain filterChainRest(HttpSecurity http) throws Exception {
         http.csrf((csrf) -> csrf.disable()).cors(withDefaults())
-                .securityMatcher("/api/**", "/signup", "/customerlogin", "/logget/**", "/all/**") // filters what endpoints are handled in this method.
+                .securityMatcher("/api/**", "/signup", "/customerlogin", "/logget/**", "/all/**",
+                        "/customerdelete") // filters what
+                                           // endpoints are
+                                           // handled in this
+                                           // method.
                 .sessionManagement(
-                    (sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        (sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                    // .requestMatchers("/api/**").permitAll() // uncomment this to see localhost:8080/api  
+                    .requestMatchers("/api/**").permitAll() // uncomment this to see localhost:8080/api  
                     .requestMatchers(HttpMethod.POST, "/signup", "/customerlogin").permitAll()   // endpoints for signing up and login
                     .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/manufacturers/**", "/all/**").permitAll()  // endpoints for customers without login
                     .requestMatchers("/api/customers/**", "/logget/**").permitAll().anyRequest().authenticated())  // endpoints for logged in customers 
@@ -92,7 +98,6 @@ public class SecurityConfig {
                     .exceptionHandling((exceptionHandling) -> exceptionHandling.authenticationEntryPoint(exceptionHandler)); 
                 return http.build();
     }
-
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -108,7 +113,6 @@ public class SecurityConfig {
     }
 
 }
-
 
 // Katkelmia teoksesta
 // Full Stack Development with Spring Boot 3 and React
