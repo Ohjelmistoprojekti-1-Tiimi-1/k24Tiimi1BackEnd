@@ -44,9 +44,8 @@ INSERT INTO Manufacturer (name, country, businessidentitycode) VALUES ('Squeaky 
 -- Table: ProductType
 DROP TABLE IF EXISTS ProductType;
 CREATE TABLE ProductType (producttypeid SERIAL PRIMARY KEY NOT NULL, productTypeValue VARCHAR);
-INSERT INTO ProductType (producttypevalue) VALUES ('Clothing');
-INSERT INTO ProductType (producttypevalue) VALUES ('Toy');
-INSERT INTO ProductType (productTypeValue) VALUES ('Pet Food');
+INSERT INTO ProductType (productTypeValue) VALUES ('Clothing');
+INSERT INTO ProductType (productTypeValue) VALUES ('Toy');
 
 -- Table: Product
 DROP TABLE IF EXISTS Product;
@@ -57,12 +56,12 @@ CREATE TABLE Product (
     size VARCHAR, 
     price DECIMAL (5, 2) NOT NULL, 
     instock INTEGER, 
-    producttypeid INTEGER REFERENCES ProductType (producttypeid) ON UPDATE CASCADE NOT NULL,
+    producttypeid INTEGER REFERENCES ProductType (producttypeid) ON UPDATE CASCADE NOT NULL, 
     manufacturerid INTEGER REFERENCES Manufacturer (manufacturerid) ON UPDATE CASCADE NOT NULL
     );
-INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Dog Booties', 'Green', 'M', 12.12, 35, 1, 1);
-INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Cat Collar', 'Red', 'S', 12.99, 97, 1, 1);
-INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Squeaky Toy, Generic', 'Orange', 'S', 3.5, 111, 2, 2);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Dog Booties', 'Green', 'M', 12.12, 25, 1, 1);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Cat Collar', 'Red', 'S', 12.99, 111, 1, 2);
+INSERT INTO Product (name, color, size, price, instock, producttypeid, manufacturerid) VALUES ('Squeaky Toy, Generic', 'Orange', 'S', 3.5, 226, 2, 3);
 
 -- Table: Reservation
 DROP TABLE IF EXISTS Reservation;
@@ -78,12 +77,13 @@ INSERT INTO Reservation (created, delivered, customerid) VALUES ('2023-10-27', '
 -- Table: Reservation_product
 DROP TABLE IF EXISTS Reservation_product;
 CREATE TABLE Reservation_product (
+    reservation_productid SERIAL PRIMARY KEY NOT NULL,
+    count INTEGER, 
     productid INTEGER REFERENCES Product (productid) ON UPDATE CASCADE NOT NULL, 
-    reservationid INTEGER REFERENCES Reservation (reservationid) ON UPDATE CASCADE NOT NULL,
-    PRIMARY KEY (productid, reservationid)
+    reservationid INTEGER REFERENCES Reservation (reservationid) ON UPDATE CASCADE NOT NULL
     );
-INSERT INTO Reservation_product (productid, reservationid) VALUES (1, 1);
-INSERT INTO Reservation_product (productid, reservationid) VALUES (2, 1);
+INSERT INTO Reservation_product (count, productId, reservationid) VALUES (3, 1, 1);
+INSERT INTO Reservation_product (count, productId, reservationid) VALUES (1, 3, 1);
 
 
 
