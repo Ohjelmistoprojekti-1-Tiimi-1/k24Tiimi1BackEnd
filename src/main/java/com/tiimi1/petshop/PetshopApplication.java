@@ -17,6 +17,8 @@ import com.tiimi1.petshop.model.ProductRepository;
 import com.tiimi1.petshop.model.ProductType;
 import com.tiimi1.petshop.model.ProductTypeRepository;
 import com.tiimi1.petshop.model.Reservation;
+import com.tiimi1.petshop.model.ReservationProduct;
+import com.tiimi1.petshop.model.ReservationProductRepository;
 import com.tiimi1.petshop.model.ReservationRepository;
 
 
@@ -28,14 +30,16 @@ public class PetshopApplication implements CommandLineRunner {
 	private final ProductTypeRepository productTypeRepository;
 	private final CustomerRepository customerRepository;
 	private final ReservationRepository reservationRepository;
+	private final ReservationProductRepository reservationProductRepository;
 
 	public PetshopApplication(ProductRepository productRepository, ManufacturerRepository manufacturerRepository,
-			ProductTypeRepository productTypeRepository, CustomerRepository customerRepository, ReservationRepository reservationRepository) {
+			ProductTypeRepository productTypeRepository, CustomerRepository customerRepository, ReservationRepository reservationRepository, ReservationProductRepository reservationProductRepository) {
 		this.productRepository = productRepository;
 		this.manufacturerRepository = manufacturerRepository;
 		this.productTypeRepository = productTypeRepository;
 		this.customerRepository = customerRepository;
 		this.reservationRepository = reservationRepository;
+		this.reservationProductRepository = reservationProductRepository;
 	}
 
 	public static void main(String[] args) {
@@ -73,7 +77,7 @@ public class PetshopApplication implements CommandLineRunner {
 		productRepository
 				.save(new Product("Cat Collar", "Red", "S", new BigDecimal("12.99"), 33, productType2, manufacturer2));
 		productRepository.save(
-				new Product("Squeaky Toy, Generic", "Orange", "S", new BigDecimal("3.50"), 44, productType2,
+				new Product("Squeaky Toy, Generic",  "Orange", "S", new BigDecimal("3.50"), 44, productType2,
 						manufacturer3));
 
 		log.info("couple demo appUsers");
@@ -103,12 +107,14 @@ public class PetshopApplication implements CommandLineRunner {
 		// password: user
 		Customer customerWithRp = new Customer("John", "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER");
 
-		Reservation reservation = new Reservation(customerWithRp);
+		Reservation reservationForRp = new Reservation(customerWithRp);
+
+		ReservationProduct rp = new ReservationProduct(1, productForRp, reservationForRp);
 
 		productRepository.save(productForRp);
 		customerRepository.save(customerWithRp);
-		reservationRepository.save(reservation);
-
+		reservationRepository.save(reservationForRp);
+		reservationProductRepository.save(rp);
 	}
 		
 }

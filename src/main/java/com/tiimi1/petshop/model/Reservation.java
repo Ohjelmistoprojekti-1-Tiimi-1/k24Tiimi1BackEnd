@@ -1,8 +1,7 @@
 package com.tiimi1.petshop.model;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,9 +13,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -41,16 +40,10 @@ public class Reservation {
     Customer customer;
 
     @JsonIgnore
-    @ManyToMany(cascade=CascadeType.PERSIST)
-    @JoinTable(name="reservation_product",joinColumns = 
-        {
-        @JoinColumn(name="reservationid") },
-        inverseJoinColumns = 
-        {
-        @JoinColumn(name="productid") })
-    private Set<Product> products = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
+    private List<ReservationProduct> reservationProducts;
 
-
+    
     public Reservation() {
     }
 
@@ -100,22 +93,12 @@ public class Reservation {
         this.customer = customer;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public List<ReservationProduct> getReservationProducts() {
+        return reservationProducts;
     }
 
-    public void addProduct(Product product) {
-        this.products.add(product);
-        product.getReservations().add(this);
-    }
-
-    public void removeProduct(Product product) {
-        this.products.remove(product);
-        product.getReservations().remove(this);
-    }
-
-    public Set<Product> getProducts() {
-        return products;
+    public void setReservationProducts(List<ReservationProduct> reservationProducts) {
+        this.reservationProducts = reservationProducts;
     }
 
 
