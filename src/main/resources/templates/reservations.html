@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Pet Shop</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+    <h1>Reservations</h1>
+    <div th:each = "reservation : ${reservations}">
+      <p>Customer:</p><td th:text="${reservation.customer.username}"></td>
+      <p>Reservation created:</p>      <td th:text="${reservation.created}"></td>
+      <p>Reservation delivered:</p>      <td th:text="${reservation.delivered}"></td>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>In Stock</th>
+            <th>Manufacturer</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="product : ${reservation.products}">
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.productType.productTypeValue}"></td>
+            <td th:text="${product.color}"></td>
+            <td th:text="${product.size}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.inStock}"></td>
+            <td th:text="${product.manufacturer.name}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
