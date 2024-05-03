@@ -3,6 +3,7 @@ package com.tiimi1.petshop.web;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,11 @@ public class ReservationController {
     @GetMapping("/admin/reservationdelivered/{id}")
     public String deliverReservation(@PathVariable("id") Long reservationId) {
         Objects.requireNonNull(reservationId);
-        Reservation reservation = reservationRepository.findById(reservationId).get();
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+        if (!reservationOptional.isPresent()) {
+            return "redirect:/admin/reservations";
+        }
+        Reservation reservation = reservationOptional.get();
         reservation.setDelivered(new Date(System.currentTimeMillis()));
         reservationRepository.save(reservation);
         return "redirect:/admin/reservations";
@@ -44,8 +49,11 @@ public class ReservationController {
     @GetMapping("/admin/reservationcancelled/{id}")
     public String cancelReservation(@PathVariable("id") Long reservationId) {
         Objects.requireNonNull(reservationId);
-        Reservation reservation = reservationRepository.findById(reservationId).get();
-        
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+        if (!reservationOptional.isPresent()) {
+            return "redirect:/admin/reservations";
+        }
+        Reservation reservation = reservationOptional.get();
         if (reservation.getCancelled() == null) {
             reservation.setCancelled(new Date(System.currentTimeMillis()));
             List<ReservationProduct>  products = reservation.getReservationProducts();
