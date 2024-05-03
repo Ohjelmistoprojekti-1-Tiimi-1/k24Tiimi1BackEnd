@@ -3,6 +3,7 @@ package com.tiimi1.petshop.web;
 import java.util.Date;
 import java.util.Objects;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,7 @@ public class ReservationController {
 
     @GetMapping("/admin/reservations")
     public String showReservations(Model model) {
-        model.addAttribute("reservations", reservationRepository.findAll());
+        model.addAttribute("reservations", reservationRepository.findByOrderByReservationIdAsc());
         return "reservations";
     }
 

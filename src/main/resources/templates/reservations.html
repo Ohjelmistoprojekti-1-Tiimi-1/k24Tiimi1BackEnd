@@ -8,6 +8,8 @@
   <body>
     <h1>Reservations</h1>
     <div th:each = "reservation : ${reservations}">
+      <br/>
+      <br/>
       <span><strong>ReservationId: </strong></span><td th:text="${reservation.reservationId}"></td>
       <span><strong>Customer:</strong></span><td th:text="${reservation.customer.username}"></td>
       <span><strong>Reservation created:</strong></span>      <td th:text="${reservation.created}"></td>
@@ -43,10 +45,8 @@
             <td th:text="${reservationproduct.product.manufacturer.name}"></td>
           </tr>
         </tbody>
-
       </table>
     </div>
-    <br/>
     <a href="/admin/home">Home Page</a>
   </body>
 </html>
