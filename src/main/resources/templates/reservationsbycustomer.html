@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Pet Shop</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+    <h1 th:text="'All reservations by customer: ' + ${customer.username}"></h1>
+
+    <p th:if="${noReservations}">No reservations found.</p>
+
+    <div th:each="reservation : ${reservations}">
+      <br />
+      <br />
+      <span><strong>ReservationId: </strong></span>
+      <td th:text="${reservation.reservationId}"></td>
+      <span><strong>Reservation created:</strong></span>
+      <td th:text="${reservation.created}"></td>
+      <span><strong>Reservation delivered:</strong></span>
+      <td th:text="${reservation.delivered}"></td>
+      <span><strong>Reservation cancelled:</strong></span>
+      <td th:text="${reservation.cancelled}"></td>
+
+      <a
+        th:href="@{/admin/deliveredreservation/{id}(id=${reservation.reservationId})}"
+        >Mark delivered</a
+      >
+
+      <a
+        th:href="@{/admin/cancelledreservation/{id}(id=${reservation.reservationId})}"
+        >Mark cancelled</a
+      >
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>In Stock</th>
+            <th>Manufacturer</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="reservationproduct : ${reservation.reservationProducts}">
+            <td th:text="${reservationproduct.product.name}"></td>
+            <td
+              th:text="${reservationproduct.product.productType.productTypeValue}"
+            ></td>
+            <td th:text="${reservationproduct.product.color}"></td>
+            <td th:text="${reservationproduct.product.size}"></td>
+            <td th:text="${reservationproduct.product.price}"></td>
+            <td th:text="${reservationproduct.product.inStock}"></td>
+            <td th:text="${reservationproduct.product.manufacturer.name}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <a href="/admin/customers">Back to Customers</a>
+  </body>
+</html>

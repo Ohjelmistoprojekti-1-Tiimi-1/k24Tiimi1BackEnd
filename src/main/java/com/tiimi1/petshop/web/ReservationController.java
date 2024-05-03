@@ -16,7 +16,6 @@ import com.tiimi1.petshop.model.Product;
 import com.tiimi1.petshop.model.Reservation;
 import com.tiimi1.petshop.model.ReservationProduct;
 
-
 @Controller
 public class ReservationController {
     private final ReservationRepository reservationRepository;
@@ -32,6 +31,8 @@ public class ReservationController {
         model.addAttribute("reservations", reservationRepository.findByOrderByReservationIdAsc());
         return "reservations";
     }
+
+    // these are for the reservations page ******
 
     @GetMapping("/admin/reservationdelivered/{id}")
     public String deliverReservation(@PathVariable("id") Long reservationId) {
@@ -56,18 +57,60 @@ public class ReservationController {
         Reservation reservation = reservationOptional.get();
         if (reservation.getCancelled() == null) {
             reservation.setCancelled(new Date(System.currentTimeMillis()));
-            List<ReservationProduct>  products = reservation.getReservationProducts();
-            
-            for (ReservationProduct reservationproduct : products) 
-            {
+            List<ReservationProduct> products = reservation.getReservationProducts();
+
+            for (ReservationProduct reservationproduct : products) {
                 Product product = reservationproduct.getProduct();
-    
+
                 product.setInStock(product.getInStock() - reservationproduct.getCount());
                 productRepository.save(product);
             }
-           
+
             reservationRepository.save(reservation);
         }
         return "redirect:/admin/reservations";
+
     }
+    // *******
+
+    // these are for reservations-by-customer page *******
+
+    @GetMapping("/admin/deliveredreservation/{id}")
+    public String deliverReservationByCustomer(@PathVariable("id") Long reservationId) {
+        Objects.requireNonNull(reservationId);
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+        if (!reservationOptional.isPresent()) {
+            return "redirect:/admin/reservationsbycustomer/{id}";
+        }
+        Reservation reservation = reservationOptional.get();
+        reservation.setDelivered(new Date(System.currentTimeMillis()));
+        reservationRepository.save(reservation);
+        return "redirect:/admin/reservationsbycustomer/{id}";
+    }
+
+    @GetMapping("/admin/cancelledreservation/{id}")
+    public String cancelReservationByCustomer(@PathVariable("id") Long reservationId) {
+        Objects.requireNonNull(reservationId);
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+        if (!reservationOptional.isPresent()) {
+            return "redirect:/admin/reservationsbycustomer/{id}";
+        }
+        Reservation reservation = reservationOptional.get();
+        if (reservation.getCancelled() == null) {
+            reservation.setCancelled(new Date(System.currentTimeMillis()));
+            List<ReservationProduct> products = reservation.getReservationProducts();
+
+            for (ReservationProduct reservationproduct : products) {
+                Product product = reservationproduct.getProduct();
+
+                product.setInStock(product.getInStock() - reservationproduct.getCount());
+                productRepository.save(product);
+            }
+
+            reservationRepository.save(reservation);
+        }
+        return "redirect:/admin/reservationsbycustomer/{id}";
+
+    }
+    // *******
 }

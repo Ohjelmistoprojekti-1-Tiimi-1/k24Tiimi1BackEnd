@@ -22,7 +22,12 @@
           <td th:text="${customer.username}"></td>
           <td th:text="${customer.password}"></td>
           <td th:text="${customer.role}"></td>
-
+          <td>
+            <a
+              th:href="@{/admin/reservationsbycustomer/{id}(id=${customer.customerId})}"
+              >Reservations</a
+            >
+          </td>
           <td>
             <!--Delete button-->
             <a
@@ -31,7 +36,8 @@
             >
             <div th:if="${confirmId} == ${customer.customerId}">
               <span>Are you sure?</span>
-              <a th:href="@{/admin/deletecustomer/{id}(id=${customer.customerId})}"
+              <a
+                th:href="@{/admin/deletecustomer/{id}(id=${customer.customerId})}"
                 >Yes</a
               >
               <a href="/admin/customers">No</a>
@@ -39,7 +45,9 @@
           </td>
           <td>
             <!--Edit button-->
-            <a th:href="@{/admin/editcustomer/{id}(id=${customer.customerId})}">Edit</a>
+            <a th:href="@{/admin/editcustomer/{id}(id=${customer.customerId})}"
+              >Edit</a
+            >
           </td>
         </tr>
       </tbody>

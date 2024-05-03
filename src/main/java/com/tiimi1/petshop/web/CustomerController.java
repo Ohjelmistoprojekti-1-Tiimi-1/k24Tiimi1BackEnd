@@ -1,5 +1,9 @@
 package com.tiimi1.petshop.web;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tiimi1.petshop.model.Customer;
 import com.tiimi1.petshop.model.CustomerRepository;
+import com.tiimi1.petshop.model.Manufacturer;
+import com.tiimi1.petshop.model.Reservation;
 
 import jakarta.validation.Valid;
 
@@ -67,7 +73,7 @@ public class CustomerController {
         return "editcustomer";
     }
 
-    // tässä pitää olla toi customerId vaikka itse koodi ei sitä suoraan käytä
+    // customerId has to be here for it to work
     @PostMapping("admin/editcustomer/{id}")
     public String editCustomerSave(@PathVariable("id") Long customerId, @Valid Customer customer,
             BindingResult bindingResult,
@@ -79,6 +85,20 @@ public class CustomerController {
             customerRepository.save(customer);
             return "redirect:/admin/customers";
         }
+    }
+
+    // get all reservations by customer
+    @GetMapping("/admin/reservationsbycustomer/{id}")
+    public String getAllReservationsByCustomer(@PathVariable("id") Long customerId, Model model) {
+        Objects.requireNonNull(customerId);
+        Optional<Customer> customerOptional = customerRepository.findById(customerId);
+        model.addAttribute("customer", customerRepository.findById(customerId).get());
+        if (customerOptional.get().getReservations().size() == 0) {
+            model.addAttribute("noReservations", true);
+        } else {
+            model.addAttribute("reservations", customerOptional.get().getReservations());
+        }
+        return "reservationsbycustomer";
     }
 
 }
