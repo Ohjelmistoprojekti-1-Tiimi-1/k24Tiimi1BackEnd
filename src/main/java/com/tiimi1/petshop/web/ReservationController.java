@@ -45,7 +45,8 @@ public class ReservationController {
     public String cancelReservation(@PathVariable("id") Long reservationId) {
         Objects.requireNonNull(reservationId);
         Reservation reservation = reservationRepository.findById(reservationId).get();
-        if (reservation.getCancelled() != null) {
+        
+        if (reservation.getCancelled() == null) {
             reservation.setCancelled(new Date(System.currentTimeMillis()));
             List<ReservationProduct>  products = reservation.getReservationProducts();
             
