@@ -103,7 +103,7 @@ public class ReservationController {
             for (ReservationProduct reservationproduct : products) {
                 Product product = reservationproduct.getProduct();
 
-                product.setInStock(product.getInStock() - reservationproduct.getCount());
+                product.setInStock(product.getInStock() + reservationproduct.getCount());
                 productRepository.save(product);
             }
 
