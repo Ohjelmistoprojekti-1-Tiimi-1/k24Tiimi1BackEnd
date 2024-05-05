@@ -1,6 +1,5 @@
 package com.tiimi1.petshop.web;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -14,8 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tiimi1.petshop.model.Customer;
 import com.tiimi1.petshop.model.CustomerRepository;
-import com.tiimi1.petshop.model.Manufacturer;
-import com.tiimi1.petshop.model.Reservation;
+
 
 import jakarta.validation.Valid;
 
