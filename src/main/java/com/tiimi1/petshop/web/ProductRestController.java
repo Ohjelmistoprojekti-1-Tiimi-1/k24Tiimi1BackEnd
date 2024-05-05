@@ -13,6 +13,7 @@ import com.tiimi1.petshop.model.Product;
 import com.tiimi1.petshop.model.ProductRepository;
 import com.tiimi1.petshop.model.Reservation;
 import com.tiimi1.petshop.service.JwtService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class ProductRestController {
@@ -20,7 +21,8 @@ public class ProductRestController {
     private final JwtService jwtService;
     private final ProductRepository productRepository;
 
-    public ProductRestController(CustomerRepository customerRepository, JwtService jwtService, ProductRepository productRepository) {
+    public ProductRestController(CustomerRepository customerRepository, JwtService jwtService,
+            ProductRepository productRepository) {
         this.customerRepository = customerRepository;
         this.jwtService = jwtService;
         this.productRepository = productRepository;
@@ -39,5 +41,12 @@ public class ProductRestController {
     public Iterable<Product> getProductsWithAllInfo() {
         return productRepository.findAll();
     }
+
+    @GetMapping("all/productsbymanufacturer")
+    public List<Product> getProductsByManufacturer(@RequestParam String manufacturerName) {
+        List<Product> products = productRepository.findByManufacturerName(manufacturerName);
+        return products;
+    }
+    
 
 }
