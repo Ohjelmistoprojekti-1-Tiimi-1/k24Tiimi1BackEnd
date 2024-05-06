@@ -3,6 +3,7 @@ package com.tiimi1.petshop.web;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,12 +15,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tiimi1.petshop.model.Customer;
 import com.tiimi1.petshop.model.CustomerRepository;
 
-
 import jakarta.validation.Valid;
 
 @Controller
 public class CustomerController {
     private final CustomerRepository customerRepository;
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 
     public CustomerController(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
@@ -47,8 +48,9 @@ public class CustomerController {
     @PostMapping("/admin/addcustomer")
     public String saveCustomer(@Valid Customer customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/addcustomer";
+            return "admin/addcustomer";
         } else {
+            customer.setPassword(encoder.encode(customer.getPassword()));
             customerRepository.save(customer);
             return "redirect:/admin/customers";
         }
