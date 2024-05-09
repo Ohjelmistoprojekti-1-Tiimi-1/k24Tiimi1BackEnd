@@ -90,10 +90,10 @@ public class SecurityConfig {
                 .sessionManagement(
                         (sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                    .requestMatchers("/api/**").permitAll() // uncomment this to see localhost:8080/api  
+                    // .requestMatchers("/api/**").permitAll() // uncomment this to see localhost:8080/api  
                     .requestMatchers(HttpMethod.POST, "/signup", "/customerlogin").permitAll()   // endpoints for signing up and login
                     .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/manufacturers/**", "/all/**").permitAll()  // endpoints for customers without login
-                    .requestMatchers("/api/customers/**", "/logget/**").permitAll().anyRequest().authenticated())  // endpoints for logged in customers 
+                    .requestMatchers( "/logget/**").permitAll().anyRequest().authenticated())  // endpoints for logged in customers 
                     .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                     .exceptionHandling((exceptionHandling) -> exceptionHandling.authenticationEntryPoint(exceptionHandler)); 
                 return http.build();

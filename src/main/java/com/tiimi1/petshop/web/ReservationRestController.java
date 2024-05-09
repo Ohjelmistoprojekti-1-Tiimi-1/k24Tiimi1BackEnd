@@ -1,6 +1,10 @@
 package com.tiimi1.petshop.web;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import com.tiimi1.petshop.model.Customer;
 import com.tiimi1.petshop.model.CustomerRepository;
@@ -12,16 +16,13 @@ import com.tiimi1.petshop.model.ReservationProductRepository;
 import com.tiimi1.petshop.model.ReservationRepository;
 import com.tiimi1.petshop.service.JwtService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class ReservationRestController {
@@ -31,7 +32,9 @@ public class ReservationRestController {
     private final ReservationProductRepository reservationProductRepository;
     private final JwtService jwtService;
 
-    public ReservationRestController(ReservationRepository reservationRepository, ProductRepository productRepository, CustomerRepository customerRepository, JwtService jwtService, ReservationProductRepository reservationProductRepository) {
+    public ReservationRestController(ReservationRepository reservationRepository, ProductRepository productRepository,
+            CustomerRepository customerRepository, JwtService jwtService,
+            ReservationProductRepository reservationProductRepository) {
         this.reservationRepository = reservationRepository;
         this.productRepository = productRepository;
         this.customerRepository = customerRepository;
@@ -39,16 +42,28 @@ public class ReservationRestController {
         this.jwtService = jwtService;
     }
 
+    @GetMapping("/logget/reservations")
+    public ResponseEntity<?> getReservationsByCustomer(@RequestHeader("Authorization") String bearerToken) {
+        String customerUsername = jwtService.getUser(bearerToken);
+        Customer customer = customerRepository.findByUsername(customerUsername).get();
+        List<Reservation> reservations = customer.getReservations();
+        reservations.forEach(c -> c.setCustomer(null)); // probably not necessary and customer informatin might be good?
+        return ResponseEntity.ok(reservations);
+    }
+
     @PostMapping("logget/newreservation")
-    public ResponseEntity<?> newReservation(@RequestHeader("Authorization") String bearerToken, @RequestBody ReservationJson[] reservationJson) {
+    public ResponseEntity<?> newReservation(@RequestHeader("Authorization") String bearerToken,
+            @RequestBody ReservationJson[] reservationJson) {
         String username = jwtService.getUser(bearerToken);
         Optional<Customer> optionalCustomer = customerRepository.findByUsername(username);
-        if(optionalCustomer.isPresent()) {
+        if (optionalCustomer.isPresent()) {
             Reservation reservation = new Reservation(optionalCustomer.get());
             List<ReservationProduct> reservationProducts = new ArrayList<>();
-            // create new ReservationProduct and add it to the list that will be added to the reservation
+            // create new ReservationProduct and add it to the list that will be added to
+            // the reservation
             Arrays.asList(reservationJson).forEach(r -> {
-                ReservationProduct reservationProduct = new ReservationProduct(r.getCount(), productRepository.findById(r.getProductId()).get(), reservation );
+                ReservationProduct reservationProduct = new ReservationProduct(r.getCount(),
+                        productRepository.findById(r.getProductId()).get(), reservation);
                 reservationProducts.add(reservationProduct);
             });
             // update products inStock to mach reservation count
@@ -64,10 +79,24 @@ public class ReservationRestController {
         } else {
             return ResponseEntity.badRequest().body("Customer not found.");
         }
-        
     }
-    
 
-
+    @PostMapping("logget/cancelreservation")
+    public ResponseEntity<?> postMethodName(@RequestParam Long reservationId) {
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+        if (reservationOptional.isPresent()) {
+            Reservation reservation = reservationOptional.get();
+            List<ReservationProduct> reservationProducts = reservation.getReservationProducts();
+            reservationProducts.forEach(r -> {
+                Product product = productRepository.findById(r.getProduct().getProductId()).get();
+                product.setInStock(product.getInStock() + r.getCount());
+                productRepository.save(product);
+            });
+            reservation.setCancelled(new Date(System.currentTimeMillis()));
+            reservationRepository.save(reservation);
+            return ResponseEntity.ok().body("Reservation cancelled");
+        }
+        return ResponseEntity.badRequest().body("Reservation not found");
+    }
 
 }
