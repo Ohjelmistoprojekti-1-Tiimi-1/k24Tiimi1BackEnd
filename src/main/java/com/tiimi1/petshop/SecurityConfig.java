@@ -75,25 +75,20 @@ public class SecurityConfig {
     }
 
     // Order(2) is compeletely for front end.
-    // uncomment marked line to open all api endpoints (also comment out
-    // @RepositoryRestResource(exported = false) from CustomerRepository to access
-    // customers in rest)
+    // uncomment marked line to open all api endpoints 
+    // (also comment out @RepositoryRestResource(exported = false) from CustomerRepository to access customers in rest)
     @Bean
     @Order(2)
     SecurityFilterChain filterChainRest(HttpSecurity http) throws Exception {
         http.csrf((csrf) -> csrf.disable()).cors(withDefaults())
-                .securityMatcher("/api/**", "/signup", "/customerlogin", "/logget/**", "/all/**",
-                        "/customerdelete") // filters what
-                                           // endpoints are
-                                           // handled in this
-                                           // method.
+                .securityMatcher("/api/**", "/signup", "/customerlogin", "/logget/**", "/all/**", "/customerdelete") // endpoints that are handled in this method.
                 .sessionManagement(
                         (sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
                     // .requestMatchers("/api/**").permitAll() // uncomment this to see localhost:8080/api  
                     .requestMatchers(HttpMethod.POST, "/signup", "/customerlogin").permitAll()   // endpoints for signing up and login
                     .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/manufacturers/**", "/all/**").permitAll()  // endpoints for customers without login
-                    .requestMatchers( "/logget/**").permitAll().anyRequest().authenticated())  // endpoints for logged in customers 
+                    .anyRequest().authenticated())
                     .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                     .exceptionHandling((exceptionHandling) -> exceptionHandling.authenticationEntryPoint(exceptionHandler)); 
                 return http.build();

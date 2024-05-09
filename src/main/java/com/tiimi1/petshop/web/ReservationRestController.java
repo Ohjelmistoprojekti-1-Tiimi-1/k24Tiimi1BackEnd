@@ -17,6 +17,7 @@ import com.tiimi1.petshop.model.ReservationRepository;
 import com.tiimi1.petshop.service.JwtService;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,10 +83,15 @@ public class ReservationRestController {
     }
 
     @PostMapping("logget/cancelreservation")
-    public ResponseEntity<?> postMethodName(@RequestParam Long reservationId) {
+    public ResponseEntity<?> cancelReservatino(@RequestHeader("Authorization") String bearerToken, @RequestParam Long reservationId) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
         if (reservationOptional.isPresent()) {
             Reservation reservation = reservationOptional.get();
+            //Check if resrevation is customer's own reservation
+            String username = jwtService.getUser(bearerToken);
+            if (!username.equals(reservation.getCustomer().getUsername())) {
+                return ResponseEntity.badRequest().body("Unauthorized");
+            }
             List<ReservationProduct> reservationProducts = reservation.getReservationProducts();
             reservationProducts.forEach(r -> {
                 Product product = productRepository.findById(r.getProduct().getProductId()).get();
