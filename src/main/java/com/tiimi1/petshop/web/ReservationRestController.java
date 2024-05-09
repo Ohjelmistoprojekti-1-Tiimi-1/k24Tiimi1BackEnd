@@ -44,29 +44,22 @@ public class ReservationRestController {
         String username = jwtService.getUser(bearerToken);
         Optional<Customer> optionalCustomer = customerRepository.findByUsername(username);
         if(optionalCustomer.isPresent()) {
-
             Reservation reservation = new Reservation(optionalCustomer.get());
-
             List<ReservationProduct> reservationProducts = new ArrayList<>();
-
-            // create new ReservationProduct, add it to the list that will be added to the reservation, save it to the reservationProductRepository
+            // create new ReservationProduct and add it to the list that will be added to the reservation
             Arrays.asList(reservationJson).forEach(r -> {
                 ReservationProduct reservationProduct = new ReservationProduct(r.getCount(), productRepository.findById(r.getProductId()).get(), reservation );
                 reservationProducts.add(reservationProduct);
             });
-
             // update products inStock to mach reservation count
             reservationProducts.forEach(r -> {
                 Product product = productRepository.findById(r.getProduct().getProductId()).get();
                 product.setInStock(product.getInStock() - r.getCount());
                 productRepository.save(product);
             });
-
             reservation.setReservationProducts(reservationProducts);
-            
             reservationRepository.save(reservation);
             reservationProductRepository.saveAll(reservationProducts);
-
             return ResponseEntity.ok().body("New Reservation saved successfully!");
         } else {
             return ResponseEntity.badRequest().body("Customer not found.");
