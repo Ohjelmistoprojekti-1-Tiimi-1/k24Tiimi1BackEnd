@@ -47,13 +47,23 @@ public class ReservationRestController {
         String customerUsername = jwtService.getUser(bearerToken);
         Customer customer = customerRepository.findByUsername(customerUsername).get();
         List<Reservation> reservations = customer.getReservations();
-        reservations.forEach(c -> c.setCustomer(null)); // probably not necessary and customer informatin might be good?
+        reservations.forEach(c -> c.setCustomer(null)); // probably not necessary
         return ResponseEntity.ok(reservations);
     }
 
+    @GetMapping("/logget/reservationproducts")
+    public ResponseEntity<?> getReservationProducts(@RequestHeader("Authorization") String bearerToken, @RequestParam Long reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId).get();
+        // Check if resrevation is customer's own reservation
+        String username = jwtService.getUser(bearerToken);
+        if (!username.equals(reservation.getCustomer().getUsername())) {
+            return ResponseEntity.badRequest().body("Unauthorized");
+        }
+        return ResponseEntity.ok(reservation.getReservationProducts());
+    }
+
     @PostMapping("logget/newreservation")
-    public ResponseEntity<?> newReservation(@RequestHeader("Authorization") String bearerToken,
-            @RequestBody ReservationJson[] reservationJson) {
+    public ResponseEntity<?> newReservation(@RequestHeader("Authorization") String bearerToken, @RequestBody ReservationJson[] reservationJson) {
         String username = jwtService.getUser(bearerToken);
         Optional<Customer> optionalCustomer = customerRepository.findByUsername(username);
         if (optionalCustomer.isPresent()) {
@@ -82,11 +92,12 @@ public class ReservationRestController {
     }
 
     @PostMapping("logget/cancelreservation")
-    public ResponseEntity<?> cancelReservatino(@RequestHeader("Authorization") String bearerToken, @RequestParam Long reservationId) {
+    public ResponseEntity<?> cancelReservatino(@RequestHeader("Authorization") String bearerToken,
+            @RequestParam Long reservationId) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
         if (reservationOptional.isPresent()) {
             Reservation reservation = reservationOptional.get();
-            //Check if resrevation is customer's own reservation
+            // Check if resrevation is customer's own reservation
             String username = jwtService.getUser(bearerToken);
             if (!username.equals(reservation.getCustomer().getUsername())) {
                 return ResponseEntity.badRequest().body("Unauthorized");
