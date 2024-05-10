@@ -1,54 +1,77 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>Pet Shop</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  </head>
 
-  <body>
-    <h1>Reservations</h1>
-    <div th:each = "reservation : ${reservations}">
-      <br/>
-      <br/>
-      <span><strong>ReservationId: </strong></span><td th:text="${reservation.reservationId}"></td>
-      <span><strong>Customer:</strong></span><td th:text="${reservation.customer.username}"></td>
-      <span><strong>Reservation created:</strong></span>      <td th:text="${reservation.created}"></td>
-      <span><strong>Reservation delivered:</strong></span>      <td th:text="${reservation.delivered}"></td>
-      <span><strong>Reservation cancelled:</strong></span>      <td th:text="${reservation.cancelled}"></td>
+<head>
+  <title>Pet Shop</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <style>
+    table {
+border-collapse: collapse;
+width: 100%;
+}
 
-        <a th:href="@{/admin/reservationdelivered/{id}(id=${reservation.reservationId})}"
-          >Mark delivered</a>
+th,
+td {
+padding: 8px;
+text-align: left;
+border: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+background-color: #f2f2f2;
+}
+</style>
+</head>
+
+<body>
+  <h1>Reservations</h1>
+  <div th:each="reservation : ${reservations}">
+    <br />
+    <br />
+    <div><strong>Reservation ID: </strong></div>
+    <td th:text="${reservation.reservationId}"></td>
+    <div><strong>Customer:</strong></div>
+    <td th:text="${reservation.customer.username}"></td>
+    <div><strong>Reservation created:</strong></div>
+    <td th:text="${reservation.created}"></td>
+    <div><strong>Reservation delivered:</strong></div>
+    <td th:text="${reservation.delivered}"></td>
+    <div><strong>Reservation cancelled:</strong></div>
+    <td th:text="${reservation.cancelled}"></td>
+
+    <div><a th:href="@{/admin/reservationdelivered/{id}(id=${reservation.reservationId})}">Mark delivered</a></div>
+    <div><a th:href="@{/admin/reservationcancelled/{id}(id=${reservation.reservationId})}">Mark cancelled</a></div>
         
-        <a th:href="@{/admin/reservationcancelled/{id}(id=${reservation.reservationId})}"
-          >Mark cancelled</a>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Color</th>
-            <th>Size</th>
-            <th>Price</th>
-            <th>Count</th>
-            <th>In Stock</th>
-            <th>Manufacturer</th>
-          </tr>
-        </thead>
+    <div><strong>Products:</strong></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Color</th>
+          <th>Size</th>
+          <th>Price</th>
+          <th>Count</th>
+          <th>In Stock</th>
+          <th>Manufacturer</th>
+        </tr>
+      </thead>
 
-        <tbody>
-          <tr th:each="reservationproduct : ${reservation.reservationProducts}">
-            <td th:text="${reservationproduct.product.name}"></td>
-            <td th:text="${reservationproduct.product.productType.productTypeValue}"></td>
-            <td th:text="${reservationproduct.product.color}"></td>
-            <td th:text="${reservationproduct.product.size}"></td>
-            <td th:text="${reservationproduct.product.price}"></td>
-            <td th:text="${reservationproduct.count}"></td>
-            <td th:text="${reservationproduct.product.inStock}"></td>
-            <td th:text="${reservationproduct.product.manufacturer.name}"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <a href="/admin/home">Home Page</a>
-  </body>
+      <tbody>
+        <tr th:each="reservationproduct : ${reservation.reservationProducts}">
+          <td th:text="${reservationproduct.product.name}"></td>
+          <td th:text="${reservationproduct.product.productType.productTypeValue}"></td>
+          <td th:text="${reservationproduct.product.color}"></td>
+          <td th:text="${reservationproduct.product.size}"></td>
+          <td th:text="${reservationproduct.product.price}"></td>
+          <td th:text="${reservationproduct.count}"></td>
+          <td th:text="${reservationproduct.product.inStock}"></td>
+          <td th:text="${reservationproduct.product.manufacturer.name}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <a href="/admin/home">Home Page</a>
+</body>
+
 </html>

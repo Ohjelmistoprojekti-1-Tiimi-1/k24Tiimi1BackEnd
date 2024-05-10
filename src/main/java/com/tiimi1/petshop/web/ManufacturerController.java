@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,10 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tiimi1.petshop.model.Manufacturer;
 import com.tiimi1.petshop.model.ManufacturerRepository;
-import com.tiimi1.petshop.model.Product;
-
-import jakarta.validation.Valid;
-
 
 @Controller
 public class ManufacturerController {
@@ -69,7 +64,7 @@ public class ManufacturerController {
         return "editmanufacturer";
     }
 
-    @SuppressWarnings("null")
+    //@SuppressWarnings("null")
     @PostMapping("/admin/editmanufacturer/{id}")
     public String editManufacturerSave(@PathVariable("id") Long manufacturerId, Manufacturer manufacturer, Model model) {
         

@@ -3,6 +3,23 @@
   <head>
     <title>Pet Shop</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+      table {
+  border-collapse: collapse;
+  width: 100%;
+  }
+  
+  th,
+  td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+  }
+  
+  tr:nth-child(even) {
+  background-color: #f2f2f2;
+  }
+  </style>
   </head>
 
   <body>
@@ -13,24 +30,24 @@
     <div th:each="reservation : ${reservations}">
       <br />
       <br />
-      <span><strong>ReservationId: </strong></span>
+      <div><strong>ReservationId: </strong></div>
       <td th:text="${reservation.reservationId}"></td>
-      <span><strong>Reservation created:</strong></span>
+      <div><strong>Reservation created:</strong></div>
       <td th:text="${reservation.created}"></td>
-      <span><strong>Reservation delivered:</strong></span>
+      <div><strong>Reservation delivered:</strong></div>
       <td th:text="${reservation.delivered}"></td>
-      <span><strong>Reservation cancelled:</strong></span>
+      <div><strong>Reservation cancelled:</strong></div>
       <td th:text="${reservation.cancelled}"></td>
 
-      <a
+      <div><a
         th:href="@{/admin/deliveredreservation/{id}(id=${reservation.reservationId})}"
         >Mark delivered</a
-      >
+      ></div>
 
-      <a
+      <div><a
         th:href="@{/admin/cancelledreservation/{id}(id=${reservation.reservationId})}"
         >Mark cancelled</a
-      >
+      ></div>
       <table>
         <thead>
           <tr>
