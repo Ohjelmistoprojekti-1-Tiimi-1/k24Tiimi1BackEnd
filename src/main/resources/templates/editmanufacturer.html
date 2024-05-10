@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Pet Shop</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+    <h1>Edit manufacturer</h1>
+
+    <form
+      action="#"
+      th:action="@{/admin/editmanufacturer/{id}(id=*{manufacturerId})}"
+      th:object="${manufacturer}"
+      method="post"
+    >
+      <input type="hidden" th:field="*{manufacturerId}" />
+
+      <label for="name">Name</label>
+      <input type="text" id="name" th:field="*{name}" />
+
+      <label for="country">Country</label>
+      <input type="text" id="country" th:field="*{country}" />
+
+      <label for="businessIdentityCode">Business Identity Code</label>
+      <input type="text" id="businessIdentityCode" th:field="*{businessIdentityCode}" />
+
+      <br />
+
+      <input type="submit" value="Save" />
+      <a th:href="@{/admin/editmanufacturer/{id}(id=${manufacturer.manufacturerId})}">Reset</a>
+    </form>
+
+    <a href="/admin/manufacturers">Back to manufacturers</a>
+  </body>
+</html>

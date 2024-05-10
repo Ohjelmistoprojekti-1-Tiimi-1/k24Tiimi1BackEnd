@@ -26,6 +26,9 @@
                 <td th:text="${manufacturer.country}"></td>
                 <td th:text="${manufacturer.businessIdentityCode}"></td>
                 <td>
+                    <a th:href="@{/admin/editmanufacturer/{id}(id=${manufacturer.manufacturerId})}">Edit</a>
+                </td>
+                <td>
                     <a th:href="@{/admin/deletemanufacturer/{id}(id=${manufacturer.manufacturerId})}">Delete</a>
                 </td>
                 <td><a th:href="@{/admin/productsbymanufacturer/{id}(id=${manufacturer.manufacturerId})}">Products</a></td>
