@@ -6,21 +6,21 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <style>
     table {
-border-collapse: collapse;
-width: 100%;
-}
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-th,
-td {
-padding: 8px;
-text-align: left;
-border: 1px solid #ddd;
-}
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
 
-tr:nth-child(even) {
-background-color: #f2f2f2;
-}
-</style>
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
 </head>
 
 <body>
@@ -28,22 +28,28 @@ background-color: #f2f2f2;
   <div th:each="reservation : ${reservations}">
     <br />
     <br />
-    <div><strong>Reservation ID: </strong></div>
-    <td th:text="${reservation.reservationId}"></td>
-    <div><strong>Customer:</strong></div>
-    <td th:text="${reservation.customer.username}"></td>
-    <div><strong>Reservation created:</strong></div>
-    <td th:text="${reservation.created}"></td>
-    <div><strong>Reservation delivered:</strong></div>
-    <td th:text="${reservation.delivered}"></td>
-    <div><strong>Reservation cancelled:</strong></div>
-    <td th:text="${reservation.cancelled}"></td>
+    <strong>Reservation ID: </strong>
+    <td th:text="${reservation.reservationId}"></td><br>
+    <strong>Customer:</strong>
+    <td th:text="${reservation.customer.username}"></td><br>
+    <strong>Reservation created:</strong>
+    <td th:text="${reservation.created}"></td><br>
+    <strong>Reservation delivered:</strong>
+    <td th:text="${reservation.delivered}"></td><br>
+    <strong>Reservation cancelled:</strong>
+    <td th:text="${reservation.cancelled}"></td><br>
 
-    <div th:if="${reservation.delivered == null}"><a th:href="@{/admin/reservationdelivered/{id}(id=${reservation.reservationId})}">Mark reservation as delivered</a></div>
-    <div th:if="${reservation.delivered != null}"><a th:href="@{/admin/reservationundelivered/{id}(id=${reservation.reservationId})}">Mark reservation as undelivered</a></div>
-    <div th:if="${reservation.cancelled == null}"><a th:href="@{/admin/reservationcancelled/{id}(id=${reservation.reservationId})}">Cancel reservation</a></div>
-    <div th:if="${reservation.cancelled != null}"><a th:href="@{/admin/reservationuncancelled/{id}(id=${reservation.reservationId})}">Uncancel reservation</a></div>
-        
+    <div th:if="${reservation.delivered == null && reservation.cancelled == null}"><a
+        th:href="@{/admin/reservationdelivered/{id}(id=${reservation.reservationId})}">Mark reservation as delivered</a>
+    </div>
+    <div th:if="${reservation.delivered != null && reservation.cancelled == null}"><a
+        th:href="@{/admin/reservationundelivered/{id}(id=${reservation.reservationId})}">Mark reservation as
+        undelivered</a></div>
+    <div th:if="${reservation.cancelled == null && reservation.delivered == null}"><a
+        th:href="@{/admin/reservationcancelled/{id}(id=${reservation.reservationId})}">Cancel reservation</a></div>
+    <div th:if="${reservation.cancelled != null && reservation.delivered == null}"><a
+        th:href="@{/admin/reservationuncancelled/{id}(id=${reservation.reservationId})}">Uncancel reservation</a></div>
+
     <div><strong>Products:</strong></div>
     <table>
       <thead>
