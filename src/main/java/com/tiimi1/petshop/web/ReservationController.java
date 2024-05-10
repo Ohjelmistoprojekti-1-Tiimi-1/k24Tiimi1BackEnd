@@ -34,6 +34,8 @@ public class ReservationController {
 
     // these are for the reservations page ******
 
+    //deliver reservation 
+
     @GetMapping("/admin/reservationdelivered/{id}")
     public String deliverReservation(@PathVariable("id") Long reservationId) {
         Objects.requireNonNull(reservationId);
@@ -46,6 +48,26 @@ public class ReservationController {
         reservationRepository.save(reservation);
         return "redirect:/admin/reservations";
     }
+
+    //undeliver reservation
+
+    @GetMapping("/admin/reservationundelivered/{id}")
+    public String unDeliverReservation(@PathVariable("id") Long reservationId) {
+        Objects.requireNonNull(reservationId);
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+        if (!reservationOptional.isPresent()) {
+            return "redirect:/admin/reservations";
+        }
+        Reservation reservation = reservationOptional.get();
+        if (reservation.getDelivered() != null) {
+        reservation.setDelivered(null);
+        reservationRepository.save(reservation);
+        }
+        return "redirect:/admin/reservations";
+        
+    }
+
+    //Cancel reservation
 
     @GetMapping("/admin/reservationcancelled/{id}")
     public String cancelReservation(@PathVariable("id") Long reservationId) {
@@ -71,6 +93,116 @@ public class ReservationController {
         return "redirect:/admin/reservations";
 
     }
+
+    //uncancel reservation
+
+    @GetMapping("/admin/reservationuncancelled/{id}")
+    public String unCancelReservation(@PathVariable("id") Long reservationId) {
+        Objects.requireNonNull(reservationId);
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+        if (!reservationOptional.isPresent()) {
+            return "redirect:/admin/reservations";
+        }
+        Reservation reservation = reservationOptional.get();
+        if (reservation.getCancelled() != null) {
+            reservation.setCancelled(null);
+            List<ReservationProduct> products = reservation.getReservationProducts();
+
+            for (ReservationProduct reservationproduct : products) {
+                Product product = reservationproduct.getProduct();
+
+                product.setInStock(product.getInStock() - reservationproduct.getCount());
+                productRepository.save(product);
+            }
+
+            reservationRepository.save(reservation);
+        }
+        return "redirect:/admin/reservations";
+
+    }
+
+//these are for when the user does something to the reservation when they're in the reservations by user-page, 
+//the page wont kick them back to the standalone reservations page
+
+@GetMapping("/admin/customerreservationdelivered/{id}")
+public String deliverUserReservation(@PathVariable("id") Long reservationId) {
+    Objects.requireNonNull(reservationId);
+    Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+    if (!reservationOptional.isPresent()) {
+        return "redirect:/admin/reservations";
+    }
+    Reservation reservation = reservationOptional.get();
+    reservation.setDelivered(new Date(System.currentTimeMillis()));
+    reservationRepository.save(reservation);
+    return "redirect:/admin/reservationsbycustomer/{id}";
+}
+
+@GetMapping("/admin/customerreservationundelivered/{id}")
+public String customerUnDeliverReservation(@PathVariable("id") Long reservationId) {
+    Objects.requireNonNull(reservationId);
+    Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+    if (!reservationOptional.isPresent()) {
+        return "redirect:/admin/reservations";
+    }
+    Reservation reservation = reservationOptional.get();
+    if (reservation.getDelivered() != null) {
+    reservation.setDelivered(null);
+    reservationRepository.save(reservation);
+    }
+    return "redirect:/admin/reservationsbycustomer/{id}";
+    
+}
+
+@GetMapping("/admin/customerreservationcancelled/{id}")
+public String customerCancelReservation(@PathVariable("id") Long reservationId) {
+    Objects.requireNonNull(reservationId);
+    Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+    if (!reservationOptional.isPresent()) {
+        return "redirect:/admin/reservations";
+    }
+    Reservation reservation = reservationOptional.get();
+    if (reservation.getCancelled() == null) {
+        reservation.setCancelled(new Date(System.currentTimeMillis()));
+        List<ReservationProduct> products = reservation.getReservationProducts();
+
+        for (ReservationProduct reservationproduct : products) {
+            Product product = reservationproduct.getProduct();
+
+            product.setInStock(product.getInStock() + reservationproduct.getCount());
+            productRepository.save(product);
+        }
+
+        reservationRepository.save(reservation);
+    }
+    return "redirect:/admin/reservationsbycustomer/{id}";
+
+}
+
+@GetMapping("/admin/customerreservationuncancelled/{id}")
+    public String customerUnCancelReservation(@PathVariable("id") Long reservationId) {
+        Objects.requireNonNull(reservationId);
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+        if (!reservationOptional.isPresent()) {
+            return "redirect:/admin/reservations";
+        }
+        Reservation reservation = reservationOptional.get();
+        if (reservation.getCancelled() != null) {
+            reservation.setCancelled(null);
+            List<ReservationProduct> products = reservation.getReservationProducts();
+
+            for (ReservationProduct reservationproduct : products) {
+                Product product = reservationproduct.getProduct();
+
+                product.setInStock(product.getInStock() - reservationproduct.getCount());
+                productRepository.save(product);
+            }
+
+            reservationRepository.save(reservation);
+        }
+        return "redirect:/admin/reservationsbycustomer/{id}";
+
+    }
+
     // *******
 
     // these are for reservations-by-customer page *******
