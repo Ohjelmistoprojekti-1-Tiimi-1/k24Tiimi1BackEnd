@@ -39,10 +39,10 @@
       <div><strong>Reservation cancelled:</strong></div>
       <td th:text="${reservation.cancelled}"></td>
 
-      <div><a th:href="@{/admin/customerreservationdelivered/{id}(id=${reservation.reservationId})}">Mark delivered</a></div>
-      <div><a th:href="@{/admin/customerreservationundelivered/{id}(id=${reservation.reservationId})}">Mark reservation as undelivered</a></div>
-      <div><a th:href="@{/admin/customerreservationcancelled/{id}(id=${reservation.reservationId})}">Mark cancelled</a></div>
-      <div><a th:href="@{/admin/customerreservationuncancelled/{id}(id=${reservation.reservationId})}">Uncancel reservation</a></div>
+      <div th:if="${reservation.delivered == null}"><a th:href="@{/admin/customerreservationdelivered/{id}(id=${reservation.reservationId})}">Mark delivered</a></div>
+      <div th:if="${reservation.delivered != null}"><a th:href="@{/admin/customerreservationundelivered/{id}(id=${reservation.reservationId})}">Mark reservation as undelivered</a></div>
+      <div th:if="${reservation.cancelled == null}"><a th:href="@{/admin/customerreservationcancelled/{id}(id=${reservation.reservationId})}">Mark cancelled</a></div>
+      <div th:if="${reservation.cancelled != null}"><a th:href="@{/admin/customerreservationuncancelled/{id}(id=${reservation.reservationId})}">Uncancel reservation</a></div>
       <table>
         <thead>
           <tr>
