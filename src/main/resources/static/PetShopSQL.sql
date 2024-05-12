@@ -113,8 +113,9 @@ INSERT INTO Customer (username, password, role) VALUES ('user5', '$2a$10$NVM0n8E
 -- Inserting more reservations
 INSERT INTO Reservation (created, delivered, customerid) VALUES ('2023-11-05', null, 2);
 INSERT INTO Reservation (created, delivered, customerid) VALUES ('2023-11-10', null, 3);
-INSERT INTO Reservation (created, delivered, customerid) VALUES ('2023-11-15', null, 4);
-
+INSERT INTO Reservation (created, delivered, customerid) VALUES ('2023-11-16', null, 4);
+INSERT INTO Reservation (created, delivered, customerid) VALUES ('2023-11-18', null, 4);
+INSERT INTO Reservation (created, delivered, customerid) VALUES ('2023-11-17', null, 4);
 -- Linking products to reservations
 -- Linking products to reservations
 INSERT INTO Reservation_product (count, productid, reservationid) VALUES (3, 1, 1);
