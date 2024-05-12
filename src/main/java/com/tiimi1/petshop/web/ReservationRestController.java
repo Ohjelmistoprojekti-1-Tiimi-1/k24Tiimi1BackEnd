@@ -85,7 +85,7 @@ public class ReservationRestController {
             reservation.setReservationProducts(reservationProducts);
             reservationRepository.save(reservation);
             reservationProductRepository.saveAll(reservationProducts);
-            return ResponseEntity.ok().body("New Reservation saved successfully!");
+            return ResponseEntity.ok(new MessageResponse("New reservatin added succesfully"));
         } else {
             return ResponseEntity.badRequest().body("Customer not found.");
         }
