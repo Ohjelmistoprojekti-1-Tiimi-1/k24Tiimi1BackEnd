@@ -92,7 +92,7 @@ public class ReservationRestController {
     }
 
     @PostMapping("logget/cancelreservation")
-    public ResponseEntity<?> cancelReservatino(@RequestHeader("Authorization") String bearerToken,
+    public ResponseEntity<?> cancelReservation(@RequestHeader("Authorization") String bearerToken,
             @RequestParam Long reservationId) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
         if (reservationOptional.isPresent()) {
@@ -110,9 +110,9 @@ public class ReservationRestController {
             });
             reservation.setCancelled(new Date(System.currentTimeMillis()));
             reservationRepository.save(reservation);
-            return ResponseEntity.ok().body("Reservation cancelled");
+            return ResponseEntity.ok(new MessageResponse("Reservation cancelled"));
         }
-        return ResponseEntity.badRequest().body("Reservation not found");
+        return ResponseEntity.badRequest().body(new MessageResponse("Reservation not found"));
     }
 
 }
