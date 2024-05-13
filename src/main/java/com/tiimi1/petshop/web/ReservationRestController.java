@@ -104,8 +104,6 @@ public class ReservationRestController {
             // Check if resrevation is customer's own reservation
             String username = jwtService.getUser(bearerToken);
             if (!username.equals(reservation.getCustomer().getUsername())) {
-                // return ResponseEntity.badRequest().body("Unauthorized");
-                // return ResponseEntity.badRequest().body(HttpStatus.FORBIDDEN);
                 return new ResponseEntity<String>("Not allowed", HttpStatus.FORBIDDEN);
             }
             List<ReservationProduct> reservationProducts = reservation.getReservationProducts();
