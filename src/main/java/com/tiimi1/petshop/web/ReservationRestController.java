@@ -17,6 +17,10 @@ import com.tiimi1.petshop.model.ReservationRepository;
 import com.tiimi1.petshop.service.JwtService;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.HttpClientErrorException.Forbidden;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -100,7 +104,9 @@ public class ReservationRestController {
             // Check if resrevation is customer's own reservation
             String username = jwtService.getUser(bearerToken);
             if (!username.equals(reservation.getCustomer().getUsername())) {
-                return ResponseEntity.badRequest().body("Unauthorized");
+                // return ResponseEntity.badRequest().body("Unauthorized");
+                // return ResponseEntity.badRequest().body(HttpStatus.FORBIDDEN);
+                return new ResponseEntity<String>("Not allowed", HttpStatus.FORBIDDEN);
             }
             List<ReservationProduct> reservationProducts = reservation.getReservationProducts();
             reservationProducts.forEach(r -> {
